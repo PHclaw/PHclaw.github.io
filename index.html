@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PHclaw | Open Source Developer</title>
-  <meta name="description" content="85 repos. 40 OpenClaw Skills + 38 Claude Code Skills + 17 projects. AI agents, devtools, CLI, SaaS starters.">
+  <meta name="description" content="19 repos. 35 OpenClaw Skills + 35 Claude Code Skills. AI agents, devtools, CLI, SaaS starters.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
@@ -49,17 +49,6 @@
     .tag.devtools { background: rgba(88,166,255,0.15); color: #58a6ff; }
     .tag.saas { background: rgba(63,185,80,0.15); color: #3fb950; }
     .tag.cli { background: rgba(210,153,34,0.15); color: #d29922; }
-    .tag.cn { background: rgba(248,81,73,0.15); color: #f85149; }
-    .tag.skill { background: rgba(121,192,255,0.15); color: #79c0ff; }
-    .tag.claude { background: rgba(163,113,247,0.15); color: #a371f7; }
-    .tag.金融 { background: rgba(62,196,100,0.15); color: #3ec464; }
-    .tag.法律 { background: rgba(210,153,34,0.15); color: #d29922; }
-    .tag.教育 { background: rgba(88,166,255,0.15); color: #58a6ff; }
-    .tag.HR { background: rgba(163,113,247,0.15); color: #a371f7; }
-    .tag.商业 { background: rgba(255,136,0,0.15); color: #ff8800; }
-    .tag.医疗 { background: rgba(239,68,68,0.15); color: #ef4444; }
-    .tag.营销 { background: rgba(236,72,153,0.15); color: #ec4899; }
-    .tag.房产 { background: rgba(99,102,241,0.15); color: #6366f1; }
     .project-desc { color: var(--text-muted); font-size: 13px; line-height: 1.6; margin-bottom: 14px; min-height: 40px; }
     .project-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 12px; border-top: 1px solid var(--border); }
     .project-meta { display: flex; gap: 12px; font-size: 12px; color: var(--text-muted); }
@@ -83,11 +72,11 @@
     <div class="container">
       <div class="avatar">👔</div>
       <h1>PHclaw</h1>
-      <p class="subtitle">40 OpenClaw Skills · 38 Claude Code Skills · 19 Projects · AI Agents &amp; DevTools</p>
+      <p class="subtitle">35 OpenClaw Skills &middot; 35 Claude Code Skills &middot; 19 Projects &middot; AI Agents &amp; DevTools</p>
       <div class="stats-bar">
-        <div class="stat-item"><div class="stat-value">95</div><div class="stat-label">Repos</div></div>
+        <div class="stat-item"><div class="stat-value">90</div><div class="stat-label">Repos</div></div>
         <div class="stat-item"><div class="stat-value">8</div><div class="stat-label">Stars</div></div>
-        <div class="stat-item"><div class="stat-value">78</div><div class="stat-label">Skills</div></div>
+        <div class="stat-item"><div class="stat-value">70</div><div class="stat-label">Skills</div></div>
         <div class="stat-item"><div class="stat-value">100%</div><div class="stat-label">Open Source</div></div>
       </div>
     </div>
@@ -97,292 +86,49 @@
     <div class="container">
       <div class="tabs">
         <button class="tab-btn active" data-tab="projects"><span>📦</span> Projects <span class="tab-count">19</span></button>
-        <button class="tab-btn" data-tab="skills"><span>⚡</span> OpenClaw Skills <span class="tab-count">40</span></button>
-        <button class="tab-btn" data-tab="claude"><span>🤖</span> Claude Code Skills <span class="tab-count">38</span></button>
+        <button class="tab-btn" data-tab="skills"><span>⚡</span> OpenClaw Skills <span class="tab-count">35</span></button>
+        <button class="tab-btn" data-tab="claude"><span>🤖</span> Claude Code Skills <span class="tab-count">35</span></button>
       </div>
     </div>
   </div>
 
-  
   <div id="projects" class="tab-content active">
-    
     <div class="filter-section">
       <div class="container">
         <div class="filter-buttons">
           <button class="filter-btn active" data-filter="all">All</button>
-          <button class="filter-btn" data-filter="ai">ai</button><button class="filter-btn" data-filter="devtools">devtools</button><button class="filter-btn" data-filter="saas">saas</button><button class="filter-btn" data-filter="cli">cli</button><button class="filter-btn" data-filter="cn">cn</button>
+          <button class="filter-btn" data-filter="ai">ai</button><button class="filter-btn" data-filter="devtools">devtools</button><button class="filter-btn" data-filter="saas">saas</button><button class="filter-btn" data-filter="cli">cli</button>
         </div>
       </div>
     </div>
     <div class="section">
       <div class="container">
         <div class="projects-grid">
-          
-          <div class="project-card" data-categories="ai saas" style="position:relative">
+          <div class="project-card" data-categories="ai devtools" style="position:relative">
             <div class="featured-badge">Featured</div>
             <div class="project-header">
-              <div class="project-icon">🤖</div>
+              <div class="project-icon">🔧</div>
               <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/AgentFlow" class="project-name" target="_blank">AgentFlow</a>
-                <div class="project-tags"><span class="tag ai">ai</span><span class="tag saas">saas</span></div>
+                <a href="https://github.com/PHclaw/agent-output-parser" class="project-name" target="_blank">agent-output-parser</a>
+                <div class="project-tags"><span class="tag">Python</span></div>
               </div>
             </div>
-            <p class="project-desc">AI Agent 部署平台，拖拽式工作流构建器。可视化替代 Dify/CrewAI，面向非技术用户。</p>
+            <p class="project-desc">Parse LLM outputs into structured data — JSON, XML, Pydantic models.</p>
             <div class="project-footer">
-              <div class="project-meta"><span class="meta-item">Python · React</span><span class="stars">★ 1</span></div>
-              <a href="https://github.com/PHclaw/AgentFlow" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai saas cn" style="position:relative">
-            <div class="featured-badge">Featured</div>
-            <div class="project-header">
-              <div class="project-icon">🤖</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/SmartBot" class="project-name" target="_blank">SmartBot</a>
-                <div class="project-tags"><span class="tag ai">ai</span><span class="tag saas">saas</span><span class="tag cn">cn</span></div>
-              </div>
-            </div>
-            <p class="project-desc">AI 客服 SaaS，5 分钟配置完成。支持小红书/抖音/微信/WhatsApp 多平台，中文后台，多语言。</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item">Python · Vue</span><span class="stars">★ 1</span></div>
-              <a href="https://github.com/PHclaw/SmartBot" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="devtools cli" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">⚡</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/LogStream" class="project-name" target="_blank">LogStream</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span><span class="tag cli">cli</span></div>
-              </div>
-            </div>
-            <p class="project-desc">轻量日志分析引擎，TUI + Web 双界面。支持多格式解析、全文搜索、AI 异常摘要。</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item">Python · FastAPI</span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/LogStream" class="github-btn" target="_blank">View Code</a>
+              <div class="project-meta"><span class="meta-item">Python</span><span class="stars"></span></div>
+              <a href="https://github.com/PHclaw/agent-output-parser" class="github-btn" target="_blank">View Code</a>
             </div>
           </div>
           <div class="project-card" data-categories="ai devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">👁️</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/CodeReviewBot" class="project-name" target="_blank">CodeReview Bot</a>
-                <div class="project-tags"><span class="tag ai">ai</span><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">AI PR 自动审查。代码风格检查 + 安全扫描 + LLM 评分，支持 GitHub Actions。</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item">Python · JS/TS</span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/CodeReviewBot" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="devtools cli" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">🔐</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/SecretScanner" class="project-name" target="_blank">SecretScanner</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span><span class="tag cli">cli</span></div>
-              </div>
-            </div>
-            <p class="project-desc">Git 敏感信息泄露扫描。50+ 检测规则，高熵值检测，支持 HTML 报告。</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item">Python</span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/SecretScanner" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="devtools cli" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">🔑</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/EnvSync" class="project-name" target="_blank">EnvSync</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span><span class="tag cli">cli</span></div>
-              </div>
-            </div>
-            <p class="project-desc">多项目环境变量管理器。AES-256 加密，CLI 同步，Web 管理界面，支持团队协作。</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item">Python</span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/EnvSync" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="devtools cli" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">📝</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/CommitGen" class="project-name" target="_blank">CommitGen</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span><span class="tag cli">cli</span></div>
-              </div>
-            </div>
-            <p class="project-desc">AI commit 生成器。从 git diff 生成符合 Conventional Commits 规范的提交信息。</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item">Python</span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/CommitGen" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">📋</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/ChangelogGen" class="project-name" target="_blank">ChangelogGen</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">从 Git 历史自动生成 changelog。conventional commits 解析 + semver 版本建议。</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item">Python</span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/ChangelogGen" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="devtools cli" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">📋</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/CloudClip" class="project-name" target="_blank">CloudClip</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span><span class="tag cli">cli</span></div>
-              </div>
-            </div>
-            <p class="project-desc">跨设备加密剪贴板同步。端到端加密，支持 Windows/macOS/Linux/手机。</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item">Python</span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/CloudClip" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">🛩️</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/APIPilot" class="project-name" target="_blank">APIPilot</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">轻量 API 调试 & Mock 工具。FastAPI + React，支持团队协作和 Mock Server。</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item">Python · React</span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/APIPilot" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="saas" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">📋</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/TaskFlow" class="project-name" target="_blank">TaskFlow</a>
-                <div class="project-tags"><span class="tag saas">saas</span></div>
-              </div>
-            </div>
-            <p class="project-desc">团队任务看板 SaaS。实时协作、看板视图、任务分配，支持 WebSocket 同步。</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item">Python · Vue</span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/TaskFlow" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai cn" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">👤</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/ResumeAI" class="project-name" target="_blank">ResumeAI</a>
-                <div class="project-tags"><span class="tag ai">ai</span><span class="tag cn">cn</span></div>
-              </div>
-            </div>
-            <p class="project-desc">AI 简历生成与优化。ATS 评分、关键词提取、多模板支持，Vue 3 开发。</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item">Vue</span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/ResumeAI" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="devtools cn" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">📱</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/MD2WeChat" class="project-name" target="_blank">MD2WeChat</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span><span class="tag cn">cn</span></div>
-              </div>
-            </div>
-            <p class="project-desc">Markdown 转微信公众号格式。代码高亮、公式渲染、图片处理。</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item">Vue</span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/MD2WeChat" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="saas cn" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">📊</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/CompeteWatch" class="project-name" target="_blank">CompeteWatch</a>
-                <div class="project-tags"><span class="tag saas">saas</span><span class="tag cn">cn</span></div>
-              </div>
-            </div>
-            <p class="project-desc">竞品监控工具。价格监控、库存监控、评论分析，支持多平台。</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item">Python</span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/CompeteWatch" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">📸</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/CodeSnap" class="project-name" target="_blank">CodeSnap</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">代码截图生成器。语法高亮、多主题、macOS 菜单栏应用。</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item">Vue</span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/CodeSnap" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai saas" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">🎬</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/StreamStack" class="project-name" target="_blank">StreamStack</a>
-                <div class="project-tags"><span class="tag ai">ai</span><span class="tag saas">saas</span></div>
-              </div>
-            </div>
-            <p class="project-desc">AI 原生录屏 + 配音工作室。开源替代 ScreenPal/Loom，语音转字幕。</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item">Python</span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/StreamStack" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="saas" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">📤</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/autoposter" class="project-name" target="_blank">autoposter</a>
-                <div class="project-tags"><span class="tag saas">saas</span></div>
-              </div>
-            </div>
-            <p class="project-desc">多平台内容自动发布工具，支持主流社交平台。</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item">Python</span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/autoposter" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            <div class="new-badge">New</div>
+            <div class="featured-badge">Featured</div>
             <div class="project-header">
               <div class="project-icon">💭</div>
               <div class="project-title-wrap">
                 <a href="https://github.com/PHclaw/agent-prompt-templates" class="project-name" target="_blank">agent-prompt-templates</a>
-                <div class="project-tags"><span class="tag ai">ai</span><span class="tag devtools">devtools</span></div>
+                <div class="project-tags"><span class="tag">Python</span></div>
               </div>
             </div>
-            <p class="project-desc">可复用的 Agent 提示词模板库。内置 CoT、ReAct、ToT、Few-shot 等常用模式，一行调用适配所有 LLM。</p>
+            <p class="project-desc">Reusable prompt templates for AI agents — CoT, ReAct, ToT, Few-shot, and more.</p>
             <div class="project-footer">
               <div class="project-meta"><span class="meta-item">Python</span><span class="stars"></span></div>
               <a href="https://github.com/PHclaw/agent-prompt-templates" class="github-btn" target="_blank">View Code</a>
@@ -391,242 +137,630 @@
           <div class="project-card" data-categories="ai devtools" style="position:relative">
             <div class="new-badge">New</div>
             <div class="project-header">
-              <div class="project-icon">🔧</div>
+              <div class="project-icon">🧩</div>
               <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/agent-output-parser" class="project-name" target="_blank">agent-output-parser</a>
-                <div class="project-tags"><span class="tag ai">ai</span><span class="tag devtools">devtools</span></div>
+                <a href="https://github.com/PHclaw/agent-tool-registry" class="project-name" target="_blank">agent-tool-registry</a>
+                <div class="project-tags"><span class="tag">Python</span></div>
               </div>
             </div>
-            <p class="project-desc">LLM 输出解析库。JSON/XML/Pydantic 模型自动提取，内置容错和自动修复，适配所有主流模型。</p>
+            <p class="project-desc">Lightweight tool registry and discovery system for AI agents</p>
             <div class="project-footer">
               <div class="project-meta"><span class="meta-item">Python</span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/agent-output-parser" class="github-btn" target="_blank">View Code</a>
+              <a href="https://github.com/PHclaw/agent-tool-registry" class="github-btn" target="_blank">View Code</a>
             </div>
-          </div
+          </div>
+          <div class="project-card" data-categories="ai devtools" style="position:relative">
+            <div class="new-badge">New</div>
+            <div class="project-header">
+              <div class="project-icon">🗄️</div>
+              <div class="project-title-wrap">
+                <a href="https://github.com/PHclaw/agent-memory-store" class="project-name" target="_blank">agent-memory-store</a>
+                <div class="project-tags"><span class="tag">Python</span></div>
+              </div>
+            </div>
+            <p class="project-desc">Lightweight isolated memory store for multi-agent systems</p>
+            <div class="project-footer">
+              <div class="project-meta"><span class="meta-item">Python</span><span class="stars"></span></div>
+              <a href="https://github.com/PHclaw/agent-memory-store" class="github-btn" target="_blank">View Code</a>
+            </div>
+          </div>
+          <div class="project-card" data-categories="ai devtools" style="position:relative">
+            <div class="new-badge">New</div>
+            <div class="project-header">
+              <div class="project-icon">📋</div>
+              <div class="project-title-wrap">
+                <a href="https://github.com/PHclaw/git-rel" class="project-name" target="_blank">git-rel</a>
+                <div class="project-tags"><span class="tag">Python</span></div>
+              </div>
+            </div>
+            <p class="project-desc">Generate changelogs from GitHub releases and merged PRs</p>
+            <div class="project-footer">
+              <div class="project-meta"><span class="meta-item">Python</span><span class="stars"></span></div>
+              <a href="https://github.com/PHclaw/git-rel" class="github-btn" target="_blank">View Code</a>
+            </div>
+          </div>
+          <div class="project-card" data-categories="ai devtools" style="position:relative">
+            <div class="new-badge">New</div>
+            <div class="project-header">
+              <div class="project-icon">🗂️</div>
+              <div class="project-title-wrap">
+                <a href="https://github.com/PHclaw/git-primer" class="project-name" target="_blank">git-primer</a>
+                <div class="project-tags"><span class="tag">Python</span></div>
+              </div>
+            </div>
+            <p class="project-desc">AI-powered changelog and release notes generator from git history</p>
+            <div class="project-footer">
+              <div class="project-meta"><span class="meta-item">Python</span><span class="stars"></span></div>
+              <a href="https://github.com/PHclaw/git-primer" class="github-btn" target="_blank">View Code</a>
+            </div>
+          </div>
+          <div class="project-card" data-categories="ai devtools" style="position:relative">
+            <div class="new-badge">New</div>
+            <div class="project-header">
+              <div class="project-icon">📊</div>
+              <div class="project-title-wrap">
+                <a href="https://github.com/PHclaw/git-mood" class="project-name" target="_blank">git-mood</a>
+                <div class="project-tags"><span class="tag">Python</span></div>
+              </div>
+            </div>
+            <p class="project-desc">Analyze your git commits to visualize your coding mood, energy, and work patterns over time</p>
+            <div class="project-footer">
+              <div class="project-meta"><span class="meta-item">Python</span><span class="stars"></span></div>
+              <a href="https://github.com/PHclaw/git-mood" class="github-btn" target="_blank">View Code</a>
+            </div>
+          </div>
+          <div class="project-card" data-categories="ai devtools" style="position:relative">
+            <div class="new-badge">New</div>
+            <div class="project-header">
+              <div class="project-icon">📝</div>
+              <div class="project-title-wrap">
+                <a href="https://github.com/PHclaw/meeting-minutes" class="project-name" target="_blank">meeting-minutes</a>
+                <div class="project-tags"></div>
+              </div>
+            </div>
+            <p class="project-desc">?????? - OpenClaw Skill</p>
+            <div class="project-footer">
+              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
+              <a href="https://github.com/PHclaw/meeting-minutes" class="github-btn" target="_blank">View Code</a>
+            </div>
+          </div>
+          <div class="project-card" data-categories="ai devtools" style="position:relative">
+            <div class="new-badge">New</div>
+            <div class="project-header">
+              <div class="project-icon">🌤️</div>
+              <div class="project-title-wrap">
+                <a href="https://github.com/PHclaw/daily-briefing" class="project-name" target="_blank">daily-briefing</a>
+                <div class="project-tags"><span class="tag">Python</span></div>
+              </div>
+            </div>
+            <p class="project-desc">??????? - OpenClaw Skill</p>
+            <div class="project-footer">
+              <div class="project-meta"><span class="meta-item">Python</span><span class="stars"></span></div>
+              <a href="https://github.com/PHclaw/daily-briefing" class="github-btn" target="_blank">View Code</a>
+            </div>
+          </div>
+          <div class="project-card" data-categories="ai devtools" style="position:relative">
+            <div class="new-badge">New</div>
+            <div class="project-header">
+              <div class="project-icon">🔨</div>
+              <div class="project-title-wrap">
+                <a href="https://github.com/PHclaw/task-breakdown" class="project-name" target="_blank">task-breakdown</a>
+                <div class="project-tags"></div>
+              </div>
+            </div>
+            <p class="project-desc">????? - OpenClaw Skill</p>
+            <div class="project-footer">
+              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
+              <a href="https://github.com/PHclaw/task-breakdown" class="github-btn" target="_blank">View Code</a>
+            </div>
+          </div>
+          <div class="project-card" data-categories="ai devtools" style="position:relative">
+            <div class="featured-badge">Featured</div>
+            <div class="project-header">
+              <div class="project-icon">🌡️</div>
+              <div class="project-title-wrap">
+                <a href="https://github.com/PHclaw/emotion-heatmap" class="project-name" target="_blank">emotion-heatmap</a>
+                <div class="project-tags"><span class="tag">TypeScript</span></div>
+              </div>
+            </div>
+            <p class="project-desc">🌡️ 情绪热量图 - 一句话记录情绪，自动生成热力图</p>
+            <div class="project-footer">
+              <div class="project-meta"><span class="meta-item">TypeScript</span><span class="stars"></span></div>
+              <a href="https://github.com/PHclaw/emotion-heatmap" class="github-btn" target="_blank">View Code</a>
+            </div>
+          </div>
+          <div class="project-card" data-categories="ai devtools" style="position:relative">
+            <div class="featured-badge">Featured</div>
+            <div class="project-header">
+              <div class="project-icon">🧠</div>
+              <div class="project-title-wrap">
+                <a href="https://github.com/PHclaw/quickquiz" class="project-name" target="_blank">quickquiz</a>
+                <div class="project-tags"></div>
+              </div>
+            </div>
+            <p class="project-desc">QuickQuiz - Daily trivia challenge with leaderboard</p>
+            <div class="project-footer">
+              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
+              <a href="https://github.com/PHclaw/quickquiz" class="github-btn" target="_blank">View Code</a>
+            </div>
+          </div>
+          <div class="project-card" data-categories="ai devtools" style="position:relative">
+            
+            <div class="project-header">
+              <div class="project-icon">🎨</div>
+              <div class="project-title-wrap">
+                <a href="https://github.com/PHclaw/moodmosaic" class="project-name" target="_blank">moodmosaic</a>
+                <div class="project-tags"><span class="tag">TypeScript</span></div>
+              </div>
+            </div>
+            <p class="project-desc">MoodMosaic - Daily mood color tracker. ???????,???????</p>
+            <div class="project-footer">
+              <div class="project-meta"><span class="meta-item">TypeScript</span><span class="stars"></span></div>
+              <a href="https://github.com/PHclaw/moodmosaic" class="github-btn" target="_blank">View Code</a>
+            </div>
+          </div>
+          <div class="project-card" data-categories="ai devtools" style="position:relative">
+            <div class="featured-badge">Featured</div>
+            <div class="project-header">
+              <div class="project-icon">⏱️</div>
+              <div class="project-title-wrap">
+                <a href="https://github.com/PHclaw/focusflow" class="project-name" target="_blank">focusflow</a>
+                <div class="project-tags"><span class="tag">TypeScript</span></div>
+              </div>
+            </div>
+            <p class="project-desc">FocusFlow - Gamified Pomodoro Timer with ambient sounds</p>
+            <div class="project-footer">
+              <div class="project-meta"><span class="meta-item">TypeScript</span><span class="stars"></span></div>
+              <a href="https://github.com/PHclaw/focusflow" class="github-btn" target="_blank">View Code</a>
+            </div>
+          </div>
+          <div class="project-card" data-categories="ai devtools" style="position:relative">
+            
+            <div class="project-header">
+              <div class="project-icon">🐾</div>
+              <div class="project-title-wrap">
+                <a href="https://github.com/PHclaw/pixelpet" class="project-name" target="_blank">pixelpet</a>
+                <div class="project-tags"><span class="tag">TypeScript</span></div>
+              </div>
+            </div>
+            <p class="project-desc">PixelPet - Virtual pixel pet game</p>
+            <div class="project-footer">
+              <div class="project-meta"><span class="meta-item">TypeScript</span><span class="stars"></span></div>
+              <a href="https://github.com/PHclaw/pixelpet" class="github-btn" target="_blank">View Code</a>
+            </div>
+          </div>
+          <div class="project-card" data-categories="ai devtools" style="position:relative">
+            
+            <div class="project-header">
+              <div class="project-icon">⚔️</div>
+              <div class="project-title-wrap">
+                <a href="https://github.com/PHclaw/randomquest" class="project-name" target="_blank">randomquest</a>
+                <div class="project-tags"><span class="tag">TypeScript</span></div>
+              </div>
+            </div>
+            <p class="project-desc">RandomQuest - Daily random challenge app</p>
+            <div class="project-footer">
+              <div class="project-meta"><span class="meta-item">TypeScript</span><span class="stars"></span></div>
+              <a href="https://github.com/PHclaw/randomquest" class="github-btn" target="_blank">View Code</a>
+            </div>
+          </div>
+          <div class="project-card" data-categories="ai devtools" style="position:relative">
+            <div class="featured-badge">Featured</div>
+            <div class="project-header">
+              <div class="project-icon">🔥</div>
+              <div class="project-title-wrap">
+                <a href="https://github.com/PHclaw/habitforge" class="project-name" target="_blank">habitforge</a>
+                <div class="project-tags"><span class="tag">TypeScript</span></div>
+              </div>
+            </div>
+            <p class="project-desc">AI-powered habit tracking engine</p>
+            <div class="project-footer">
+              <div class="project-meta"><span class="meta-item">TypeScript</span><span class="stars"></span></div>
+              <a href="https://github.com/PHclaw/habitforge" class="github-btn" target="_blank">View Code</a>
+            </div>
+          </div>
+          <div class="project-card" data-categories="ai devtools" style="position:relative">
+            
+            <div class="project-header">
+              <div class="project-icon">📤</div>
+              <div class="project-title-wrap">
+                <a href="https://github.com/PHclaw/autoposter" class="project-name" target="_blank">autoposter</a>
+                <div class="project-tags"><span class="tag">Python</span></div>
+              </div>
+            </div>
+            <p class="project-desc">??????????? - ????????????</p>
+            <div class="project-footer">
+              <div class="project-meta"><span class="meta-item">Python</span><span class="stars"></span></div>
+              <a href="https://github.com/PHclaw/autoposter" class="github-btn" target="_blank">View Code</a>
+            </div>
+          </div>
+          <div class="project-card" data-categories="ai devtools" style="position:relative">
+            
+            <div class="project-header">
+              <div class="project-icon">⚡</div>
+              <div class="project-title-wrap">
+                <a href="https://github.com/PHclaw/logstream" class="project-name" target="_blank">logstream</a>
+                <div class="project-tags"></div>
+              </div>
+            </div>
+            <p class="project-desc">Lightweight log analysis engine with TUI + Web dual interface, AI-powered anomaly detection</p>
+            <div class="project-footer">
+              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
+              <a href="https://github.com/PHclaw/logstream" class="github-btn" target="_blank">View Code</a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
-  
+
   <div id="skills" class="tab-content">
-    
     <div class="filter-section">
       <div class="container">
         <div class="filter-buttons">
           <button class="filter-btn active" data-filter="all">All</button>
-          <button class="filter-btn" data-filter="ai">ai</button><button class="filter-btn" data-filter="devtools">devtools</button><button class="filter-btn" data-filter="cli">cli</button><button class="filter-btn" data-filter="金融">金融</button><button class="filter-btn" data-filter="法律">法律</button><button class="filter-btn" data-filter="教育">教育</button><button class="filter-btn" data-filter="HR">HR</button><button class="filter-btn" data-filter="商业">商业</button><button class="filter-btn" data-filter="医疗">医疗</button><button class="filter-btn" data-filter="营销">营销</button><button class="filter-btn" data-filter="房产">房产</button>
+          <button class="filter-btn" data-filter="ai">ai</button><button class="filter-btn" data-filter="devtools">devtools</button>
         </div>
       </div>
     </div>
     <div class="section">
       <div class="container">
         <div class="projects-grid">
-          
           <div class="project-card" data-categories="ai devtools" style="position:relative">
             
             <div class="project-header">
-              <div class="project-icon">👁️</div>
+              <div class="project-icon">⚡</div>
               <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/openclaw-skill-pr-reviewer" class="project-name" target="_blank">skill-pr-reviewer</a>
-                <div class="project-tags"><span class="tag ai">ai</span><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">自动 PR 代码审查。支持代码风格检查、安全漏洞扫描、LLM 评分、审查意见生成。</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/openclaw-skill-pr-reviewer" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">🧊</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/openclaw-skill-dockerize" class="project-name" target="_blank">skill-dockerize</a>
+                <a href="https://github.com/PHclaw/openclaw-skill-adr" class="project-name" target="_blank">adr</a>
                 <div class="project-tags"><span class="tag devtools">devtools</span></div>
               </div>
             </div>
-            <p class="project-desc">一键 Docker 容器化。自动分析项目生成 Dockerfile + docker-compose.yml，支持主流语言。</p>
+            <p class="project-desc">{&quot;e2e-test&quot; => &quot;E2E Test Generator for Playwright&quot;, &quot;sbom&quot; => &quot;SB</p>
             <div class="project-footer">
               <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/openclaw-skill-dockerize" class="github-btn" target="_blank">View Code</a>
+              <a href="https://github.com/PHclaw/openclaw-skill-adr" class="github-btn" target="_blank">View Code</a>
             </div>
           </div>
-          <div class="project-card" data-categories="devtools" style="position:relative">
+          <div class="project-card" data-categories="ai devtools" style="position:relative">
             
             <div class="project-header">
-              <div class="project-icon">🧪</div>
+              <div class="project-icon">⚡</div>
               <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/openclaw-skill-test-gen" class="project-name" target="_blank">skill-test-gen</a>
+                <a href="https://github.com/PHclaw/openclaw-skill-e2e-test" class="project-name" target="_blank">e2e-test</a>
                 <div class="project-tags"><span class="tag devtools">devtools</span></div>
               </div>
             </div>
-            <p class="project-desc">自动生成单元测试。pytest/unittest 支持，边界条件、Mock 数据、覆盖率优化。</p>
+            <p class="project-desc">{&quot;e2e-test&quot; => &quot;E2E Test Generator for Playwright&quot;, &quot;sbom&quot; => &quot;SB</p>
             <div class="project-footer">
               <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/openclaw-skill-test-gen" class="github-btn" target="_blank">View Code</a>
+              <a href="https://github.com/PHclaw/openclaw-skill-e2e-test" class="github-btn" target="_blank">View Code</a>
             </div>
           </div>
-          <div class="project-card" data-categories="devtools" style="position:relative">
+          <div class="project-card" data-categories="ai devtools" style="position:relative">
             
             <div class="project-header">
-              <div class="project-icon">🔄</div>
+              <div class="project-icon">⚡</div>
               <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/openclaw-skill-refactor" class="project-name" target="_blank">skill-refactor</a>
+                <a href="https://github.com/PHclaw/openclaw-skill-feature-flag" class="project-name" target="_blank">feature-flag</a>
                 <div class="project-tags"><span class="tag devtools">devtools</span></div>
               </div>
             </div>
-            <p class="project-desc">安全代码重构。提取函数、卫语句、策略模式建议，保留原逻辑不变。</p>
+            <p class="project-desc">{&quot;e2e-test&quot; => &quot;E2E Test Generator for Playwright&quot;, &quot;sbom&quot; => &quot;SB</p>
             <div class="project-footer">
               <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/openclaw-skill-refactor" class="github-btn" target="_blank">View Code</a>
+              <a href="https://github.com/PHclaw/openclaw-skill-feature-flag" class="github-btn" target="_blank">View Code</a>
             </div>
           </div>
-          <div class="project-card" data-categories="devtools" style="position:relative">
+          <div class="project-card" data-categories="ai devtools" style="position:relative">
             
             <div class="project-header">
-              <div class="project-icon">📚</div>
+              <div class="project-icon">⚡</div>
               <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/openclaw-skill-api-doc" class="project-name" target="_blank">skill-api-doc</a>
+                <a href="https://github.com/PHclaw/openclaw-skill-incident" class="project-name" target="_blank">incident</a>
                 <div class="project-tags"><span class="tag devtools">devtools</span></div>
               </div>
             </div>
-            <p class="project-desc">自动生成 API 文档。从 FastAPI/Django/Flask 代码生成 OpenAPI/Postman/Swagger。</p>
+            <p class="project-desc">{&quot;e2e-test&quot; => &quot;E2E Test Generator for Playwright&quot;, &quot;sbom&quot; => &quot;SB</p>
+            <div class="project-footer">
+              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
+              <a href="https://github.com/PHclaw/openclaw-skill-incident" class="github-btn" target="_blank">View Code</a>
+            </div>
+          </div>
+          <div class="project-card" data-categories="ai devtools" style="position:relative">
+            
+            <div class="project-header">
+              <div class="project-icon">⚡</div>
+              <div class="project-title-wrap">
+                <a href="https://github.com/PHclaw/openclaw-skill-sbom" class="project-name" target="_blank">sbom</a>
+                <div class="project-tags"><span class="tag devtools">devtools</span></div>
+              </div>
+            </div>
+            <p class="project-desc">{&quot;e2e-test&quot; => &quot;E2E Test Generator for Playwright&quot;, &quot;sbom&quot; => &quot;SB</p>
+            <div class="project-footer">
+              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
+              <a href="https://github.com/PHclaw/openclaw-skill-sbom" class="github-btn" target="_blank">View Code</a>
+            </div>
+          </div>
+          <div class="project-card" data-categories="ai devtools" style="position:relative">
+            
+            <div class="project-header">
+              <div class="project-icon">⚡</div>
+              <div class="project-title-wrap">
+                <a href="https://github.com/PHclaw/openclaw-skill-ad-copy" class="project-name" target="_blank">ad-copy</a>
+                <div class="project-tags"><span class="tag devtools">devtools</span></div>
+              </div>
+            </div>
+            <p class="project-desc">PHclaw skill</p>
+            <div class="project-footer">
+              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
+              <a href="https://github.com/PHclaw/openclaw-skill-ad-copy" class="github-btn" target="_blank">View Code</a>
+            </div>
+          </div>
+          <div class="project-card" data-categories="ai devtools" style="position:relative">
+            
+            <div class="project-header">
+              <div class="project-icon">⚡</div>
+              <div class="project-title-wrap">
+                <a href="https://github.com/PHclaw/openclaw-skill-arch-review" class="project-name" target="_blank">arch-review</a>
+                <div class="project-tags"><span class="tag devtools">devtools</span></div>
+              </div>
+            </div>
+            <p class="project-desc">PHclaw skill</p>
+            <div class="project-footer">
+              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
+              <a href="https://github.com/PHclaw/openclaw-skill-arch-review" class="github-btn" target="_blank">View Code</a>
+            </div>
+          </div>
+          <div class="project-card" data-categories="ai devtools" style="position:relative">
+            
+            <div class="project-header">
+              <div class="project-icon">⚡</div>
+              <div class="project-title-wrap">
+                <a href="https://github.com/PHclaw/openclaw-skill-ci-check" class="project-name" target="_blank">ci-check</a>
+                <div class="project-tags"><span class="tag devtools">devtools</span></div>
+              </div>
+            </div>
+            <p class="project-desc">PHclaw skill</p>
+            <div class="project-footer">
+              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
+              <a href="https://github.com/PHclaw/openclaw-skill-ci-check" class="github-btn" target="_blank">View Code</a>
+            </div>
+          </div>
+          <div class="project-card" data-categories="ai devtools" style="position:relative">
+            
+            <div class="project-header">
+              <div class="project-icon">⚡</div>
+              <div class="project-title-wrap">
+                <a href="https://github.com/PHclaw/openclaw-skill-cli-builder" class="project-name" target="_blank">cli-builder</a>
+                <div class="project-tags"><span class="tag devtools">devtools</span></div>
+              </div>
+            </div>
+            <p class="project-desc">PHclaw skill</p>
+            <div class="project-footer">
+              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
+              <a href="https://github.com/PHclaw/openclaw-skill-cli-builder" class="github-btn" target="_blank">View Code</a>
+            </div>
+          </div>
+          <div class="project-card" data-categories="ai devtools" style="position:relative">
+            
+            <div class="project-header">
+              <div class="project-icon">⚡</div>
+              <div class="project-title-wrap">
+                <a href="https://github.com/PHclaw/openclaw-skill-complexity-audit" class="project-name" target="_blank">complexity-audit</a>
+                <div class="project-tags"><span class="tag devtools">devtools</span></div>
+              </div>
+            </div>
+            <p class="project-desc">PHclaw skill</p>
+            <div class="project-footer">
+              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
+              <a href="https://github.com/PHclaw/openclaw-skill-complexity-audit" class="github-btn" target="_blank">View Code</a>
+            </div>
+          </div>
+          <div class="project-card" data-categories="ai devtools" style="position:relative">
+            
+            <div class="project-header">
+              <div class="project-icon">⚡</div>
+              <div class="project-title-wrap">
+                <a href="https://github.com/PHclaw/openclaw-skill-contract-review" class="project-name" target="_blank">contract-review</a>
+                <div class="project-tags"><span class="tag devtools">devtools</span></div>
+              </div>
+            </div>
+            <p class="project-desc">PHclaw skill</p>
+            <div class="project-footer">
+              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
+              <a href="https://github.com/PHclaw/openclaw-skill-contract-review" class="github-btn" target="_blank">View Code</a>
+            </div>
+          </div>
+          <div class="project-card" data-categories="ai devtools" style="position:relative">
+            
+            <div class="project-header">
+              <div class="project-icon">⚡</div>
+              <div class="project-title-wrap">
+                <a href="https://github.com/PHclaw/openclaw-skill-course-gen" class="project-name" target="_blank">course-gen</a>
+                <div class="project-tags"><span class="tag devtools">devtools</span></div>
+              </div>
+            </div>
+            <p class="project-desc">PHclaw skill</p>
+            <div class="project-footer">
+              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
+              <a href="https://github.com/PHclaw/openclaw-skill-course-gen" class="github-btn" target="_blank">View Code</a>
+            </div>
+          </div>
+          <div class="project-card" data-categories="ai devtools" style="position:relative">
+            
+            <div class="project-header">
+              <div class="project-icon">⚡</div>
+              <div class="project-title-wrap">
+                <a href="https://github.com/PHclaw/openclaw-skill-db-query-optim" class="project-name" target="_blank">db-query-optim</a>
+                <div class="project-tags"><span class="tag devtools">devtools</span></div>
+              </div>
+            </div>
+            <p class="project-desc">PHclaw skill</p>
+            <div class="project-footer">
+              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
+              <a href="https://github.com/PHclaw/openclaw-skill-db-query-optim" class="github-btn" target="_blank">View Code</a>
+            </div>
+          </div>
+          <div class="project-card" data-categories="ai devtools" style="position:relative">
+            
+            <div class="project-header">
+              <div class="project-icon">⚡</div>
+              <div class="project-title-wrap">
+                <a href="https://github.com/PHclaw/openclaw-skill-frontend-gen" class="project-name" target="_blank">frontend-gen</a>
+                <div class="project-tags"><span class="tag devtools">devtools</span></div>
+              </div>
+            </div>
+            <p class="project-desc">PHclaw skill</p>
+            <div class="project-footer">
+              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
+              <a href="https://github.com/PHclaw/openclaw-skill-frontend-gen" class="github-btn" target="_blank">View Code</a>
+            </div>
+          </div>
+          <div class="project-card" data-categories="ai devtools" style="position:relative">
+            
+            <div class="project-header">
+              <div class="project-icon">⚡</div>
+              <div class="project-title-wrap">
+                <a href="https://github.com/PHclaw/openclaw-skill-market-research" class="project-name" target="_blank">market-research</a>
+                <div class="project-tags"><span class="tag devtools">devtools</span></div>
+              </div>
+            </div>
+            <p class="project-desc">PHclaw skill</p>
+            <div class="project-footer">
+              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
+              <a href="https://github.com/PHclaw/openclaw-skill-market-research" class="github-btn" target="_blank">View Code</a>
+            </div>
+          </div>
+          <div class="project-card" data-categories="ai devtools" style="position:relative">
+            
+            <div class="project-header">
+              <div class="project-icon">⚡</div>
+              <div class="project-title-wrap">
+                <a href="https://github.com/PHclaw/openclaw-skill-medical-note" class="project-name" target="_blank">medical-note</a>
+                <div class="project-tags"><span class="tag devtools">devtools</span></div>
+              </div>
+            </div>
+            <p class="project-desc">PHclaw skill</p>
+            <div class="project-footer">
+              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
+              <a href="https://github.com/PHclaw/openclaw-skill-medical-note" class="github-btn" target="_blank">View Code</a>
+            </div>
+          </div>
+          <div class="project-card" data-categories="ai devtools" style="position:relative">
+            
+            <div class="project-header">
+              <div class="project-icon">⚡</div>
+              <div class="project-title-wrap">
+                <a href="https://github.com/PHclaw/openclaw-skill-property-eval" class="project-name" target="_blank">property-eval</a>
+                <div class="project-tags"><span class="tag devtools">devtools</span></div>
+              </div>
+            </div>
+            <p class="project-desc">PHclaw skill</p>
+            <div class="project-footer">
+              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
+              <a href="https://github.com/PHclaw/openclaw-skill-property-eval" class="github-btn" target="_blank">View Code</a>
+            </div>
+          </div>
+          <div class="project-card" data-categories="ai devtools" style="position:relative">
+            
+            <div class="project-header">
+              <div class="project-icon">⚡</div>
+              <div class="project-title-wrap">
+                <a href="https://github.com/PHclaw/openclaw-skill-resume-screen" class="project-name" target="_blank">resume-screen</a>
+                <div class="project-tags"><span class="tag devtools">devtools</span></div>
+              </div>
+            </div>
+            <p class="project-desc">PHclaw skill</p>
+            <div class="project-footer">
+              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
+              <a href="https://github.com/PHclaw/openclaw-skill-resume-screen" class="github-btn" target="_blank">View Code</a>
+            </div>
+          </div>
+          <div class="project-card" data-categories="ai devtools" style="position:relative">
+            
+            <div class="project-header">
+              <div class="project-icon">⚡</div>
+              <div class="project-title-wrap">
+                <a href="https://github.com/PHclaw/openclaw-skill-sql-generator" class="project-name" target="_blank">sql-generator</a>
+                <div class="project-tags"><span class="tag devtools">devtools</span></div>
+              </div>
+            </div>
+            <p class="project-desc">PHclaw skill</p>
+            <div class="project-footer">
+              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
+              <a href="https://github.com/PHclaw/openclaw-skill-sql-generator" class="github-btn" target="_blank">View Code</a>
+            </div>
+          </div>
+          <div class="project-card" data-categories="ai devtools" style="position:relative">
+            
+            <div class="project-header">
+              <div class="project-icon">⚡</div>
+              <div class="project-title-wrap">
+                <a href="https://github.com/PHclaw/openclaw-skill-stock-analysis" class="project-name" target="_blank">stock-analysis</a>
+                <div class="project-tags"><span class="tag devtools">devtools</span></div>
+              </div>
+            </div>
+            <p class="project-desc">PHclaw skill</p>
+            <div class="project-footer">
+              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
+              <a href="https://github.com/PHclaw/openclaw-skill-stock-analysis" class="github-btn" target="_blank">View Code</a>
+            </div>
+          </div>
+          <div class="project-card" data-categories="ai devtools" style="position:relative">
+            
+            <div class="project-header">
+              <div class="project-icon">⚡</div>
+              <div class="project-title-wrap">
+                <a href="https://github.com/PHclaw/openclaw-skill-api-doc" class="project-name" target="_blank">api-doc</a>
+                <div class="project-tags"><span class="tag devtools">devtools</span></div>
+              </div>
+            </div>
+            <p class="project-desc">OpenClaw skill for auto-generating API documentation from code</p>
             <div class="project-footer">
               <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
               <a href="https://github.com/PHclaw/openclaw-skill-api-doc" class="github-btn" target="_blank">View Code</a>
             </div>
           </div>
-          <div class="project-card" data-categories="devtools cli" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">🔀</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/openclaw-skill-git-workflow" class="project-name" target="_blank">skill-git-workflow</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span><span class="tag cli">cli</span></div>
-              </div>
-            </div>
-            <p class="project-desc">高级 Git 操作。rebase/cherry-pick/conflict 解决，cherry-commit-pick/rebase 自动提交。</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/openclaw-skill-git-workflow" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="devtools" style="position:relative">
+          <div class="project-card" data-categories="ai devtools" style="position:relative">
             
             <div class="project-header">
               <div class="project-icon">⚡</div>
               <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/openclaw-skill-perf-check" class="project-name" target="_blank">skill-perf-check</a>
+                <a href="https://github.com/PHclaw/openclaw-skill-api-test" class="project-name" target="_blank">api-test</a>
                 <div class="project-tags"><span class="tag devtools">devtools</span></div>
               </div>
             </div>
-            <p class="project-desc">性能瓶颈检测。内存泄漏、慢查询、冗余计算分析，附优化建议和代码示例。</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/openclaw-skill-perf-check" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">🚀</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/openclaw-skill-deploy-check" class="project-name" target="_blank">skill-deploy-check</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">部署前检查清单。环境变量、依赖完整性、端口冲突、health check 验证。</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/openclaw-skill-deploy-check" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">🐛</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/openclaw-skill-error-debug" class="project-name" target="_blank">skill-error-debug</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">错误诊断与修复。从堆栈信息推断根因，提供修复代码和调试步骤。</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/openclaw-skill-error-debug" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">✅</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/openclaw-skill-api-test" class="project-name" target="_blank">skill-api-test</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">API 测试套件生成。从 OpenAPI spec 或源码生成测试用例，支持 pytest + requests。</p>
+            <p class="project-desc">Generate API test suites from OpenAPI specs or source code</p>
             <div class="project-footer">
               <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
               <a href="https://github.com/PHclaw/openclaw-skill-api-test" class="github-btn" target="_blank">View Code</a>
             </div>
           </div>
-          <div class="project-card" data-categories="devtools" style="position:relative">
+          <div class="project-card" data-categories="ai devtools" style="position:relative">
             
             <div class="project-header">
-              <div class="project-icon">📋</div>
+              <div class="project-icon">⚡</div>
               <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/openclaw-skill-changelog" class="project-name" target="_blank">skill-changelog</a>
+                <a href="https://github.com/PHclaw/openclaw-skill-changelog" class="project-name" target="_blank">changelog</a>
                 <div class="project-tags"><span class="tag devtools">devtools</span></div>
               </div>
             </div>
-            <p class="project-desc">从 Git 历史自动生成 changelog。conventional commits 解析 + semver 建议 + 多格式输出。</p>
+            <p class="project-desc">Generate changelogs from git history with semver suggestion</p>
             <div class="project-footer">
               <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
               <a href="https://github.com/PHclaw/openclaw-skill-changelog" class="github-btn" target="_blank">View Code</a>
             </div>
           </div>
-          <div class="project-card" data-categories="devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">📄</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/openclaw-skill-gitignore-gen" class="project-name" target="_blank">skill-gitignore-gen</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">.gitignore 文件生成。按项目类型（Node/Python/Go/Java）自动生成完整忽略规则。</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/openclaw-skill-gitignore-gen" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">💊</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/openclaw-skill-dep-doctor" class="project-name" target="_blank">skill-dep-doctor</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">依赖漏洞扫描与升级规划。检测过期依赖、安全漏洞、版本兼容性分析。</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/openclaw-skill-dep-doctor" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
           <div class="project-card" data-categories="ai devtools" style="position:relative">
             
             <div class="project-header">
-              <div class="project-icon">📖</div>
+              <div class="project-icon">⚡</div>
               <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/openclaw-skill-code-explainer" class="project-name" target="_blank">skill-code-explainer</a>
-                <div class="project-tags"><span class="tag ai">ai</span><span class="tag devtools">devtools</span></div>
+                <a href="https://github.com/PHclaw/openclaw-skill-code-explainer" class="project-name" target="_blank">code-explainer</a>
+                <div class="project-tags"><span class="tag devtools">devtools</span></div>
               </div>
             </div>
-            <p class="project-desc">代码解释与文档生成。自动生成 docstring、README、技术方案文档，支持多语言。</p>
+            <p class="project-desc">Auto-explain code files and generate documentation for OpenClaw</p>
             <div class="project-footer">
               <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
               <a href="https://github.com/PHclaw/openclaw-skill-code-explainer" class="github-btn" target="_blank">View Code</a>
@@ -635,978 +769,708 @@
           <div class="project-card" data-categories="ai devtools" style="position:relative">
             
             <div class="project-header">
-              <div class="project-icon">🔐</div>
+              <div class="project-icon">⚡</div>
               <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/openclaw-skill-security-scan" class="project-name" target="_blank">skill-security-scan</a>
-                <div class="project-tags"><span class="tag ai">ai</span><span class="tag devtools">devtools</span></div>
+                <a href="https://github.com/PHclaw/openclaw-skill-code-translate" class="project-name" target="_blank">code-translate</a>
+                <div class="project-tags"><span class="tag devtools">devtools</span></div>
               </div>
             </div>
-            <p class="project-desc">安全漏洞扫描。secrets/unsafe patterns/SQL注入/XSS检测，50+检测规则。</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/openclaw-skill-security-scan" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">🌐</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/openclaw-skill-code-translate" class="project-name" target="_blank">skill-code-translate</a>
-                <div class="project-tags"><span class="tag ai">ai</span><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">代码语言互译。Python↔TS↔Go↔Rust 等互译，保持 idiom 和类型安全。</p>
+            <p class="project-desc">Translate code between Python, TypeScript, Go, Rust with idiomatic output</p>
             <div class="project-footer">
               <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
               <a href="https://github.com/PHclaw/openclaw-skill-code-translate" class="github-btn" target="_blank">View Code</a>
             </div>
           </div>
           <div class="project-card" data-categories="ai devtools" style="position:relative">
-            <div class="new-badge">New</div>
-            <div class="project-header">
-              <div class="project-icon">🏗️</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/openclaw-skill-arch-review" class="project-name" target="_blank">skill-arch-review</a>
-                <div class="project-tags"><span class="tag ai">ai</span><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">系统架构设计评审。方案对比、Trade-off 分析、明确推荐 + 落地步骤。</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/openclaw-skill-arch-review" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            <div class="new-badge">New</div>
-            <div class="project-header">
-              <div class="project-icon">🎨</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/openclaw-skill-frontend-gen" class="project-name" target="_blank">skill-frontend-gen</a>
-                <div class="project-tags"><span class="tag ai">ai</span><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">React/Vue 组件自动生成。TypeScript 严格类型，Tailwind CSS，支持 A11y 最佳实践。</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/openclaw-skill-frontend-gen" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="devtools" style="position:relative">
             
             <div class="project-header">
-              <div class="project-icon">🗄️</div>
+              <div class="project-icon">⚡</div>
               <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/openclaw-skill-db-migration" class="project-name" target="_blank">skill-db-migration</a>
+                <a href="https://github.com/PHclaw/openclaw-skill-commit-message" class="project-name" target="_blank">commit-message</a>
                 <div class="project-tags"><span class="tag devtools">devtools</span></div>
               </div>
             </div>
-            <p class="project-desc">数据库迁移助手。schema变更、数据迁移、回滚方案，支持 PostgreSQL/MySQL/SQLite。</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/openclaw-skill-db-migration" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="devtools" style="position:relative">
-            <div class="new-badge">New</div>
-            <div class="project-header">
-              <div class="project-icon">🔍</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/openclaw-skill-db-query-optim" class="project-name" target="_blank">skill-db-query-optim</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">SQL 查询分析与索引优化。EXPLAIN 执行计划解读、慢查询修复、复合索引设计。</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/openclaw-skill-db-query-optim" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="devtools cli" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">📝</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/openclaw-skill-commit-message" class="project-name" target="_blank">skill-commit-message</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span><span class="tag cli">cli</span></div>
-              </div>
-            </div>
-            <p class="project-desc">Conventional Commits 规范 commit 生成器。staged changes 自动生成符合规范的提交信息。</p>
+            <p class="project-desc">Generate conventional commit messages from staged changes</p>
             <div class="project-footer">
               <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
               <a href="https://github.com/PHclaw/openclaw-skill-commit-message" class="github-btn" target="_blank">View Code</a>
             </div>
           </div>
-          <div class="project-card" data-categories="devtools cli" style="position:relative">
-            <div class="new-badge">New</div>
-            <div class="project-header">
-              <div class="project-icon">⌨️</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/openclaw-skill-cli-builder" class="project-name" target="_blank">skill-cli-builder</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span><span class="tag cli">cli</span></div>
-              </div>
-            </div>
-            <p class="project-desc">Python CLI 脚手架生成。支持 Click/Typer/argparse，自动生成项目结构和 pyproject.toml。</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/openclaw-skill-cli-builder" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="devtools" style="position:relative">
-            <div class="new-badge">New</div>
-            <div class="project-header">
-              <div class="project-icon">🔧</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/openclaw-skill-ci-check" class="project-name" target="_blank">skill-ci-check</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">GitHub Actions CI 配置审查。依赖缓存、路径过滤、超时配置优化，构建时间减少 60%。</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/openclaw-skill-ci-check" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="devtools" style="position:relative">
-            <div class="new-badge">New</div>
-            <div class="project-header">
-              <div class="project-icon">📊</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/openclaw-skill-complexity-audit" class="project-name" target="_blank">skill-complexity-audit</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">代码圈复杂度评分。Python/JavaScript/Go 多语言支持，高复杂度函数识别 + 重构建议。</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/openclaw-skill-complexity-audit" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="devtools" style="position:relative">
+          <div class="project-card" data-categories="ai devtools" style="position:relative">
             
             <div class="project-header">
-              <div class="project-icon">🎯</div>
+              <div class="project-icon">⚡</div>
               <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/openclaw-skill-regex-builder" class="project-name" target="_blank">skill-regex-builder</a>
+                <a href="https://github.com/PHclaw/openclaw-skill-db-migration" class="project-name" target="_blank">db-migration</a>
                 <div class="project-tags"><span class="tag devtools">devtools</span></div>
               </div>
             </div>
-            <p class="project-desc">正则表达式构建器。自然语言描述生成正则，实时测试，解释匹配逻辑。</p>
+            <p class="project-desc">Database migration assistant - schema changes, data migrations, rollback</p>
             <div class="project-footer">
               <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/openclaw-skill-regex-builder" class="github-btn" target="_blank">View Code</a>
+              <a href="https://github.com/PHclaw/openclaw-skill-db-migration" class="github-btn" target="_blank">View Code</a>
             </div>
           </div>
-          <div class="project-card" data-categories="devtools" style="position:relative">
+          <div class="project-card" data-categories="ai devtools" style="position:relative">
             
             <div class="project-header">
-              <div class="project-icon">🛠️</div>
+              <div class="project-icon">⚡</div>
               <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/openclaw-skill-env-setup" class="project-name" target="_blank">skill-env-setup</a>
+                <a href="https://github.com/PHclaw/openclaw-skill-dep-doctor" class="project-name" target="_blank">dep-doctor</a>
                 <div class="project-tags"><span class="tag devtools">devtools</span></div>
               </div>
             </div>
-            <p class="project-desc">开发环境自动配置。自动检测技术栈、安装依赖、配置环境变量，支持 20+ 框架。</p>
+            <p class="project-desc">Dependency vulnerability scanning and upgrade planning</p>
+            <div class="project-footer">
+              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
+              <a href="https://github.com/PHclaw/openclaw-skill-dep-doctor" class="github-btn" target="_blank">View Code</a>
+            </div>
+          </div>
+          <div class="project-card" data-categories="ai devtools" style="position:relative">
+            
+            <div class="project-header">
+              <div class="project-icon">⚡</div>
+              <div class="project-title-wrap">
+                <a href="https://github.com/PHclaw/openclaw-skill-deploy-check" class="project-name" target="_blank">deploy-check</a>
+                <div class="project-tags"><span class="tag devtools">devtools</span></div>
+              </div>
+            </div>
+            <p class="project-desc">OpenClaw skill for pre-deployment checklist and safety audit</p>
+            <div class="project-footer">
+              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
+              <a href="https://github.com/PHclaw/openclaw-skill-deploy-check" class="github-btn" target="_blank">View Code</a>
+            </div>
+          </div>
+          <div class="project-card" data-categories="ai devtools" style="position:relative">
+            
+            <div class="project-header">
+              <div class="project-icon">⚡</div>
+              <div class="project-title-wrap">
+                <a href="https://github.com/PHclaw/openclaw-skill-env-setup" class="project-name" target="_blank">env-setup</a>
+                <div class="project-tags"><span class="tag devtools">devtools</span></div>
+              </div>
+            </div>
+            <p class="project-desc">Development environment setup with auto tech stack detection</p>
             <div class="project-footer">
               <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
               <a href="https://github.com/PHclaw/openclaw-skill-env-setup" class="github-btn" target="_blank">View Code</a>
             </div>
           </div>
           <div class="project-card" data-categories="ai devtools" style="position:relative">
-            <div class="new-badge">New</div>
+            
             <div class="project-header">
-              <div class="project-icon">💬</div>
+              <div class="project-icon">⚡</div>
               <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/openclaw-skill-sql-generator" class="project-name" target="_blank">skill-sql-generator</a>
-                <div class="project-tags"><span class="tag ai">ai</span><span class="tag devtools">devtools</span></div>
+                <a href="https://github.com/PHclaw/openclaw-skill-error-debug" class="project-name" target="_blank">error-debug</a>
+                <div class="project-tags"><span class="tag devtools">devtools</span></div>
               </div>
             </div>
-            <p class="project-desc">自然语言转 SQL。支持 MySQL/PostgreSQL/SQLite，自动适配数据库特定语法和索引建议。</p>
+            <p class="project-desc">Diagnose and fix errors from stack traces and runtime exceptions</p>
             <div class="project-footer">
               <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/openclaw-skill-sql-generator" class="github-btn" target="_blank">View Code</a>
+              <a href="https://github.com/PHclaw/openclaw-skill-error-debug" class="github-btn" target="_blank">View Code</a>
             </div>
           </div>
-          <div class="project-card" data-categories="ai" style="position:relative">
-            <div class="new-badge">New</div>
+          <div class="project-card" data-categories="ai devtools" style="position:relative">
+            
             <div class="project-header">
-              <div class="project-icon">📈</div>
+              <div class="project-icon">⚡</div>
               <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/openclaw-skill-stock-analysis" class="project-name" target="_blank">skill-stock-analysis</a>
-                <div class="project-tags"><span class="tag ai">ai</span></div>
+                <a href="https://github.com/PHclaw/openclaw-skill-git-workflow" class="project-name" target="_blank">git-workflow</a>
+                <div class="project-tags"><span class="tag devtools">devtools</span></div>
               </div>
             </div>
-            <p class="project-desc">股票技术面+基本面分析。MA/RSI/MACD/KDJ 指标计算，P/E估值，交易信号输出。</p>
+            <p class="project-desc">OpenClaw skill for advanced Git operations (rebase, cherry-pick, conflict resolution)</p>
             <div class="project-footer">
               <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/openclaw-skill-stock-analysis" class="github-btn" target="_blank">View Code</a>
+              <a href="https://github.com/PHclaw/openclaw-skill-git-workflow" class="github-btn" target="_blank">View Code</a>
             </div>
           </div>
-          <div class="project-card" data-categories="ai" style="position:relative">
-            <div class="new-badge">New</div>
+          <div class="project-card" data-categories="ai devtools" style="position:relative">
+            
             <div class="project-header">
-              <div class="project-icon">⚖️</div>
+              <div class="project-icon">⚡</div>
               <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/openclaw-skill-contract-review" class="project-name" target="_blank">skill-contract-review</a>
-                <div class="project-tags"><span class="tag ai">ai</span></div>
+                <a href="https://github.com/PHclaw/openclaw-skill-gitignore-gen" class="project-name" target="_blank">gitignore-gen</a>
+                <div class="project-tags"><span class="tag devtools">devtools</span></div>
               </div>
             </div>
-            <p class="project-desc">合同风险点识别。法律风险条款提取、修改建议、谈判优先级，劳动/采购/租赁/合作全覆盖。</p>
+            <p class="project-desc">Generate comprehensive .gitignore files by project type</p>
             <div class="project-footer">
               <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/openclaw-skill-contract-review" class="github-btn" target="_blank">View Code</a>
+              <a href="https://github.com/PHclaw/openclaw-skill-gitignore-gen" class="github-btn" target="_blank">View Code</a>
             </div>
           </div>
-          <div class="project-card" data-categories="ai" style="position:relative">
-            <div class="new-badge">New</div>
+          <div class="project-card" data-categories="ai devtools" style="position:relative">
+            
             <div class="project-header">
-              <div class="project-icon">📚</div>
+              <div class="project-icon">⚡</div>
               <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/openclaw-skill-course-gen" class="project-name" target="_blank">skill-course-gen</a>
-                <div class="project-tags"><span class="tag ai">ai</span></div>
+                <a href="https://github.com/PHclaw/openclaw-skill-regex-builder" class="project-name" target="_blank">regex-builder</a>
+                <div class="project-tags"><span class="tag devtools">devtools</span></div>
               </div>
             </div>
-            <p class="project-desc">课程结构自动生成。教学大纲、幻灯片要点、测验题目、作业设计，适合在线教育和企业内训。</p>
+            <p class="project-desc">Build, explain, and test regular expressions from natural language</p>
             <div class="project-footer">
               <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/openclaw-skill-course-gen" class="github-btn" target="_blank">View Code</a>
+              <a href="https://github.com/PHclaw/openclaw-skill-regex-builder" class="github-btn" target="_blank">View Code</a>
             </div>
           </div>
-          <div class="project-card" data-categories="ai" style="position:relative">
-            <div class="new-badge">New</div>
+          <div class="project-card" data-categories="ai devtools" style="position:relative">
+            
             <div class="project-header">
-              <div class="project-icon">👤</div>
+              <div class="project-icon">⚡</div>
               <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/openclaw-skill-resume-screen" class="project-name" target="_blank">skill-resume-screen</a>
-                <div class="project-tags"><span class="tag ai">ai</span></div>
+                <a href="https://github.com/PHclaw/openclaw-skill-security-scan" class="project-name" target="_blank">security-scan</a>
+                <div class="project-tags"><span class="tag devtools">devtools</span></div>
               </div>
             </div>
-            <p class="project-desc">简历筛选+岗位匹配评分。JD vs 简历匹配度矩阵、风险信号识别、面试问题推荐。</p>
+            <p class="project-desc">Security vulnerability scanner for codebases - secrets, patterns, dependencies</p>
             <div class="project-footer">
               <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/openclaw-skill-resume-screen" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai" style="position:relative">
-            <div class="new-badge">New</div>
-            <div class="project-header">
-              <div class="project-icon">🔎</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/openclaw-skill-market-research" class="project-name" target="_blank">skill-market-research</a>
-                <div class="project-tags"><span class="tag ai">ai</span></div>
-              </div>
-            </div>
-            <p class="project-desc">市场调研报告生成。行业分析、竞品对比矩阵 SWOT、用户画像，适合商业计划和市场进入。</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/openclaw-skill-market-research" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai" style="position:relative">
-            <div class="new-badge">New</div>
-            <div class="project-header">
-              <div class="project-icon">🏥</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/openclaw-skill-medical-note" class="project-name" target="_blank">skill-medical-note</a>
-                <div class="project-tags"><span class="tag ai">ai</span></div>
-              </div>
-            </div>
-            <p class="project-desc">病历结构化+诊断辅助。症状收集、鉴别诊断表、Red Flags 危急识别、辅助检查建议。</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/openclaw-skill-medical-note" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai" style="position:relative">
-            <div class="new-badge">New</div>
-            <div class="project-header">
-              <div class="project-icon">📣</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/openclaw-skill-ad-copy" class="project-name" target="_blank">skill-ad-copy</a>
-                <div class="project-tags"><span class="tag ai">ai</span></div>
-              </div>
-            </div>
-            <p class="project-desc">广告文案生成。小红书种草/抖音脚本/Google Ads，支持多平台 A/B 测试变体和合规检查。</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/openclaw-skill-ad-copy" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai" style="position:relative">
-            <div class="new-badge">New</div>
-            <div class="project-header">
-              <div class="project-icon">🏠</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/openclaw-skill-property-eval" class="project-name" target="_blank">skill-property-eval</a>
-                <div class="project-tags"><span class="tag ai">ai</span></div>
-              </div>
-            </div>          <div class="project-card" data-categories="devtools" style="position:relative">
-            <div class="new-badge">New</div>
-            <div class="project-header">
-              <div class="project-icon">🧪</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/openclaw-skill-e2e-test" class="project-name" target="_blank">skill-e2e-test</a>
-                <div class="project-tags"><span class="tag devtools">DevTools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">Playwright E2E 测试生成器。从自然语言描述生成完整的端到端测试代码。</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item">SKILL.md</span></div>
-              <a href="https://github.com/PHclaw/openclaw-skill-e2e-test" class="github-btn" target="_blank">View</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="devtools" style="position:relative">
-            <div class="new-badge">New</div>
-            <div class="project-header">
-              <div class="project-icon">📦</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/openclaw-skill-sbom" class="project-name" target="_blank">skill-sbom</a>
-                <div class="project-tags"><span class="tag devtools">DevTools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">软件物料清单生成器。SPDX/CycloneDX 格式，供应链安全合规。</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item">SKILL.md</span></div>
-              <a href="https://github.com/PHclaw/openclaw-skill-sbom" class="github-btn" target="_blank">View</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="devtools" style="position:relative">
-            <div class="new-badge">New</div>
-            <div class="project-header">
-              <div class="project-icon">🚩</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/openclaw-skill-feature-flag" class="project-name" target="_blank">skill-feature-flag</a>
-                <div class="project-tags"><span class="tag devtools">DevTools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">Feature Flag 设计器。灰度发布、A/B 测试、金丝雀发布策略。</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item">SKILL.md</span></div>
-              <a href="https://github.com/PHclaw/openclaw-skill-feature-flag" class="github-btn" target="_blank">View</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="devtools" style="position:relative">
-            <div class="new-badge">New</div>
-            <div class="project-header">
-              <div class="project-icon">📝</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/openclaw-skill-adr" class="project-name" target="_blank">skill-adr</a>
-                <div class="project-tags"><span class="tag devtools">DevTools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">架构决策记录生成器。ADR 格式文档，技术选型记录。</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item">SKILL.md</span></div>
-              <a href="https://github.com/PHclaw/openclaw-skill-adr" class="github-btn" target="_blank">View</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="devtools" style="position:relative">
-            <div class="new-badge">New</div>
-            <div class="project-header">
-              <div class="project-icon">🚨</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/openclaw-skill-incident" class="project-name" target="_blank">skill-incident</a>
-                <div class="project-tags"><span class="tag devtools">DevTools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">SRE 故障响应 SOP。分阶段诊断、沟通模板、Postmortem 模板。</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item">SKILL.md</span></div>
-              <a href="https://github.com/PHclaw/openclaw-skill-incident" class="github-btn" target="_blank">View</a>
-            </div>
-          </div>
-            <p class="project-desc">房产评估+投资分析。可比交易估值、租金回报率，投资回报三情景预测。</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/openclaw-skill-property-eval" class="github-btn" target="_blank">View Code</a>
+              <a href="https://github.com/PHclaw/openclaw-skill-security-scan" class="github-btn" target="_blank">View Code</a>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  
+
   <div id="claude" class="tab-content">
-    
     <div class="filter-section">
       <div class="container">
         <div class="filter-buttons">
           <button class="filter-btn active" data-filter="all">All</button>
-          <button class="filter-btn" data-filter="ai">ai</button><button class="filter-btn" data-filter="devtools">devtools</button><button class="filter-btn" data-filter="cli">cli</button><button class="filter-btn" data-filter="金融">金融</button><button class="filter-btn" data-filter="法律">法律</button><button class="filter-btn" data-filter="教育">教育</button><button class="filter-btn" data-filter="HR">HR</button><button class="filter-btn" data-filter="商业">商业</button><button class="filter-btn" data-filter="医疗">医疗</button><button class="filter-btn" data-filter="营销">营销</button><button class="filter-btn" data-filter="房产">房产</button>
+          <button class="filter-btn" data-filter="ai">ai</button><button class="filter-btn" data-filter="devtools">devtools</button>
         </div>
       </div>
     </div>
     <div class="section">
       <div class="container">
         <div class="projects-grid">
-          
-          <div class="project-card" data-categories="devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">🧪</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/claude-code-skill-test-gen" class="project-name" target="_blank">skill-test-gen</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">单元测试自动生成。pytest/unittest，边界条件、Mock 数据，覆盖率优化建议。</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/claude-code-skill-test-gen" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">🔄</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/claude-code-skill-refactor" class="project-name" target="_blank">skill-refactor</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">安全重构建议。提取函数、卫语句、策略模式，保留原逻辑不变。</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/claude-code-skill-refactor" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="devtools" style="position:relative">
+          <div class="project-card" data-categories="ai devtools" style="position:relative">
             
             <div class="project-header">
               <div class="project-icon">⚡</div>
               <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/claude-code-skill-perf-check" class="project-name" target="_blank">skill-perf-check</a>
+                <a href="https://github.com/PHclaw/claude-code-skill-adr" class="project-name" target="_blank">adr</a>
                 <div class="project-tags"><span class="tag devtools">devtools</span></div>
               </div>
             </div>
-            <p class="project-desc">性能瓶颈检测与优化建议。</p>
+            <p class="project-desc">{&quot;e2e-test&quot; => &quot;E2E Test Generator for Claude Code&quot;, &quot;sbom&quot; => &quot;S</p>
             <div class="project-footer">
               <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/claude-code-skill-perf-check" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">📚</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/claude-code-skill-api-doc" class="project-name" target="_blank">skill-api-doc</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">API 文档自动生成。</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/claude-code-skill-api-doc" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">🔀</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/claude-code-skill-git-workflow" class="project-name" target="_blank">skill-git-workflow</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">高级 Git 操作辅助。</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/claude-code-skill-git-workflow" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">🚀</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/claude-code-skill-deploy-check" class="project-name" target="_blank">skill-deploy-check</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">部署前检查清单。</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/claude-code-skill-deploy-check" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">🐛</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/claude-code-skill-error-debug" class="project-name" target="_blank">skill-error-debug</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">错误调试助手。</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/claude-code-skill-error-debug" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">✅</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/claude-code-skill-api-test" class="project-name" target="_blank">skill-api-test</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">API 测试用例生成。</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/claude-code-skill-api-test" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">📋</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/claude-code-skill-changelog" class="project-name" target="_blank">skill-changelog</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">Changelog 自动生成。</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/claude-code-skill-changelog" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">📄</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/claude-code-skill-gitignore-gen" class="project-name" target="_blank">skill-gitignore-gen</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">.gitignore 生成。</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/claude-code-skill-gitignore-gen" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">💊</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/claude-code-skill-dep-doctor" class="project-name" target="_blank">skill-dep-doctor</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">依赖漏洞扫描。</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/claude-code-skill-dep-doctor" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">📖</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/claude-code-skill-code-explainer" class="project-name" target="_blank">skill-code-explainer</a>
-                <div class="project-tags"><span class="tag ai">ai</span></div>
-              </div>
-            </div>
-            <p class="project-desc">代码解释与文档生成。</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/claude-code-skill-code-explainer" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">🔐</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/claude-code-skill-security-scan" class="project-name" target="_blank">skill-security-scan</a>
-                <div class="project-tags"><span class="tag ai">ai</span></div>
-              </div>
-            </div>
-            <p class="project-desc">安全扫描。</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/claude-code-skill-security-scan" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">🌐</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/claude-code-skill-code-translate" class="project-name" target="_blank">skill-code-translate</a>
-                <div class="project-tags"><span class="tag ai">ai</span></div>
-              </div>
-            </div>
-            <p class="project-desc">代码语言互译。</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/claude-code-skill-code-translate" class="github-btn" target="_blank">View Code</a>
+              <a href="https://github.com/PHclaw/claude-code-skill-adr" class="github-btn" target="_blank">View Code</a>
             </div>
           </div>
           <div class="project-card" data-categories="ai devtools" style="position:relative">
-            <div class="new-badge">New</div>
+            
             <div class="project-header">
-              <div class="project-icon">🏗️</div>
+              <div class="project-icon">⚡</div>
               <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/claude-code-skill-arch-review" class="project-name" target="_blank">skill-arch-review</a>
-                <div class="project-tags"><span class="tag ai">ai</span><span class="tag devtools">devtools</span></div>
+                <a href="https://github.com/PHclaw/claude-code-skill-e2e-test" class="project-name" target="_blank">e2e-test</a>
+                <div class="project-tags"><span class="tag devtools">devtools</span></div>
               </div>
             </div>
-            <p class="project-desc">架构设计评审。方案对比 + Trade-off 分析。</p>
+            <p class="project-desc">{&quot;e2e-test&quot; => &quot;E2E Test Generator for Claude Code&quot;, &quot;sbom&quot; => &quot;S</p>
+            <div class="project-footer">
+              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
+              <a href="https://github.com/PHclaw/claude-code-skill-e2e-test" class="github-btn" target="_blank">View Code</a>
+            </div>
+          </div>
+          <div class="project-card" data-categories="ai devtools" style="position:relative">
+            
+            <div class="project-header">
+              <div class="project-icon">⚡</div>
+              <div class="project-title-wrap">
+                <a href="https://github.com/PHclaw/claude-code-skill-feature-flag" class="project-name" target="_blank">feature-flag</a>
+                <div class="project-tags"><span class="tag devtools">devtools</span></div>
+              </div>
+            </div>
+            <p class="project-desc">{&quot;e2e-test&quot; => &quot;E2E Test Generator for Claude Code&quot;, &quot;sbom&quot; => &quot;S</p>
+            <div class="project-footer">
+              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
+              <a href="https://github.com/PHclaw/claude-code-skill-feature-flag" class="github-btn" target="_blank">View Code</a>
+            </div>
+          </div>
+          <div class="project-card" data-categories="ai devtools" style="position:relative">
+            
+            <div class="project-header">
+              <div class="project-icon">⚡</div>
+              <div class="project-title-wrap">
+                <a href="https://github.com/PHclaw/claude-code-skill-incident" class="project-name" target="_blank">incident</a>
+                <div class="project-tags"><span class="tag devtools">devtools</span></div>
+              </div>
+            </div>
+            <p class="project-desc">{&quot;e2e-test&quot; => &quot;E2E Test Generator for Claude Code&quot;, &quot;sbom&quot; => &quot;S</p>
+            <div class="project-footer">
+              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
+              <a href="https://github.com/PHclaw/claude-code-skill-incident" class="github-btn" target="_blank">View Code</a>
+            </div>
+          </div>
+          <div class="project-card" data-categories="ai devtools" style="position:relative">
+            
+            <div class="project-header">
+              <div class="project-icon">⚡</div>
+              <div class="project-title-wrap">
+                <a href="https://github.com/PHclaw/claude-code-skill-sbom" class="project-name" target="_blank">sbom</a>
+                <div class="project-tags"><span class="tag devtools">devtools</span></div>
+              </div>
+            </div>
+            <p class="project-desc">{&quot;e2e-test&quot; => &quot;E2E Test Generator for Claude Code&quot;, &quot;sbom&quot; => &quot;S</p>
+            <div class="project-footer">
+              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
+              <a href="https://github.com/PHclaw/claude-code-skill-sbom" class="github-btn" target="_blank">View Code</a>
+            </div>
+          </div>
+          <div class="project-card" data-categories="ai devtools" style="position:relative">
+            
+            <div class="project-header">
+              <div class="project-icon">⚡</div>
+              <div class="project-title-wrap">
+                <a href="https://github.com/PHclaw/claude-code-skill-ad-copy" class="project-name" target="_blank">ad-copy</a>
+                <div class="project-tags"><span class="tag devtools">devtools</span></div>
+              </div>
+            </div>
+            <p class="project-desc">PHclaw Claude Code skill</p>
+            <div class="project-footer">
+              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
+              <a href="https://github.com/PHclaw/claude-code-skill-ad-copy" class="github-btn" target="_blank">View Code</a>
+            </div>
+          </div>
+          <div class="project-card" data-categories="ai devtools" style="position:relative">
+            
+            <div class="project-header">
+              <div class="project-icon">⚡</div>
+              <div class="project-title-wrap">
+                <a href="https://github.com/PHclaw/claude-code-skill-arch-review" class="project-name" target="_blank">arch-review</a>
+                <div class="project-tags"><span class="tag devtools">devtools</span></div>
+              </div>
+            </div>
+            <p class="project-desc">PHclaw skill</p>
             <div class="project-footer">
               <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
               <a href="https://github.com/PHclaw/claude-code-skill-arch-review" class="github-btn" target="_blank">View Code</a>
             </div>
           </div>
           <div class="project-card" data-categories="ai devtools" style="position:relative">
-            <div class="new-badge">New</div>
-            <div class="project-header">
-              <div class="project-icon">🎨</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/claude-code-skill-frontend-gen" class="project-name" target="_blank">skill-frontend-gen</a>
-                <div class="project-tags"><span class="tag ai">ai</span><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">前端组件生成。React/Vue + Tailwind。</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/claude-code-skill-frontend-gen" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="devtools" style="position:relative">
             
             <div class="project-header">
-              <div class="project-icon">🗄️</div>
+              <div class="project-icon">⚡</div>
               <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/claude-code-skill-db-migration" class="project-name" target="_blank">skill-db-migration</a>
+                <a href="https://github.com/PHclaw/claude-code-skill-ci-check" class="project-name" target="_blank">ci-check</a>
                 <div class="project-tags"><span class="tag devtools">devtools</span></div>
               </div>
             </div>
-            <p class="project-desc">数据库迁移。</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/claude-code-skill-db-migration" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="devtools" style="position:relative">
-            <div class="new-badge">New</div>
-            <div class="project-header">
-              <div class="project-icon">🔍</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/claude-code-skill-db-query-optim" class="project-name" target="_blank">skill-db-query-optim</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">SQL 查询优化。EXPLAIN 分析 + 索引建议。</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/claude-code-skill-db-query-optim" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">📝</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/claude-code-skill-commit-message" class="project-name" target="_blank">skill-commit-message</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">Commit 生成。</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/claude-code-skill-commit-message" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="devtools cli" style="position:relative">
-            <div class="new-badge">New</div>
-            <div class="project-header">
-              <div class="project-icon">⌨️</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/claude-code-skill-cli-builder" class="project-name" target="_blank">skill-cli-builder</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span><span class="tag cli">cli</span></div>
-              </div>
-            </div>
-            <p class="project-desc">CLI 脚手架。Click/Typer。</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/claude-code-skill-cli-builder" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="devtools" style="position:relative">
-            <div class="new-badge">New</div>
-            <div class="project-header">
-              <div class="project-icon">🔧</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/claude-code-skill-ci-check" class="project-name" target="_blank">skill-ci-check</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">CI 配置审查。构建优化。</p>
+            <p class="project-desc">PHclaw Claude Code skill</p>
             <div class="project-footer">
               <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
               <a href="https://github.com/PHclaw/claude-code-skill-ci-check" class="github-btn" target="_blank">View Code</a>
             </div>
           </div>
-          <div class="project-card" data-categories="devtools" style="position:relative">
-            <div class="new-badge">New</div>
+          <div class="project-card" data-categories="ai devtools" style="position:relative">
+            
             <div class="project-header">
-              <div class="project-icon">📊</div>
+              <div class="project-icon">⚡</div>
               <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/claude-code-skill-complexity-audit" class="project-name" target="_blank">skill-complexity-audit</a>
+                <a href="https://github.com/PHclaw/claude-code-skill-cli-builder" class="project-name" target="_blank">cli-builder</a>
                 <div class="project-tags"><span class="tag devtools">devtools</span></div>
               </div>
             </div>
-            <p class="project-desc">圈复杂度评分。重构建议。</p>
+            <p class="project-desc">PHclaw Claude Code skill</p>
+            <div class="project-footer">
+              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
+              <a href="https://github.com/PHclaw/claude-code-skill-cli-builder" class="github-btn" target="_blank">View Code</a>
+            </div>
+          </div>
+          <div class="project-card" data-categories="ai devtools" style="position:relative">
+            
+            <div class="project-header">
+              <div class="project-icon">⚡</div>
+              <div class="project-title-wrap">
+                <a href="https://github.com/PHclaw/claude-code-skill-complexity-audit" class="project-name" target="_blank">complexity-audit</a>
+                <div class="project-tags"><span class="tag devtools">devtools</span></div>
+              </div>
+            </div>
+            <p class="project-desc">PHclaw Claude Code skill</p>
             <div class="project-footer">
               <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
               <a href="https://github.com/PHclaw/claude-code-skill-complexity-audit" class="github-btn" target="_blank">View Code</a>
             </div>
           </div>
-          <div class="project-card" data-categories="devtools" style="position:relative">
+          <div class="project-card" data-categories="ai devtools" style="position:relative">
             
             <div class="project-header">
-              <div class="project-icon">🎯</div>
+              <div class="project-icon">⚡</div>
               <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/claude-code-skill-regex-builder" class="project-name" target="_blank">skill-regex-builder</a>
+                <a href="https://github.com/PHclaw/claude-code-skill-contract-review" class="project-name" target="_blank">contract-review</a>
                 <div class="project-tags"><span class="tag devtools">devtools</span></div>
               </div>
             </div>
-            <p class="project-desc">正则构建。</p>
+            <p class="project-desc">PHclaw skill</p>
             <div class="project-footer">
               <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/claude-code-skill-regex-builder" class="github-btn" target="_blank">View Code</a>
+              <a href="https://github.com/PHclaw/claude-code-skill-contract-review" class="github-btn" target="_blank">View Code</a>
             </div>
           </div>
-          <div class="project-card" data-categories="devtools" style="position:relative">
+          <div class="project-card" data-categories="ai devtools" style="position:relative">
             
             <div class="project-header">
-              <div class="project-icon">🛠️</div>
+              <div class="project-icon">⚡</div>
               <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/claude-code-skill-env-setup" class="project-name" target="_blank">skill-env-setup</a>
+                <a href="https://github.com/PHclaw/claude-code-skill-course-gen" class="project-name" target="_blank">course-gen</a>
                 <div class="project-tags"><span class="tag devtools">devtools</span></div>
               </div>
             </div>
-            <p class="project-desc">环境配置。</p>
+            <p class="project-desc">PHclaw skill</p>
+            <div class="project-footer">
+              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
+              <a href="https://github.com/PHclaw/claude-code-skill-course-gen" class="github-btn" target="_blank">View Code</a>
+            </div>
+          </div>
+          <div class="project-card" data-categories="ai devtools" style="position:relative">
+            
+            <div class="project-header">
+              <div class="project-icon">⚡</div>
+              <div class="project-title-wrap">
+                <a href="https://github.com/PHclaw/claude-code-skill-db-query-optim" class="project-name" target="_blank">db-query-optim</a>
+                <div class="project-tags"><span class="tag devtools">devtools</span></div>
+              </div>
+            </div>
+            <p class="project-desc">PHclaw Claude Code skill</p>
+            <div class="project-footer">
+              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
+              <a href="https://github.com/PHclaw/claude-code-skill-db-query-optim" class="github-btn" target="_blank">View Code</a>
+            </div>
+          </div>
+          <div class="project-card" data-categories="ai devtools" style="position:relative">
+            
+            <div class="project-header">
+              <div class="project-icon">⚡</div>
+              <div class="project-title-wrap">
+                <a href="https://github.com/PHclaw/claude-code-skill-frontend-gen" class="project-name" target="_blank">frontend-gen</a>
+                <div class="project-tags"><span class="tag devtools">devtools</span></div>
+              </div>
+            </div>
+            <p class="project-desc">PHclaw Claude Code skill</p>
+            <div class="project-footer">
+              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
+              <a href="https://github.com/PHclaw/claude-code-skill-frontend-gen" class="github-btn" target="_blank">View Code</a>
+            </div>
+          </div>
+          <div class="project-card" data-categories="ai devtools" style="position:relative">
+            
+            <div class="project-header">
+              <div class="project-icon">⚡</div>
+              <div class="project-title-wrap">
+                <a href="https://github.com/PHclaw/claude-code-skill-market-research" class="project-name" target="_blank">market-research</a>
+                <div class="project-tags"><span class="tag devtools">devtools</span></div>
+              </div>
+            </div>
+            <p class="project-desc">PHclaw Claude Code skill</p>
+            <div class="project-footer">
+              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
+              <a href="https://github.com/PHclaw/claude-code-skill-market-research" class="github-btn" target="_blank">View Code</a>
+            </div>
+          </div>
+          <div class="project-card" data-categories="ai devtools" style="position:relative">
+            
+            <div class="project-header">
+              <div class="project-icon">⚡</div>
+              <div class="project-title-wrap">
+                <a href="https://github.com/PHclaw/claude-code-skill-medical-note" class="project-name" target="_blank">medical-note</a>
+                <div class="project-tags"><span class="tag devtools">devtools</span></div>
+              </div>
+            </div>
+            <p class="project-desc">PHclaw Claude Code skill</p>
+            <div class="project-footer">
+              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
+              <a href="https://github.com/PHclaw/claude-code-skill-medical-note" class="github-btn" target="_blank">View Code</a>
+            </div>
+          </div>
+          <div class="project-card" data-categories="ai devtools" style="position:relative">
+            
+            <div class="project-header">
+              <div class="project-icon">⚡</div>
+              <div class="project-title-wrap">
+                <a href="https://github.com/PHclaw/claude-code-skill-property-eval" class="project-name" target="_blank">property-eval</a>
+                <div class="project-tags"><span class="tag devtools">devtools</span></div>
+              </div>
+            </div>
+            <p class="project-desc">PHclaw Claude Code skill</p>
+            <div class="project-footer">
+              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
+              <a href="https://github.com/PHclaw/claude-code-skill-property-eval" class="github-btn" target="_blank">View Code</a>
+            </div>
+          </div>
+          <div class="project-card" data-categories="ai devtools" style="position:relative">
+            
+            <div class="project-header">
+              <div class="project-icon">⚡</div>
+              <div class="project-title-wrap">
+                <a href="https://github.com/PHclaw/claude-code-skill-resume-screen" class="project-name" target="_blank">resume-screen</a>
+                <div class="project-tags"><span class="tag devtools">devtools</span></div>
+              </div>
+            </div>
+            <p class="project-desc">PHclaw skill</p>
+            <div class="project-footer">
+              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
+              <a href="https://github.com/PHclaw/claude-code-skill-resume-screen" class="github-btn" target="_blank">View Code</a>
+            </div>
+          </div>
+          <div class="project-card" data-categories="ai devtools" style="position:relative">
+            
+            <div class="project-header">
+              <div class="project-icon">⚡</div>
+              <div class="project-title-wrap">
+                <a href="https://github.com/PHclaw/claude-code-skill-sql-generator" class="project-name" target="_blank">sql-generator</a>
+                <div class="project-tags"><span class="tag devtools">devtools</span></div>
+              </div>
+            </div>
+            <p class="project-desc">PHclaw Claude Code skill</p>
+            <div class="project-footer">
+              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
+              <a href="https://github.com/PHclaw/claude-code-skill-sql-generator" class="github-btn" target="_blank">View Code</a>
+            </div>
+          </div>
+          <div class="project-card" data-categories="ai devtools" style="position:relative">
+            
+            <div class="project-header">
+              <div class="project-icon">⚡</div>
+              <div class="project-title-wrap">
+                <a href="https://github.com/PHclaw/claude-code-skill-stock-analysis" class="project-name" target="_blank">stock-analysis</a>
+                <div class="project-tags"><span class="tag devtools">devtools</span></div>
+              </div>
+            </div>
+            <p class="project-desc">PHclaw skill</p>
+            <div class="project-footer">
+              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
+              <a href="https://github.com/PHclaw/claude-code-skill-stock-analysis" class="github-btn" target="_blank">View Code</a>
+            </div>
+          </div>
+          <div class="project-card" data-categories="ai devtools" style="position:relative">
+            
+            <div class="project-header">
+              <div class="project-icon">⚡</div>
+              <div class="project-title-wrap">
+                <a href="https://github.com/PHclaw/claude-code-skill-api-test" class="project-name" target="_blank">api-test</a>
+                <div class="project-tags"><span class="tag devtools">devtools</span></div>
+              </div>
+            </div>
+            <p class="project-desc">API test generator for Claude Code</p>
+            <div class="project-footer">
+              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
+              <a href="https://github.com/PHclaw/claude-code-skill-api-test" class="github-btn" target="_blank">View Code</a>
+            </div>
+          </div>
+          <div class="project-card" data-categories="ai devtools" style="position:relative">
+            
+            <div class="project-header">
+              <div class="project-icon">⚡</div>
+              <div class="project-title-wrap">
+                <a href="https://github.com/PHclaw/claude-code-skill-changelog" class="project-name" target="_blank">changelog</a>
+                <div class="project-tags"><span class="tag devtools">devtools</span></div>
+              </div>
+            </div>
+            <p class="project-desc">Changelog generator for Claude Code</p>
+            <div class="project-footer">
+              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
+              <a href="https://github.com/PHclaw/claude-code-skill-changelog" class="github-btn" target="_blank">View Code</a>
+            </div>
+          </div>
+          <div class="project-card" data-categories="ai devtools" style="position:relative">
+            
+            <div class="project-header">
+              <div class="project-icon">⚡</div>
+              <div class="project-title-wrap">
+                <a href="https://github.com/PHclaw/claude-code-skill-code-explainer" class="project-name" target="_blank">code-explainer</a>
+                <div class="project-tags"><span class="tag devtools">devtools</span></div>
+              </div>
+            </div>
+            <p class="project-desc">Code explainer with explain/doc/docstring commands for Claude Code</p>
+            <div class="project-footer">
+              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
+              <a href="https://github.com/PHclaw/claude-code-skill-code-explainer" class="github-btn" target="_blank">View Code</a>
+            </div>
+          </div>
+          <div class="project-card" data-categories="ai devtools" style="position:relative">
+            
+            <div class="project-header">
+              <div class="project-icon">⚡</div>
+              <div class="project-title-wrap">
+                <a href="https://github.com/PHclaw/claude-code-skill-code-translate" class="project-name" target="_blank">code-translate</a>
+                <div class="project-tags"><span class="tag devtools">devtools</span></div>
+              </div>
+            </div>
+            <p class="project-desc">Code translator for Claude Code</p>
+            <div class="project-footer">
+              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
+              <a href="https://github.com/PHclaw/claude-code-skill-code-translate" class="github-btn" target="_blank">View Code</a>
+            </div>
+          </div>
+          <div class="project-card" data-categories="ai devtools" style="position:relative">
+            
+            <div class="project-header">
+              <div class="project-icon">⚡</div>
+              <div class="project-title-wrap">
+                <a href="https://github.com/PHclaw/claude-code-skill-commit-message" class="project-name" target="_blank">commit-message</a>
+                <div class="project-tags"><span class="tag devtools">devtools</span></div>
+              </div>
+            </div>
+            <p class="project-desc">Conventional commit message generator for Claude Code</p>
+            <div class="project-footer">
+              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
+              <a href="https://github.com/PHclaw/claude-code-skill-commit-message" class="github-btn" target="_blank">View Code</a>
+            </div>
+          </div>
+          <div class="project-card" data-categories="ai devtools" style="position:relative">
+            
+            <div class="project-header">
+              <div class="project-icon">⚡</div>
+              <div class="project-title-wrap">
+                <a href="https://github.com/PHclaw/claude-code-skill-db-migration" class="project-name" target="_blank">db-migration</a>
+                <div class="project-tags"><span class="tag devtools">devtools</span></div>
+              </div>
+            </div>
+            <p class="project-desc">DB migration for Claude Code</p>
+            <div class="project-footer">
+              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
+              <a href="https://github.com/PHclaw/claude-code-skill-db-migration" class="github-btn" target="_blank">View Code</a>
+            </div>
+          </div>
+          <div class="project-card" data-categories="ai devtools" style="position:relative">
+            
+            <div class="project-header">
+              <div class="project-icon">⚡</div>
+              <div class="project-title-wrap">
+                <a href="https://github.com/PHclaw/claude-code-skill-dep-doctor" class="project-name" target="_blank">dep-doctor</a>
+                <div class="project-tags"><span class="tag devtools">devtools</span></div>
+              </div>
+            </div>
+            <p class="project-desc">Dependency doctor for Claude Code</p>
+            <div class="project-footer">
+              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
+              <a href="https://github.com/PHclaw/claude-code-skill-dep-doctor" class="github-btn" target="_blank">View Code</a>
+            </div>
+          </div>
+          <div class="project-card" data-categories="ai devtools" style="position:relative">
+            
+            <div class="project-header">
+              <div class="project-icon">⚡</div>
+              <div class="project-title-wrap">
+                <a href="https://github.com/PHclaw/claude-code-skill-env-setup" class="project-name" target="_blank">env-setup</a>
+                <div class="project-tags"><span class="tag devtools">devtools</span></div>
+              </div>
+            </div>
+            <p class="project-desc">Dev env setup for Claude Code</p>
             <div class="project-footer">
               <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
               <a href="https://github.com/PHclaw/claude-code-skill-env-setup" class="github-btn" target="_blank">View Code</a>
             </div>
           </div>
           <div class="project-card" data-categories="ai devtools" style="position:relative">
-            <div class="new-badge">New</div>
+            
             <div class="project-header">
-              <div class="project-icon">💬</div>
+              <div class="project-icon">⚡</div>
               <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/claude-code-skill-sql-generator" class="project-name" target="_blank">skill-sql-generator</a>
-                <div class="project-tags"><span class="tag ai">ai</span><span class="tag devtools">devtools</span></div>
+                <a href="https://github.com/PHclaw/claude-code-skill-error-debug" class="project-name" target="_blank">error-debug</a>
+                <div class="project-tags"><span class="tag devtools">devtools</span></div>
               </div>
             </div>
-            <p class="project-desc">自然语言 → SQL。</p>
+            <p class="project-desc">Error debug assistant for Claude Code</p>
             <div class="project-footer">
               <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/claude-code-skill-sql-generator" class="github-btn" target="_blank">View Code</a>
+              <a href="https://github.com/PHclaw/claude-code-skill-error-debug" class="github-btn" target="_blank">View Code</a>
             </div>
           </div>
-          <div class="project-card" data-categories="ai" style="position:relative">
-            <div class="new-badge">New</div>
+          <div class="project-card" data-categories="ai devtools" style="position:relative">
+            
             <div class="project-header">
-              <div class="project-icon">📈</div>
+              <div class="project-icon">⚡</div>
               <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/claude-code-skill-stock-analysis" class="project-name" target="_blank">skill-stock-analysis</a>
-                <div class="project-tags"><span class="tag ai">ai</span></div>
+                <a href="https://github.com/PHclaw/claude-code-skill-gitignore-gen" class="project-name" target="_blank">gitignore-gen</a>
+                <div class="project-tags"><span class="tag devtools">devtools</span></div>
               </div>
             </div>
-            <p class="project-desc">股票分析。技术指标 + 估值。</p>
+            <p class="project-desc">Generate comprehensive .gitignore files for Claude Code</p>
             <div class="project-footer">
               <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/claude-code-skill-stock-analysis" class="github-btn" target="_blank">View Code</a>
+              <a href="https://github.com/PHclaw/claude-code-skill-gitignore-gen" class="github-btn" target="_blank">View Code</a>
             </div>
           </div>
-          <div class="project-card" data-categories="ai" style="position:relative">
-            <div class="new-badge">New</div>
+          <div class="project-card" data-categories="ai devtools" style="position:relative">
+            
             <div class="project-header">
-              <div class="project-icon">⚖️</div>
+              <div class="project-icon">⚡</div>
               <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/claude-code-skill-contract-review" class="project-name" target="_blank">skill-contract-review</a>
-                <div class="project-tags"><span class="tag ai">ai</span></div>
+                <a href="https://github.com/PHclaw/claude-code-skill-perf-check" class="project-name" target="_blank">perf-check</a>
+                <div class="project-tags"><span class="tag devtools">devtools</span></div>
               </div>
             </div>
-            <p class="project-desc">合同审查。风险识别。</p>
+            <p class="project-desc">Claude Code skill for performance bottleneck detection and optimization</p>
             <div class="project-footer">
               <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/claude-code-skill-contract-review" class="github-btn" target="_blank">View Code</a>
+              <a href="https://github.com/PHclaw/claude-code-skill-perf-check" class="github-btn" target="_blank">View Code</a>
             </div>
           </div>
-          <div class="project-card" data-categories="ai" style="position:relative">
-            <div class="new-badge">New</div>
+          <div class="project-card" data-categories="ai devtools" style="position:relative">
+            
             <div class="project-header">
-              <div class="project-icon">📚</div>
+              <div class="project-icon">⚡</div>
               <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/claude-code-skill-course-gen" class="project-name" target="_blank">skill-course-gen</a>
-                <div class="project-tags"><span class="tag ai">ai</span></div>
+                <a href="https://github.com/PHclaw/claude-code-skill-refactor" class="project-name" target="_blank">refactor</a>
+                <div class="project-tags"><span class="tag devtools">devtools</span></div>
               </div>
             </div>
-            <p class="project-desc">课程生成。教学设计。</p>
+            <p class="project-desc">Claude Code skill for safe code refactoring</p>
             <div class="project-footer">
               <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/claude-code-skill-course-gen" class="github-btn" target="_blank">View Code</a>
+              <a href="https://github.com/PHclaw/claude-code-skill-refactor" class="github-btn" target="_blank">View Code</a>
             </div>
           </div>
-          <div class="project-card" data-categories="ai" style="position:relative">
-            <div class="new-badge">New</div>
+          <div class="project-card" data-categories="ai devtools" style="position:relative">
+            
             <div class="project-header">
-              <div class="project-icon">👤</div>
+              <div class="project-icon">⚡</div>
               <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/claude-code-skill-resume-screen" class="project-name" target="_blank">skill-resume-screen</a>
-                <div class="project-tags"><span class="tag ai">ai</span></div>
+                <a href="https://github.com/PHclaw/claude-code-skill-regex-builder" class="project-name" target="_blank">regex-builder</a>
+                <div class="project-tags"><span class="tag devtools">devtools</span></div>
               </div>
             </div>
-            <p class="project-desc">简历筛选。匹配评分。</p>
+            <p class="project-desc">Regex builder for Claude Code</p>
             <div class="project-footer">
               <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/claude-code-skill-resume-screen" class="github-btn" target="_blank">View Code</a>
+              <a href="https://github.com/PHclaw/claude-code-skill-regex-builder" class="github-btn" target="_blank">View Code</a>
             </div>
           </div>
-          <div class="project-card" data-categories="ai" style="position:relative">
-            <div class="new-badge">New</div>
+          <div class="project-card" data-categories="ai devtools" style="position:relative">
+            
             <div class="project-header">
-              <div class="project-icon">🔎</div>
+              <div class="project-icon">⚡</div>
               <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/claude-code-skill-market-research" class="project-name" target="_blank">skill-market-research</a>
-                <div class="project-tags"><span class="tag ai">ai</span></div>
+                <a href="https://github.com/PHclaw/claude-code-skill-security-scan" class="project-name" target="_blank">security-scan</a>
+                <div class="project-tags"><span class="tag devtools">devtools</span></div>
               </div>
             </div>
-            <p class="project-desc">市场调研。竞品分析。</p>
+            <p class="project-desc">Security scanner with scan/secrets commands for Claude Code</p>
             <div class="project-footer">
               <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/claude-code-skill-market-research" class="github-btn" target="_blank">View Code</a>
+              <a href="https://github.com/PHclaw/claude-code-skill-security-scan" class="github-btn" target="_blank">View Code</a>
             </div>
           </div>
-          <div class="project-card" data-categories="ai" style="position:relative">
-            <div class="new-badge">New</div>
+          <div class="project-card" data-categories="ai devtools" style="position:relative">
+            
             <div class="project-header">
-              <div class="project-icon">🏥</div>
+              <div class="project-icon">⚡</div>
               <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/claude-code-skill-medical-note" class="project-name" target="_blank">skill-medical-note</a>
-                <div class="project-tags"><span class="tag ai">ai</span></div>
+                <a href="https://github.com/PHclaw/claude-code-skill-test-gen" class="project-name" target="_blank">test-gen</a>
+                <div class="project-tags"><span class="tag devtools">devtools</span></div>
               </div>
             </div>
-            <p class="project-desc">病历辅助。诊断参考。</p>
+            <p class="project-desc">Claude Code skill for automatic unit test generation</p>
             <div class="project-footer">
               <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/claude-code-skill-medical-note" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai" style="position:relative">
-            <div class="new-badge">New</div>
-            <div class="project-header">
-              <div class="project-icon">📣</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/claude-code-skill-ad-copy" class="project-name" target="_blank">skill-ad-copy</a>
-                <div class="project-tags"><span class="tag ai">ai</span></div>
-              </div>
-            </div>
-            <p class="project-desc">广告文案。多平台。</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/claude-code-skill-ad-copy" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai" style="position:relative">
-            <div class="new-badge">New</div>
-            <div class="project-header">
-              <div class="project-icon">🏠</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/claude-code-skill-property-eval" class="project-name" target="_blank">skill-property-eval</a>
-                <div class="project-tags"><span class="tag ai">ai</span></div>
-              </div>
-            </div>          <div class="project-card" data-categories="devtools" style="position:relative">
-            <div class="new-badge">New</div>
-            <div class="project-header">
-              <div class="project-icon">🧪</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/claude-code-skill-e2e-test" class="project-name" target="_blank">skill-e2e-test</a>
-                <div class="project-tags"><span class="tag devtools">DevTools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">Playwright E2E 测试生成器。Claude Code 版。</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item">CLAUDE.md</span></div>
-              <a href="https://github.com/PHclaw/claude-code-skill-e2e-test" class="github-btn" target="_blank">View</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="devtools" style="position:relative">
-            <div class="new-badge">New</div>
-            <div class="project-header">
-              <div class="project-icon">📦</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/claude-code-skill-sbom" class="project-name" target="_blank">skill-sbom</a>
-                <div class="project-tags"><span class="tag devtools">DevTools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">软件物料清单生成器。Claude Code 版。</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item">CLAUDE.md</span></div>
-              <a href="https://github.com/PHclaw/claude-code-skill-sbom" class="github-btn" target="_blank">View</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="devtools" style="position:relative">
-            <div class="new-badge">New</div>
-            <div class="project-header">
-              <div class="project-icon">🚩</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/claude-code-skill-feature-flag" class="project-name" target="_blank">skill-feature-flag</a>
-                <div class="project-tags"><span class="tag devtools">DevTools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">Feature Flag 设计器。Claude Code 版。</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item">CLAUDE.md</span></div>
-              <a href="https://github.com/PHclaw/claude-code-skill-feature-flag" class="github-btn" target="_blank">View</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="devtools" style="position:relative">
-            <div class="new-badge">New</div>
-            <div class="project-header">
-              <div class="project-icon">📝</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/claude-code-skill-adr" class="project-name" target="_blank">skill-adr</a>
-                <div class="project-tags"><span class="tag devtools">DevTools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">架构决策记录生成器。Claude Code 版。</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item">CLAUDE.md</span></div>
-              <a href="https://github.com/PHclaw/claude-code-skill-adr" class="github-btn" target="_blank">View</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="devtools" style="position:relative">
-            <div class="new-badge">New</div>
-            <div class="project-header">
-              <div class="project-icon">🚨</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/claude-code-skill-incident" class="project-name" target="_blank">skill-incident</a>
-                <div class="project-tags"><span class="tag devtools">DevTools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">SRE 故障响应 SOP。Claude Code 版。</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item">CLAUDE.md</span></div>
-              <a href="https://github.com/PHclaw/claude-code-skill-incident" class="github-btn" target="_blank">View</a>
-            </div>
-          </div>
-            <p class="project-desc">房产评估。投资分析。</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/claude-code-skill-property-eval" class="github-btn" target="_blank">View Code</a>
+              <a href="https://github.com/PHclaw/claude-code-skill-test-gen" class="github-btn" target="_blank">View Code</a>
             </div>
           </div>
         </div>
@@ -1635,12 +1499,15 @@
     document.querySelectorAll('.filter-section').forEach(fs => {
       fs.querySelectorAll('.filter-btn').forEach(btn => {
         btn.addEventListener('click', () => {
-          const filter = btn.dataset.filter;
-          const tabId = fs.closest('.tab-content').id;
           fs.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
           btn.classList.add('active');
-          document.getElementById(tabId).querySelectorAll('.project-card').forEach(card => {
-            card.classList.toggle('hidden', filter !== 'all' && !card.dataset.categories.split(' ').includes(filter));
+          const filter = btn.dataset.filter;
+          fs.closest('.tab-content').querySelectorAll('.project-card').forEach(card => {
+            if (filter === 'all' || card.dataset.categories.includes(filter)) {
+              card.classList.remove('hidden');
+            } else {
+              card.classList.add('hidden');
+            }
           });
         });
       });
