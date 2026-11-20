@@ -1,1547 +1,243 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PHclaw | Open Source Developer</title>
-  <meta name="description" content="21 repos. 35 OpenClaw Skills + 35 Claude Code Skills. AI agents, devtools, CLI, SaaS starters.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root { --bg: #0d1117; --surface: #161b22; --surface-2: #1c2128; --border: #30363d; --text: #e6edf3; --text-muted: #8b949e; --accent: #58a6ff; --accent-2: #a371f7; --accent-3: #79c0ff; --green: #3fb950; --yellow: #d29922; --red: #f85149; }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Inter',-apple-system,BlinkMacSystemFont,sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; min-height: 100vh; }
-    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
-    header { padding: 60px 0 40px; text-align: center; border-bottom: 1px solid var(--border); }
-    .avatar { width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg,#58a6ff,#a371f7); display: flex; align-items: center; justify-content: center; font-size: 32px; margin: 0 auto 20px; }
-    h1 { font-size: 42px; font-weight: 700; margin-bottom: 12px; letter-spacing: -0.5px; }
-    .subtitle { color: var(--text-muted); font-size: 18px; max-width: 640px; margin: 0 auto 24px; }
-    .stats-bar { display: flex; justify-content: center; gap: 48px; flex-wrap: wrap; }
-    .stat-item { text-align: center; }
-    .stat-value { font-size: 28px; font-weight: 700; color: var(--accent); }
-    .stat-label { font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 4px; }
-    .tab-section { border-bottom: 1px solid var(--border); position: sticky; top: 0; background: var(--bg); z-index: 100; }
-    .tabs { display: flex; justify-content: center; padding: 0; }
-    .tab-btn { background: none; border: none; border-bottom: 2px solid transparent; color: var(--text-muted); padding: 16px 32px; font-size: 15px; font-weight: 500; cursor: pointer; transition: all 0.2s; font-family: inherit; display: flex; align-items: center; gap: 8px; }
-    .tab-btn:hover { color: var(--text); }
-    .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
-    .tab-count { background: var(--surface-2); color: var(--text-muted); font-size: 11px; padding: 2px 8px; border-radius: 10px; }
-    .tab-btn.active .tab-count { background: rgba(88,166,255,0.2); color: var(--accent); }
-    .filter-section { padding: 20px 0; border-bottom: 1px solid var(--border); }
-    .filter-buttons { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
-    .filter-btn { background: var(--surface); border: 1px solid var(--border); color: var(--text-muted); padding: 6px 14px; border-radius: 20px; font-size: 12px; cursor: pointer; transition: all 0.2s; font-family: inherit; }
-    .filter-btn:hover, .filter-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
-    .section { padding: 40px 0; }
-    .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px,1fr)); gap: 16px; }
-    .project-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 18px; transition: all 0.2s; position: relative; overflow: hidden; }
-    .project-card:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,0.3); }
-    .project-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg,var(--accent),var(--accent-2)); opacity: 0; transition: opacity 0.2s; }
-    .project-card:hover::before { opacity: 1; }
-    .project-card.hidden { display: none; }
-    .project-header { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 10px; }
-    .project-icon { width: 42px; height: 42px; border-radius: 10px; background: var(--surface-2); display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
-    .project-title-wrap { flex: 1; min-width: 0; }
-    .project-name { font-size: 16px; font-weight: 600; color: var(--text); text-decoration: none; display: block; margin-bottom: 4px; }
-    .project-name:hover { color: var(--accent); }
-    .project-tags { display: flex; gap: 5px; flex-wrap: wrap; }
-    .tag { font-size: 10px; padding: 2px 7px; border-radius: 4px; background: var(--surface-2); color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.3px; }
-    .tag.ai { background: rgba(163,113,247,0.15); color: #a371f7; }
-    .tag.devtools { background: rgba(88,166,255,0.15); color: #58a6ff; }
-    .tag.saas { background: rgba(63,185,80,0.15); color: #3fb950; }
-    .tag.cli { background: rgba(210,153,34,0.15); color: #d29922; }
-    .project-desc { color: var(--text-muted); font-size: 13px; line-height: 1.6; margin-bottom: 14px; min-height: 40px; }
-    .project-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 12px; border-top: 1px solid var(--border); }
-    .project-meta { display: flex; gap: 12px; font-size: 12px; color: var(--text-muted); }
-    .meta-item { display: flex; align-items: center; gap: 4px; }
-    .github-btn { display: inline-flex; align-items: center; gap: 5px; background: var(--surface-2); border: 1px solid var(--border); color: var(--text); padding: 5px 11px; border-radius: 6px; font-size: 12px; text-decoration: none; transition: all 0.2s; }
-    .github-btn:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
-    .stars { color: var(--yellow); font-size: 12px; }
-    .featured-badge { position: absolute; top: 12px; right: 12px; background: linear-gradient(135deg,#58a6ff,#a371f7); color: #fff; font-size: 9px; padding: 2px 8px; border-radius: 4px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
-    .new-badge { position: absolute; top: 12px; right: 12px; background: var(--green); color: #fff; font-size: 9px; padding: 2px 8px; border-radius: 4px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
-    .tab-content { display: none; }
-    .tab-content.active { display: block; }
-    footer { padding: 40px 0; text-align: center; border-top: 1px solid var(--border); color: var(--text-muted); font-size: 13px; }
-    .social-links { display: flex; justify-content: center; gap: 20px; margin-bottom: 16px; }
-    .social-link { color: var(--text-muted); text-decoration: none; font-size: 14px; transition: color 0.2s; }
-    .social-link:hover { color: var(--accent); }
-    @media (max-width: 768px) { h1 { font-size: 30px; } .projects-grid { grid-template-columns: 1fr; } .stats-bar { gap: 24px; } .tab-btn { padding: 14px 20px; font-size: 14px; } }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PHclaw · AgentFlow 作者</title>
+<meta name="description" content="PHclaw（PH penguin）—— AgentFlow 作者。自托管 AI Agent 平台，拖拽工作流、知识库 RAG、27 个技能，一条 docker compose 装进自己的机房。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #fafbfc;
+    --surface: #ffffff;
+    --surface-soft: #f5f7fa;
+    --border: #e5e9f0;
+    --text: #1f2937;
+    --muted: #6b7280;
+    --primary: #4f46e5;
+    --primary-soft: #eef2ff;
+    --accent: #0891b2;
+    --green: #059669;
+    --shadow: 0 1px 3px rgba(16,24,40,.06), 0 8px 24px rgba(16,24,40,.04);
+    --radius: 14px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: var(--bg); color: var(--text); line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+  /* Header */
+  header { padding: 72px 0 44px; text-align: center; }
+  .avatar {
+    width: 76px; height: 76px; border-radius: 22px; margin: 0 auto 22px;
+    background: linear-gradient(135deg, #4f46e5, #0891b2);
+    color: #fff; display: flex; align-items: center; justify-content: center;
+    font-size: 34px; font-weight: 700; letter-spacing: -2px;
+    box-shadow: 0 8px 24px rgba(79,70,229,.2);
+  }
+  h1 { font-size: 38px; font-weight: 700; letter-spacing: -.8px; margin-bottom: 8px; }
+  .subtitle { font-size: 17px; color: var(--muted); max-width: 640px; margin: 0 auto 26px; }
+  .badges { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 7px;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 999px; padding: 8px 16px; font-size: 13px; font-weight: 500;
+    box-shadow: var(--shadow); transition: transform .15s, border-color .15s;
+  }
+  .badge:hover { transform: translateY(-2px); border-color: var(--primary); }
+  .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); }
+
+  /* Hero project */
+  .hero { padding: 0 0 64px; }
+  .hero-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 20px; overflow: hidden; box-shadow: var(--shadow);
+  }
+  .hero-visual {
+    background: var(--primary-soft); padding: 28px 28px 0;
+    display: flex; align-items: flex-end; justify-content: center;
+  }
+  .hero-visual img {
+    width: 100%; max-width: 900px; display: block;
+    border-radius: 12px 12px 0 0;
+    box-shadow: 0 12px 32px rgba(16,24,40,.12);
+  }
+  .hero-body { padding: 32px 36px 36px; }
+  .hero-top { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 14px; }
+  .hero-name { font-size: 28px; font-weight: 700; letter-spacing: -.5px; }
+  .pill {
+    font-size: 12px; font-weight: 600; padding: 4px 11px;
+    border-radius: 999px; background: var(--primary-soft); color: var(--primary);
+  }
+  .pill.green { background: #ecfdf5; color: var(--green); }
+  .hero-desc { font-size: 16px; color: var(--muted); max-width: 760px; margin-bottom: 22px; }
+  .features { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 26px; }
+  .feature { background: var(--surface-soft); border-radius: 10px; padding: 16px 18px; }
+  .feature b { display: block; font-size: 15px; margin-bottom: 4px; }
+  .feature span { font-size: 13px; color: var(--muted); }
+  .actions { display: flex; flex-wrap: wrap; gap: 10px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 11px 20px; border-radius: 9px; font-size: 14px; font-weight: 600;
+    transition: transform .15s, box-shadow .15s;
+  }
+  .btn:hover { transform: translateY(-2px); }
+  .btn-primary { background: var(--primary); color: #fff; box-shadow: 0 6px 18px rgba(79,70,229,.22); }
+  .btn-ghost { background: var(--surface); color: var(--text); border: 1px solid var(--border); }
+
+  /* Section */
+  section { padding: 0 0 64px; }
+  .sec-head { margin-bottom: 26px; }
+  .sec-head h2 { font-size: 24px; font-weight: 700; letter-spacing: -.4px; }
+  .sec-head p { color: var(--muted); font-size: 14px; margin-top: 4px; }
+
+  /* Gallery */
+  .gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+  .shot {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow);
+  }
+  .shot img { width: 100%; display: block; background: var(--surface-soft); }
+  .shot-cap { padding: 14px 18px 16px; }
+  .shot-cap b { font-size: 14px; }
+  .shot-cap span { display: block; font-size: 13px; color: var(--muted); margin-top: 2px; }
+
+  /* Projects */
+  .stats { display: flex; flex-wrap: wrap; gap: 40px; padding: 24px 32px; background: var(--surface);
+           border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 24px; box-shadow: var(--shadow); }
+  .stat b { display: block; font-size: 26px; color: var(--primary); font-weight: 700; line-height: 1.2; }
+  .stat span { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .6px; }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 18px 20px; box-shadow: var(--shadow);
+    transition: transform .15s, border-color .15s;
+  }
+  .card:hover { transform: translateY(-3px); border-color: var(--primary); }
+  .card h3 { font-size: 15px; margin-bottom: 6px; }
+  .card h3 a:hover { color: var(--primary); }
+  .card p { font-size: 13px; color: var(--muted); }
+  .tag { display: inline-block; font-size: 11px; color: var(--accent); background: #ecfeff;
+         border-radius: 5px; padding: 2px 7px; margin-top: 10px; }
+
+  footer { padding: 36px 0 48px; text-align: center; color: var(--muted); font-size: 13px;
+           border-top: 1px solid var(--border); }
+
+  @media (max-width: 860px) {
+    .features { grid-template-columns: repeat(2, 1fr); }
+    .gallery { grid-template-columns: 1fr; }
+    .grid { grid-template-columns: 1fr; }
+    .hero-body { padding: 24px; }
+    .stats { gap: 24px; padding: 20px; }
+    h1 { font-size: 30px; }
+  }
+</style>
 </head>
 <body>
-  <header>
-    <div class="container">
-      <div class="avatar">👔</div>
-      <h1>PHclaw</h1>
-      <p class="subtitle">35 OpenClaw Skills &middot; 35 Claude Code Skills &middot; 21 Projects &middot; AI Agents &amp; DevTools</p>
-      <div class="stats-bar">
-        <div class="stat-item"><div class="stat-value">90</div><div class="stat-label">Repos</div></div>
-        <div class="stat-item"><div class="stat-value">8</div><div class="stat-label">Stars</div></div>
-        <div class="stat-item"><div class="stat-value">70</div><div class="stat-label">Skills</div></div>
-        <div class="stat-item"><div class="stat-value">100%</div><div class="stat-label">Open Source</div></div>
-      </div>
-    </div>
-  </header>
 
-  <div class="tab-section">
-    <div class="container">
-      <div class="tabs">
-        <button class="tab-btn active" data-tab="projects"><span>📦</span> Projects <span class="tab-count">21</span></button>
-        <button class="tab-btn" data-tab="skills"><span>⚡</span> OpenClaw Skills <span class="tab-count">35</span></button>
-        <button class="tab-btn" data-tab="claude"><span>🤖</span> Claude Code Skills <span class="tab-count">35</span></button>
-      </div>
+<header>
+  <div class="wrap">
+    <div class="avatar">P</div>
+    <h1>PHclaw <span style="font-size:18px;color:var(--muted);font-weight:500">· PH penguin</span></h1>
+    <p class="subtitle">AgentFlow 作者。做能装进自己机房的 AI 工具 —— 数据不出内网，产物直接交到手上。</p>
+    <div class="badges">
+      <a class="badge" href="https://github.com/PHclaw/agentflow" target="_blank"><span class="dot"></span> AgentFlow · Apache-2.0</a>
+      <a class="badge" href="https://github.com/PHclaw?tab=followers" target="_blank">GitHub @PHclaw</a>
+      <a class="badge" href="https://phclaw.github.io/agentflow/" target="_blank">项目文档站</a>
+      <a class="badge" href="https://github.com/PHclaw/agentflow/discussions" target="_blank"> Discussions</a>
     </div>
   </div>
+</header>
 
-  <div id="projects" class="tab-content active">
-    <div class="filter-section">
-      <div class="container">
-        <div class="filter-buttons">
-          <button class="filter-btn active" data-filter="all">All</button>
-          <button class="filter-btn" data-filter="ai">ai</button><button class="filter-btn" data-filter="devtools">devtools</button><button class="filter-btn" data-filter="saas">saas</button><button class="filter-btn" data-filter="cli">cli</button>
+<div class="wrap">
+
+  <section class="hero">
+    <div class="hero-card">
+      <div class="hero-visual">
+        <img src="https://raw.githubusercontent.com/PHclaw/agentflow/master/assets/social/agentflow-social-1280x640.png"
+             alt="AgentFlow — 说一句话，PPT 和图片一起交给你">
+      </div>
+      <div class="hero-body">
+        <div class="hero-top">
+          <span class="hero-name">AgentFlow</span>
+          <span class="pill">自托管 AI Agent 平台</span>
+          <span class="pill green">⭐ 25 · Apache-2.0</span>
+        </div>
+        <p class="hero-desc">拖拽式工作流 + 知识库 RAG + 27 个内置技能 + 安卓客户端。默认 SQLite 单机可跑，一条 <code>docker compose</code> 起两个容器，数据全部留在自己的机器上。</p>
+        <div class="features">
+          <div class="feature"><b>一台小机器就够</b><span>2 容器 + 1 个 SQLite 文件，不装 PG / Redis</span></div>
+          <div class="feature"><b>模型随便换</b><span>任意 OpenAI 兼容端点，界面改完即生效</span></div>
+          <div class="feature"><b>产物真的交付</b><span>xlsx / pptx / png 作为附件回传并内联预览</span></div>
+          <div class="feature"><b>手机也能用</b><span>Capacitor 打的安卓包，Release 直接下</span></div>
+        </div>
+        <div class="actions">
+          <a class="btn btn-primary" href="http://159.75.21.251:3000/" target="_blank">在线体验 →</a>
+          <a class="btn btn-ghost" href="https://github.com/PHclaw/agentflow" target="_blank">查看源码</a>
+          <a class="btn btn-ghost" href="https://github.com/PHclaw/agentflow/wiki" target="_blank">Wiki 入门</a>
+          <a class="btn btn-ghost" href="https://phclaw.github.io/agentflow/" target="_blank">完整文档</a>
         </div>
       </div>
     </div>
-    <div class="section">
-      <div class="container">
-        <div class="projects-grid">
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            <div class="featured-badge">Featured</div>
-            <div class="project-header">
-              <div class="project-icon">🔧</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/agent-output-parser" class="project-name" target="_blank">agent-output-parser</a>
-                <div class="project-tags"><span class="tag">Python</span></div>
-              </div>
-            </div>
-            <p class="project-desc">Parse LLM outputs into structured data — JSON, XML, Pydantic models.</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item">Python</span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/agent-output-parser" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            <div class="featured-badge">Featured</div>
-            <div class="project-header">
-              <div class="project-icon">💭</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/agent-prompt-templates" class="project-name" target="_blank">agent-prompt-templates</a>
-                <div class="project-tags"><span class="tag">Python</span></div>
-              </div>
-            </div>
-            <p class="project-desc">Reusable prompt templates for AI agents — CoT, ReAct, ToT, Few-shot, and more.</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item">Python</span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/agent-prompt-templates" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            <div class="new-badge">New</div>
-            <div class="project-header">
-              <div class="project-icon">🧩</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/agent-tool-registry" class="project-name" target="_blank">agent-tool-registry</a>
-                <div class="project-tags"><span class="tag">Python</span></div>
-              </div>
-            </div>
-            <p class="project-desc">Lightweight tool registry and discovery system for AI agents</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item">Python</span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/agent-tool-registry" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            <div class="new-badge">New</div>
-            <div class="project-header">
-              <div class="project-icon">🗄️</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/agent-memory-store" class="project-name" target="_blank">agent-memory-store</a>
-                <div class="project-tags"><span class="tag">Python</span></div>
-              </div>
-            </div>
-            <p class="project-desc">Lightweight isolated memory store for multi-agent systems</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item">Python</span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/agent-memory-store" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            <div class="new-badge">New</div>
-            <div class="project-header">
-              <div class="project-icon">📋</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/git-rel" class="project-name" target="_blank">git-rel</a>
-                <div class="project-tags"><span class="tag">Python</span></div>
-              </div>
-            </div>
-            <p class="project-desc">Generate changelogs from GitHub releases and merged PRs</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item">Python</span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/git-rel" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            <div class="new-badge">New</div>
-            <div class="project-header">
-              <div class="project-icon">🗂️</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/git-primer" class="project-name" target="_blank">git-primer</a>
-                <div class="project-tags"><span class="tag">Python</span></div>
-              </div>
-            </div>
-            <p class="project-desc">AI-powered changelog and release notes generator from git history</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item">Python</span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/git-primer" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            <div class="new-badge">New</div>
-            <div class="project-header">
-              <div class="project-icon">📊</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/git-mood" class="project-name" target="_blank">git-mood</a>
-                <div class="project-tags"><span class="tag">Python</span></div>
-              </div>
-            </div>
-            <p class="project-desc">Analyze your git commits to visualize your coding mood, energy, and work patterns over time</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item">Python</span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/git-mood" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">📦</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/agent-mcp-client" class="project-name" target="_blank">agent-mcp-client</a>
-                <div class="project-tags"><span class="tag">Python</span></div>
-              </div>
-            </div>
-            <p class="project-desc">Lightweight MCP (Model Context Protocol) client for AI agents</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item">Python</span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/agent-mcp-client" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">📦</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/agent-config-loader" class="project-name" target="_blank">agent-config-loader</a>
-                <div class="project-tags"><span class="tag">Python</span></div>
-              </div>
-            </div>
-            <p class="project-desc">Multi-source config loader for AI agents with env interpolation</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item">Python</span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/agent-config-loader" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            <div class="new-badge">New</div>
-            <div class="project-header">
-              <div class="project-icon">📝</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/meeting-minutes" class="project-name" target="_blank">meeting-minutes</a>
-                <div class="project-tags"></div>
-              </div>
-            </div>
-            <p class="project-desc">?????? - OpenClaw Skill</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/meeting-minutes" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            <div class="new-badge">New</div>
-            <div class="project-header">
-              <div class="project-icon">🌤️</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/daily-briefing" class="project-name" target="_blank">daily-briefing</a>
-                <div class="project-tags"><span class="tag">Python</span></div>
-              </div>
-            </div>
-            <p class="project-desc">??????? - OpenClaw Skill</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item">Python</span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/daily-briefing" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            <div class="new-badge">New</div>
-            <div class="project-header">
-              <div class="project-icon">🔨</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/task-breakdown" class="project-name" target="_blank">task-breakdown</a>
-                <div class="project-tags"></div>
-              </div>
-            </div>
-            <p class="project-desc">????? - OpenClaw Skill</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/task-breakdown" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            <div class="featured-badge">Featured</div>
-            <div class="project-header">
-              <div class="project-icon">🌡️</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/emotion-heatmap" class="project-name" target="_blank">emotion-heatmap</a>
-                <div class="project-tags"><span class="tag">TypeScript</span></div>
-              </div>
-            </div>
-            <p class="project-desc">🌡️ 情绪热量图 - 一句话记录情绪，自动生成热力图</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item">TypeScript</span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/emotion-heatmap" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            <div class="featured-badge">Featured</div>
-            <div class="project-header">
-              <div class="project-icon">🧠</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/quickquiz" class="project-name" target="_blank">quickquiz</a>
-                <div class="project-tags"></div>
-              </div>
-            </div>
-            <p class="project-desc">QuickQuiz - Daily trivia challenge with leaderboard</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/quickquiz" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">🎨</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/moodmosaic" class="project-name" target="_blank">moodmosaic</a>
-                <div class="project-tags"><span class="tag">TypeScript</span></div>
-              </div>
-            </div>
-            <p class="project-desc">MoodMosaic - Daily mood color tracker. ???????,???????</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item">TypeScript</span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/moodmosaic" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            <div class="featured-badge">Featured</div>
-            <div class="project-header">
-              <div class="project-icon">⏱️</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/focusflow" class="project-name" target="_blank">focusflow</a>
-                <div class="project-tags"><span class="tag">TypeScript</span></div>
-              </div>
-            </div>
-            <p class="project-desc">FocusFlow - Gamified Pomodoro Timer with ambient sounds</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item">TypeScript</span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/focusflow" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">🐾</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/pixelpet" class="project-name" target="_blank">pixelpet</a>
-                <div class="project-tags"><span class="tag">TypeScript</span></div>
-              </div>
-            </div>
-            <p class="project-desc">PixelPet - Virtual pixel pet game</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item">TypeScript</span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/pixelpet" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">⚔️</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/randomquest" class="project-name" target="_blank">randomquest</a>
-                <div class="project-tags"><span class="tag">TypeScript</span></div>
-              </div>
-            </div>
-            <p class="project-desc">RandomQuest - Daily random challenge app</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item">TypeScript</span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/randomquest" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            <div class="featured-badge">Featured</div>
-            <div class="project-header">
-              <div class="project-icon">🔥</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/habitforge" class="project-name" target="_blank">habitforge</a>
-                <div class="project-tags"><span class="tag">TypeScript</span></div>
-              </div>
-            </div>
-            <p class="project-desc">AI-powered habit tracking engine</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item">TypeScript</span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/habitforge" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">📤</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/autoposter" class="project-name" target="_blank">autoposter</a>
-                <div class="project-tags"><span class="tag">Python</span></div>
-              </div>
-            </div>
-            <p class="project-desc">??????????? - ????????????</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item">Python</span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/autoposter" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">⚡</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/logstream" class="project-name" target="_blank">logstream</a>
-                <div class="project-tags"></div>
-              </div>
-            </div>
-            <p class="project-desc">Lightweight log analysis engine with TUI + Web dual interface, AI-powered anomaly detection</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/logstream" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-        </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <h2>它长什么样</h2>
+      <p>全部是真实运行截图，没有概念图</p>
+    </div>
+    <div class="gallery">
+      <div class="shot">
+        <img src="https://raw.githubusercontent.com/PHclaw/agentflow/master/assets/screens/05-workflow.png" alt="工作流画布">
+        <div class="shot-cap"><b>工作流画布</b><span>六类节点拖进画布，连线即时生效，执行时节点逐个点亮</span></div>
+      </div>
+      <div class="shot">
+        <img src="https://raw.githubusercontent.com/PHclaw/agentflow/master/assets/screens/06-chat.png" alt="对话与产物交付">
+        <div class="shot-cap"><b>对话里直接出文件</b><span>一句话做 PPT，xlsx / png / pptx 作为附件回传并内联预览</span></div>
+      </div>
+      <div class="shot">
+        <img src="https://raw.githubusercontent.com/PHclaw/agentflow/master/assets/screens/09-skills.png" alt="技能广场">
+        <div class="shot-cap"><b>技能广场</b><span>27 个技能目录，加一个带 SKILL.md 的文件夹就是新能力</span></div>
+      </div>
+      <div class="shot">
+        <img src="https://raw.githubusercontent.com/PHclaw/agentflow/master/assets/screens/04-agent-create.png" alt="Agent 配置">
+        <div class="shot-cap"><b>Agent 配置</b><span>提示词、模型、技能在一个页面里配完，不用改代码</span></div>
       </div>
     </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <h2>其他项目</h2>
+      <p>一些围绕 Agent 生态做的小工具与技能</p>
+    </div>
+    <div class="stats">
+      <div class="stat"><b>164</b><span>Repositories</span></div>
+      <div class="stat"><b>218</b><span>Total stars</span></div>
+      <div class="stat"><b>70</b><span>Skills</span></div>
+      <div class="stat"><b>100%</b><span>Open source</span></div>
+    </div>
+    <div class="grid">
+      <div class="card"><h3><a href="https://github.com/PHclaw/smeltlab" target="_blank">smeltlab</a></h3><p>数据清洗与模型实验的轻量工作台。</p><span class="tag">Python</span></div>
+      <div class="card"><h3><a href="https://github.com/PHclaw/ai-finance-manager" target="_blank">ai-finance-manager</a></h3><p>面向个人与小团队的 AI 财务管理助手。</p><span class="tag">AI</span></div>
+      <div class="card"><h3><a href="https://github.com/PHclaw/agent-rewind" target="_blank">agent-rewind</a></h3><p>Agent 执行过程回放与调试工具。</p><span class="tag">DevTools</span></div>
+      <div class="card"><h3><a href="https://github.com/PHclaw/engram" target="_blank">engram</a></h3><p>Agent 记忆层实验项目。</p><span class="tag">Memory</span></div>
+      <div class="card"><h3><a href="https://github.com/PHclaw/meeting-minutes" target="_blank">meeting-minutes</a></h3><p>会议记录 → 决议与行动项表格的技能。</p><span class="tag">Skill</span></div>
+      <div class="card"><h3><a href="https://github.com/PHclaw?tab=repositories" target="_blank">查看全部 164 个仓库 →</a></h3><p>包含 OpenClaw Skills 与 Claude Code Skills 系列。</p><span class="tag">More</span></div>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="wrap">
+    PHclaw · AgentFlow 作者 · <a href="https://github.com/PHclaw" target="_blank" style="color:var(--primary)">github.com/PHclaw</a>
   </div>
+</footer>
 
-  <div id="skills" class="tab-content">
-    <div class="filter-section">
-      <div class="container">
-        <div class="filter-buttons">
-          <button class="filter-btn active" data-filter="all">All</button>
-          <button class="filter-btn" data-filter="ai">ai</button><button class="filter-btn" data-filter="devtools">devtools</button>
-        </div>
-      </div>
-    </div>
-    <div class="section">
-      <div class="container">
-        <div class="projects-grid">
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">⚡</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/openclaw-skill-adr" class="project-name" target="_blank">adr</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">{&quot;e2e-test&quot; => &quot;E2E Test Generator for Playwright&quot;, &quot;sbom&quot; => &quot;SB</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/openclaw-skill-adr" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">⚡</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/openclaw-skill-e2e-test" class="project-name" target="_blank">e2e-test</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">{&quot;e2e-test&quot; => &quot;E2E Test Generator for Playwright&quot;, &quot;sbom&quot; => &quot;SB</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/openclaw-skill-e2e-test" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">⚡</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/openclaw-skill-feature-flag" class="project-name" target="_blank">feature-flag</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">{&quot;e2e-test&quot; => &quot;E2E Test Generator for Playwright&quot;, &quot;sbom&quot; => &quot;SB</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/openclaw-skill-feature-flag" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">⚡</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/openclaw-skill-incident" class="project-name" target="_blank">incident</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">{&quot;e2e-test&quot; => &quot;E2E Test Generator for Playwright&quot;, &quot;sbom&quot; => &quot;SB</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/openclaw-skill-incident" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">⚡</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/openclaw-skill-sbom" class="project-name" target="_blank">sbom</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">{&quot;e2e-test&quot; => &quot;E2E Test Generator for Playwright&quot;, &quot;sbom&quot; => &quot;SB</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/openclaw-skill-sbom" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">⚡</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/openclaw-skill-ad-copy" class="project-name" target="_blank">ad-copy</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">PHclaw skill</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/openclaw-skill-ad-copy" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">⚡</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/openclaw-skill-arch-review" class="project-name" target="_blank">arch-review</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">PHclaw skill</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/openclaw-skill-arch-review" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">⚡</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/openclaw-skill-ci-check" class="project-name" target="_blank">ci-check</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">PHclaw skill</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/openclaw-skill-ci-check" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">⚡</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/openclaw-skill-cli-builder" class="project-name" target="_blank">cli-builder</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">PHclaw skill</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/openclaw-skill-cli-builder" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">⚡</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/openclaw-skill-complexity-audit" class="project-name" target="_blank">complexity-audit</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">PHclaw skill</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/openclaw-skill-complexity-audit" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">⚡</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/openclaw-skill-contract-review" class="project-name" target="_blank">contract-review</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">PHclaw skill</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/openclaw-skill-contract-review" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">⚡</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/openclaw-skill-course-gen" class="project-name" target="_blank">course-gen</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">PHclaw skill</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/openclaw-skill-course-gen" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">⚡</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/openclaw-skill-db-query-optim" class="project-name" target="_blank">db-query-optim</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">PHclaw skill</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/openclaw-skill-db-query-optim" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">⚡</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/openclaw-skill-frontend-gen" class="project-name" target="_blank">frontend-gen</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">PHclaw skill</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/openclaw-skill-frontend-gen" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">⚡</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/openclaw-skill-market-research" class="project-name" target="_blank">market-research</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">PHclaw skill</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/openclaw-skill-market-research" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">⚡</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/openclaw-skill-medical-note" class="project-name" target="_blank">medical-note</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">PHclaw skill</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/openclaw-skill-medical-note" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">⚡</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/openclaw-skill-property-eval" class="project-name" target="_blank">property-eval</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">PHclaw skill</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/openclaw-skill-property-eval" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">⚡</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/openclaw-skill-resume-screen" class="project-name" target="_blank">resume-screen</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">PHclaw skill</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/openclaw-skill-resume-screen" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">⚡</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/openclaw-skill-sql-generator" class="project-name" target="_blank">sql-generator</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">PHclaw skill</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/openclaw-skill-sql-generator" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">⚡</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/openclaw-skill-stock-analysis" class="project-name" target="_blank">stock-analysis</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">PHclaw skill</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/openclaw-skill-stock-analysis" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">⚡</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/openclaw-skill-api-doc" class="project-name" target="_blank">api-doc</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">OpenClaw skill for auto-generating API documentation from code</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/openclaw-skill-api-doc" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">⚡</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/openclaw-skill-api-test" class="project-name" target="_blank">api-test</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">Generate API test suites from OpenAPI specs or source code</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/openclaw-skill-api-test" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">⚡</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/openclaw-skill-changelog" class="project-name" target="_blank">changelog</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">Generate changelogs from git history with semver suggestion</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/openclaw-skill-changelog" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">⚡</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/openclaw-skill-code-explainer" class="project-name" target="_blank">code-explainer</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">Auto-explain code files and generate documentation for OpenClaw</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/openclaw-skill-code-explainer" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">⚡</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/openclaw-skill-code-translate" class="project-name" target="_blank">code-translate</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">Translate code between Python, TypeScript, Go, Rust with idiomatic output</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/openclaw-skill-code-translate" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">⚡</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/openclaw-skill-commit-message" class="project-name" target="_blank">commit-message</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">Generate conventional commit messages from staged changes</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/openclaw-skill-commit-message" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">⚡</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/openclaw-skill-db-migration" class="project-name" target="_blank">db-migration</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">Database migration assistant - schema changes, data migrations, rollback</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/openclaw-skill-db-migration" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">⚡</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/openclaw-skill-dep-doctor" class="project-name" target="_blank">dep-doctor</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">Dependency vulnerability scanning and upgrade planning</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/openclaw-skill-dep-doctor" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">⚡</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/openclaw-skill-deploy-check" class="project-name" target="_blank">deploy-check</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">OpenClaw skill for pre-deployment checklist and safety audit</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/openclaw-skill-deploy-check" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">⚡</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/openclaw-skill-env-setup" class="project-name" target="_blank">env-setup</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">Development environment setup with auto tech stack detection</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/openclaw-skill-env-setup" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">⚡</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/openclaw-skill-error-debug" class="project-name" target="_blank">error-debug</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">Diagnose and fix errors from stack traces and runtime exceptions</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/openclaw-skill-error-debug" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">⚡</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/openclaw-skill-git-workflow" class="project-name" target="_blank">git-workflow</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">OpenClaw skill for advanced Git operations (rebase, cherry-pick, conflict resolution)</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/openclaw-skill-git-workflow" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">⚡</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/openclaw-skill-gitignore-gen" class="project-name" target="_blank">gitignore-gen</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">Generate comprehensive .gitignore files by project type</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/openclaw-skill-gitignore-gen" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">⚡</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/openclaw-skill-regex-builder" class="project-name" target="_blank">regex-builder</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">Build, explain, and test regular expressions from natural language</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/openclaw-skill-regex-builder" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">⚡</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/openclaw-skill-security-scan" class="project-name" target="_blank">security-scan</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">Security vulnerability scanner for codebases - secrets, patterns, dependencies</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/openclaw-skill-security-scan" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div id="claude" class="tab-content">
-    <div class="filter-section">
-      <div class="container">
-        <div class="filter-buttons">
-          <button class="filter-btn active" data-filter="all">All</button>
-          <button class="filter-btn" data-filter="ai">ai</button><button class="filter-btn" data-filter="devtools">devtools</button>
-        </div>
-      </div>
-    </div>
-    <div class="section">
-      <div class="container">
-        <div class="projects-grid">
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">⚡</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/claude-code-skill-adr" class="project-name" target="_blank">adr</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">{&quot;e2e-test&quot; => &quot;E2E Test Generator for Claude Code&quot;, &quot;sbom&quot; => &quot;S</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/claude-code-skill-adr" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">⚡</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/claude-code-skill-e2e-test" class="project-name" target="_blank">e2e-test</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">{&quot;e2e-test&quot; => &quot;E2E Test Generator for Claude Code&quot;, &quot;sbom&quot; => &quot;S</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/claude-code-skill-e2e-test" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">⚡</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/claude-code-skill-feature-flag" class="project-name" target="_blank">feature-flag</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">{&quot;e2e-test&quot; => &quot;E2E Test Generator for Claude Code&quot;, &quot;sbom&quot; => &quot;S</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/claude-code-skill-feature-flag" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">⚡</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/claude-code-skill-incident" class="project-name" target="_blank">incident</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">{&quot;e2e-test&quot; => &quot;E2E Test Generator for Claude Code&quot;, &quot;sbom&quot; => &quot;S</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/claude-code-skill-incident" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">⚡</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/claude-code-skill-sbom" class="project-name" target="_blank">sbom</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">{&quot;e2e-test&quot; => &quot;E2E Test Generator for Claude Code&quot;, &quot;sbom&quot; => &quot;S</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/claude-code-skill-sbom" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">⚡</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/claude-code-skill-ad-copy" class="project-name" target="_blank">ad-copy</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">PHclaw Claude Code skill</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/claude-code-skill-ad-copy" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">⚡</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/claude-code-skill-arch-review" class="project-name" target="_blank">arch-review</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">PHclaw skill</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/claude-code-skill-arch-review" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">⚡</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/claude-code-skill-ci-check" class="project-name" target="_blank">ci-check</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">PHclaw Claude Code skill</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/claude-code-skill-ci-check" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">⚡</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/claude-code-skill-cli-builder" class="project-name" target="_blank">cli-builder</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">PHclaw Claude Code skill</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/claude-code-skill-cli-builder" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">⚡</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/claude-code-skill-complexity-audit" class="project-name" target="_blank">complexity-audit</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">PHclaw Claude Code skill</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/claude-code-skill-complexity-audit" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">⚡</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/claude-code-skill-contract-review" class="project-name" target="_blank">contract-review</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">PHclaw skill</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/claude-code-skill-contract-review" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">⚡</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/claude-code-skill-course-gen" class="project-name" target="_blank">course-gen</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">PHclaw skill</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/claude-code-skill-course-gen" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">⚡</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/claude-code-skill-db-query-optim" class="project-name" target="_blank">db-query-optim</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">PHclaw Claude Code skill</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/claude-code-skill-db-query-optim" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">⚡</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/claude-code-skill-frontend-gen" class="project-name" target="_blank">frontend-gen</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">PHclaw Claude Code skill</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/claude-code-skill-frontend-gen" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">⚡</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/claude-code-skill-market-research" class="project-name" target="_blank">market-research</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">PHclaw Claude Code skill</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/claude-code-skill-market-research" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">⚡</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/claude-code-skill-medical-note" class="project-name" target="_blank">medical-note</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">PHclaw Claude Code skill</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/claude-code-skill-medical-note" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">⚡</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/claude-code-skill-property-eval" class="project-name" target="_blank">property-eval</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">PHclaw Claude Code skill</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/claude-code-skill-property-eval" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">⚡</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/claude-code-skill-resume-screen" class="project-name" target="_blank">resume-screen</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">PHclaw skill</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/claude-code-skill-resume-screen" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">⚡</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/claude-code-skill-sql-generator" class="project-name" target="_blank">sql-generator</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">PHclaw Claude Code skill</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/claude-code-skill-sql-generator" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">⚡</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/claude-code-skill-stock-analysis" class="project-name" target="_blank">stock-analysis</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">PHclaw skill</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/claude-code-skill-stock-analysis" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">⚡</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/claude-code-skill-api-test" class="project-name" target="_blank">api-test</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">API test generator for Claude Code</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/claude-code-skill-api-test" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">⚡</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/claude-code-skill-changelog" class="project-name" target="_blank">changelog</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">Changelog generator for Claude Code</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/claude-code-skill-changelog" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">⚡</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/claude-code-skill-code-explainer" class="project-name" target="_blank">code-explainer</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">Code explainer with explain/doc/docstring commands for Claude Code</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/claude-code-skill-code-explainer" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">⚡</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/claude-code-skill-code-translate" class="project-name" target="_blank">code-translate</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">Code translator for Claude Code</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/claude-code-skill-code-translate" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">⚡</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/claude-code-skill-commit-message" class="project-name" target="_blank">commit-message</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">Conventional commit message generator for Claude Code</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/claude-code-skill-commit-message" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">⚡</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/claude-code-skill-db-migration" class="project-name" target="_blank">db-migration</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">DB migration for Claude Code</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/claude-code-skill-db-migration" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">⚡</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/claude-code-skill-dep-doctor" class="project-name" target="_blank">dep-doctor</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">Dependency doctor for Claude Code</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/claude-code-skill-dep-doctor" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">⚡</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/claude-code-skill-env-setup" class="project-name" target="_blank">env-setup</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">Dev env setup for Claude Code</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/claude-code-skill-env-setup" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">⚡</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/claude-code-skill-error-debug" class="project-name" target="_blank">error-debug</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">Error debug assistant for Claude Code</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/claude-code-skill-error-debug" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">⚡</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/claude-code-skill-gitignore-gen" class="project-name" target="_blank">gitignore-gen</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">Generate comprehensive .gitignore files for Claude Code</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/claude-code-skill-gitignore-gen" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">⚡</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/claude-code-skill-perf-check" class="project-name" target="_blank">perf-check</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">Claude Code skill for performance bottleneck detection and optimization</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/claude-code-skill-perf-check" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">⚡</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/claude-code-skill-refactor" class="project-name" target="_blank">refactor</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">Claude Code skill for safe code refactoring</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/claude-code-skill-refactor" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">⚡</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/claude-code-skill-regex-builder" class="project-name" target="_blank">regex-builder</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">Regex builder for Claude Code</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/claude-code-skill-regex-builder" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">⚡</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/claude-code-skill-security-scan" class="project-name" target="_blank">security-scan</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">Security scanner with scan/secrets commands for Claude Code</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/claude-code-skill-security-scan" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-          <div class="project-card" data-categories="ai devtools" style="position:relative">
-            
-            <div class="project-header">
-              <div class="project-icon">⚡</div>
-              <div class="project-title-wrap">
-                <a href="https://github.com/PHclaw/claude-code-skill-test-gen" class="project-name" target="_blank">test-gen</a>
-                <div class="project-tags"><span class="tag devtools">devtools</span></div>
-              </div>
-            </div>
-            <p class="project-desc">Claude Code skill for automatic unit test generation</p>
-            <div class="project-footer">
-              <div class="project-meta"><span class="meta-item"></span><span class="stars"></span></div>
-              <a href="https://github.com/PHclaw/claude-code-skill-test-gen" class="github-btn" target="_blank">View Code</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <footer>
-    <div class="container">
-      <div class="social-links">
-        <a href="https://github.com/PHclaw" class="social-link" target="_blank">GitHub</a>
-      </div>
-      <p>All projects are open source under MIT License.</p>
-    </div>
-  </footer>
-
-  <script>
-    document.querySelectorAll('.tab-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-        document.getElementById(btn.dataset.tab).classList.add('active');
-      });
-    });
-    document.querySelectorAll('.filter-section').forEach(fs => {
-      fs.querySelectorAll('.filter-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          fs.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-          btn.classList.add('active');
-          const filter = btn.dataset.filter;
-          fs.closest('.tab-content').querySelectorAll('.project-card').forEach(card => {
-            if (filter === 'all' || card.dataset.categories.includes(filter)) {
-              card.classList.remove('hidden');
-            } else {
-              card.classList.add('hidden');
-            }
-          });
-        });
-      });
-    });
-  </script>
 </body>
 </html>
