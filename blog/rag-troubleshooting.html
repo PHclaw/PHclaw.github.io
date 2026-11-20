@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RAG 检索不出东西？先查这 5 个地方（附真实排错过程） · PHclaw</title>
+<meta name="description" content="知识库建好了、文档上传成功、界面一片正常——就是一条都检索不出来。">
+<meta name="author" content="PHclaw">
+<meta name="keywords" content="RAG 排错, 知识库检索不出来, embedding 端点, 文档分块, chromadb, 相似度阈值, AgentFlow">
+<link rel="canonical" href="https://phclaw.github.io/blog/rag-troubleshooting.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RAG 检索不出东西？先查这 5 个地方（附真实排错过程）">
+<meta property="og:description" content="知识库建好了、文档上传成功、界面一片正常——就是一条都检索不出来。">
+<meta property="og:url" content="https://phclaw.github.io/blog/rag-troubleshooting.html">
+<meta property="og:site_name" content="PHclaw Blog">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="RAG 检索不出东西？先查这 5 个地方（附真实排错过程）">
+<meta name="twitter:description" content="知识库建好了、文档上传成功、界面一片正常——就是一条都检索不出来。">
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "@id": "https://phclaw.github.io/blog/rag-troubleshooting.html#article",
+      "headline": "RAG 检索不出东西？先查这 5 个地方（附真实排错过程）",
+      "description": "知识库建好了、文档上传成功、界面一片正常——就是一条都检索不出来。",
+      "datePublished": "2026-11-20",
+      "dateModified": "2026-11-20",
+      "inLanguage": "zh-CN",
+      "author": {
+        "@type": "Person",
+        "@id": "https://github.com/PHclaw#person",
+        "name": "PHclaw",
+        "url": "https://github.com/PHclaw"
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://phclaw.github.io/blog/rag-troubleshooting.html"
+      },
+      "about": [
+        {
+          "@type": "Thing",
+          "name": "RAG (Retrieval-Augmented Generation)"
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "ChromaDB",
+          "applicationCategory": "DeveloperApplication"
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "AgentFlow",
+          "url": "https://github.com/PHclaw/agentflow",
+          "description": "自托管 AI Agent 平台，知识库 RAG，SQLite 单机可跑"
+        }
+      ],
+      "mentions": [
+        {
+          "@type": "Thing",
+          "name": "Embedding model"
+        },
+        {
+          "@type": "Thing",
+          "name": "EMBEDDING_BASE_URL configuration"
+        },
+        {
+          "@type": "Thing",
+          "name": "document chunking / 文档分块"
+        },
+        {
+          "@type": "Thing",
+          "name": "vector dimension / 向量维度"
+        },
+        {
+          "@type": "Thing",
+          "name": "similarity threshold / 相似度阈值"
+        }
+      ],
+      "keywords": "RAG 排错, 知识库检索不出来, embedding 端点, 文档分块, chromadb, 相似度阈值, AgentFlow",
+      "articleSection": "AI / RAG / 工程实践",
+      "isAccessibleForFree": true,
+      "license": "https://creativecommons.org/licenses/by/4.0/"
+    },
+    {
+      "@type": "Person",
+      "@id": "https://github.com/PHclaw#person",
+      "name": "PHclaw",
+      "url": "https://github.com/PHclaw",
+      "sameAs": [
+        "https://phclaw.github.io/",
+        "https://github.com/PHclaw/agentflow"
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "PHclaw",
+          "item": "https://phclaw.github.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "博客",
+          "item": "https://phclaw.github.io/blog/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "RAG 检索不出东西？先查这 5 个地方（附真实排错过程）",
+          "item": "https://phclaw.github.io/blog/rag-troubleshooting.html"
+        }
+      ]
+    }
+  ]
+}</script>
+<style>
+  :root{--bg:#fafbfc;--surface:#fff;--border:#e5e9f0;--text:#1f2937;--muted:#6b7280;--primary:#4f46e5;--soft:#f5f7fa}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:Inter,-apple-system,"PingFang SC",sans-serif;background:var(--bg);color:var(--text);line-height:1.8;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:780px;margin:0 auto;padding:0 24px}
+  header{padding:48px 0 28px;border-bottom:1px solid var(--border);margin-bottom:36px}
+  .back{font-size:13px;color:var(--primary);text-decoration:none}
+  h1{font-size:32px;line-height:1.35;letter-spacing:-.5px;margin-bottom:16px}
+  .meta{font-size:13px;color:var(--muted)}
+  .meta a{color:var(--primary)}
+  article{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:36px 40px;box-shadow:0 1px 3px rgba(16,24,40,.05)}
+  article h2{font-size:22px;margin:36px 0 14px;padding-top:20px;border-top:1px solid var(--border)}
+  article h2:first-child{border:0;padding-top:0;margin-top:0}
+  article h3{font-size:18px;margin:26px 0 10px}
+  article p{margin:14px 0;font-size:15.5px}
+  article ol,article ul{margin:14px 0 14px 24px}
+  article li{margin:7px 0}
+  article a{color:var(--primary);word-break:break-all}
+  article strong{font-weight:600}
+  blockquote{background:var(--soft);border-left:4px solid var(--primary);padding:16px 20px;margin:20px 0;border-radius:0 8px 8px 0;color:#374151}
+  pre{background:#1f2937;color:#e5e7eb;border-radius:10px;padding:18px 20px;overflow-x:auto;font-size:13.5px;line-height:1.7;margin:18px 0}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+  p code,li code,td code{background:var(--soft);padding:2px 6px;border-radius:5px;font-size:13.5px}
+  table{width:100%;border-collapse:collapse;margin:18px 0;font-size:14px}
+  th,td{border:1px solid var(--border);padding:10px 12px;text-align:left}
+  th{background:var(--soft)}
+  footer{padding:36px 0 56px;text-align:center;color:var(--muted);font-size:13px}
+  footer a{color:var(--primary)}
+  @media(max-width:640px){article{padding:24px 20px}h1{font-size:26px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="back" href="./">← 返回博客</a>
+    <h1>RAG 检索不出东西？先查这 5 个地方（附真实排错过程）</h1>
+    <p class="meta">2026-11-20 · 作者 <a href="https://github.com/PHclaw">PHclaw</a> · 分类 AI / RAG / 工程实践</p>
+  </header>
+  <article>
+<blockquote>知识库建好了、文档上传成功、界面一片正常——就是一条都检索不出来。 这类问题几乎都不是"算法不行"，而是链路上某一环静默失败了。 本文按排查顺序讲清楚 RAG 的 5 个关键检查点，全部来自 AgentFlow 的真实踩坑。</blockquote>
+<h2>结论先说</h2>
+<p>一个能跑的 RAG（检索增强生成）链路只有五步：</p>
+<pre><code>上传文档 → 分块 → 调 embedding 端点生成向量 → 存向量库 → 提问时检索并注入上下文</code></pre>
+<p>任何一步失败都可能表现为"检索不出内容"。排查时<strong>按链路顺序查</strong>，不要一上来调相似度阈值。五个检查点：</p>
+<table><thead><tr><th>#</th><th>检查点</th><th>最常见的失败表现</th></tr></thead><tbody>
+<tr><td>1</td><td>embedding 端点有没有配</td><td>一切正常，检索永远为空</td></tr>
+<tr><td>2</td><td>文档有没有真的分块</td><td>上传成功，但检索无命中</td></tr>
+<tr><td>3</td><td>向量维度和模型是否匹配</td><td>报维度错误或结果乱</td></tr>
+<tr><td>4</td><td>相似度阈值是否设得过高</td><td>有结果但都被过滤掉</td></tr>
+<tr><td>5</td><td>检索到的内容有没有真正注入 prompt</td><td>模型说"我不知道"，但明明检索到了</td></tr>
+</tbody></table>
+<h2>1. embedding 端点：最容易静默失败的一环</h2>
+<p>这是我们踩得最深的坑。Docker 镜像里<strong>没有装本地 embedding 模型</strong>——<code>sentence-transformers</code> 加模型权重要 2GB 以上，不适合塞进默认镜像。</p>
+<p>所以设计上要求用户配置外部端点：</p>
+<pre><code class="language-env">EMBEDDING_BASE_URL=https://api.example.com/v1
+EMBEDDING_MODEL=text-embedding-3-small</code></pre>
+<p><strong>问题在于：如果留空，很多实现不会报错</strong>，而是走本地推理路径然后失败。表现是：</p>
+<pre><code>知识库能建 ✅
+文档能上传 ✅
+点"检索" → 空列表 ❌</code></pre>
+<p>没有任何错误提示，日志里也看不出所以然。排查方向：</p>
+<pre><code class="language-python"># 服务启动时主动检查 embedding 配置，缺了就直接报出来
+try:
+    service._get_embeddings()
+except EmbeddingNotConfiguredError:
+    # 明确告诉运维：不是算法问题，是配置没填
+    raise RuntimeError("EMBEDDING_BASE_URL 未配置，知识库无法工作")</code></pre>
+<p><strong>规则一：embedding 端点缺失必须"响亮地失败"</strong>，不能静默。用户宁愿部署时就报错，也不要上线三天后才发现知识库一直是空的。</p>
+<h2>2. 分块：上传成功不等于真的入库</h2>
+<p>文档上传后要经过切分器（chunker）才能变成向量。常见坑：</p>
+<ul><li>PDF 是扫描件（图片），没有文字层 → 分块数为 0</li><li>分块太大 → 一个块里塞了太多主题，检索精度差</li><li>分块太小 → 语义被切断，命中了也看不懂</li></ul>
+<p>排查方法：<strong>直接看分块数</strong>，而不是看"上传成功"的提示：</p>
+<pre><code class="language-python">chunks = splitter.split_documents(doc)
+print(f"文档 {doc.name}: {len(chunks)} 个分块")
+if len(chunks) == 0:
+    # 扫描件 PDF 要有 OCR 流程，不能静默跳过
+    raise ValueError("分块数为 0：检查文档是否含可提取文字")</code></pre>
+<p><strong>规则二：上传成功后立刻校验分块数 &gt; 0</strong>，否则后面全是无用功。</p>
+<h2>3. 维度与模型匹配</h2>
+<p>embedding 模型决定向量维度。比如：</p>
+<table><thead><tr><th>模型</th><th>维度</th></tr></thead><tbody>
+<tr><td>text-embedding-3-small</td><td>1536</td></tr>
+<tr><td>text-embedding-ada-002</td><td>1536</td></tr>
+<tr><td>bge-large-zh</td><td>1024</td></tr>
+</tbody></table>
+<p><strong>换模型不重新入库</strong>是另一个高频坑：旧向量是 1536 维，新模型返回 1024 维，查询时相似度计算直接报错或者返回乱结果。</p>
+<p>我们的做法是<strong>把 embedding 端点和对话模型分开配置</strong>：</p>
+<pre><code class="language-env"># 对话模型——随便换，不影响已有向量
+LLM_BASE_URL=...
+LLM_MODEL=deepseek-chat
+
+# 向量模型——换一次就要重新入库，单独配置
+EMBEDDING_BASE_URL=...
+EMBEDDING_MODEL=...</code></pre>
+<p>这样用户想换个便宜的对话模型试效果，不会连带把整个知识库搞坏。</p>
+<p><strong>规则三：换 embedding 模型 = 重建知识库</strong>。界面上要有明确提示，不能让用户在设置页随手一改。</p>
+<h2>4. 相似度阈值：别急着调</h2>
+<p>很多人检索不出内容的第一反应是"阈值太高了，调低点"。但按顺序排查时，这应该是第四步——前三步都确认正常后才看阈值。</p>
+<p>阈值设得太高的表现很特定：</p>
+<pre><code>检索返回了候选片段 → 但都被阈值过滤 → 最终注入上下文的是空</code></pre>
+<p>排查方法：<strong>把过滤前的 top-k 结果打印出来</strong>，看相似度分布：</p>
+<pre><code class="language-python">results = vectorstore.similarity_search_with_score(query, k=10)
+for doc, score in results:
+    print(f"{score:.3f}  {doc.page_content[:60]}")</code></pre>
+<p>如果最高分只有 0.4，阈值设 0.7，那问题在阈值；如果最高分是 0.0 或报错，问题在前面几步。</p>
+<p><strong>规则四：先看到原始分数，再决定阈值</strong>。</p>
+<h2>5. 注入：检索到了但没进 prompt</h2>
+<p>最后一步也很容易出错——检索成功，但拼接 prompt 时把结果丢了：</p>
+<pre><code class="language-python"># 错误示例：context 变量没被用进 prompt
+context = "\n".join(d.page_content for d in results)
+prompt = f"用户问题：{query}\n请回答。"  # context 呢？
+
+# 正确：明确把 context 放进 prompt
+prompt = f"""参考以下内容回答问题。
+如果材料中找不到答案，就说"资料中没有"，不要编造。
+
+参考资料：
+{context}
+
+问题：{query}
+"""</code></pre>
+<p><strong>规则五：在 prompt 里明确要求"找不到就说没有"</strong>。否则模型会基于自己的知识编答案，你以为 RAG 生效了，其实模型在自由发挥——这比检索失败更危险，因为它看起来是"正常工作"的。</p>
+<h2>一张排查流程图</h2>
+<pre><code>检索不出内容
+   ↓
+① 看 embedding 端点配了吗？ ── 没配 → 报错，别静默
+   ↓ 配了
+② 看分块数 &gt; 0 吗？ ── 0 → 检查文档是否有文字层
+   ↓ &gt;0
+③ 看向量维度对吗？ ── 不匹配 → 重新入库
+   ↓ 对
+④ 打印原始相似度分数 ── 都很低 → 调阈值/改分块
+   ↓ 有高分
+⑤ 看 prompt 里有 context 吗？ ── 没有 → 修拼接逻辑</code></pre>
+<h2>一句话总结</h2>
+<blockquote><strong>RAG 检索不出内容，九成不是"算法不行"，是链路上某一环静默失败。</strong> 按 端点 → 分块 → 维度 → 阈值 → 注入 的顺序查，每一步都要"响亮地失败"。</blockquote>
+<p>---</p>
+<h2>关于作者</h2>
+<p>本文来自 <strong>AgentFlow</strong> 的真实维护记录——一个自托管 AI Agent 平台，支持知识库 RAG、拖拽工作流、多模型热切换和 26 个内置技能。项目里 embedding 端点与对话模型分开配置，换对话模型不会让已入库的向量失效。</p>
+<ul><li>源码：https://github.com/PHclaw/agentflow</li><li>在线演示：http://159.75.21.251:3000</li><li>文档：https://phclaw.github.io/agentflow/</li><li>更多踩坑笔记：https://phclaw.github.io/blog/</li></ul>
+<p>如果你也踩过 RAG 的坑，欢迎在 Discussions 里补充你的排查经验。</p>
+  </article>
+  <footer>
+    <a href="https://github.com/PHclaw">GitHub @PHclaw</a> · <a href="https://github.com/PHclaw/agentflow">AgentFlow</a> · <a href="https://phclaw.github.io/blog/">更多踩坑笔记</a>
+  </footer>
+</div>
+</body>
+</html>
