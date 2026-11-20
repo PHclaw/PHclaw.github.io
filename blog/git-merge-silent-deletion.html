@@ -124,8 +124,8 @@
   h1{font-size:32px;line-height:1.35;letter-spacing:-.5px;margin-bottom:16px}
   .meta{font-size:13px;color:var(--muted)}
   .meta a{color:var(--primary)}
-  article{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:36px 40px;box-shadow:0 1px 3px rgba(16,24,40,.05)}
-  article h2{font-size:22px;margin:36px 0 14px;padding-top:20px;border-top:1px solid var(--border)}
+  article{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:40px 44px;box-shadow:0 1px 3px rgba(16,24,40,.05),0 8px 24px rgba(16,24,40,.04)}
+  article h2{font-size:21px;margin:38px 0 14px;padding-top:22px;border-top:1px solid #eef1f6;letter-spacing:-.2px}
   article h2:first-child{border:0;padding-top:0;margin-top:0}
   article h3{font-size:18px;margin:26px 0 10px}
   article p{margin:14px 0;font-size:15.5px}
@@ -147,7 +147,7 @@
   .post-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
   .post-tags a{text-decoration:none;font-size:12px;font-weight:600;padding:5px 12px;border-radius:999px;transition:opacity .15s}
   .post-tags a:hover{opacity:.75}
-  .cat-badge{border:1px solid currentColor}
+  .cat-badge{background:var(--primary);color:#fff}
   .tag-badge{background:var(--soft);color:var(--muted);border:1px solid var(--border)}
 </style>
 </head>
@@ -156,9 +156,9 @@
   <header>
     <a class="back" href="../">← 返回 PHclaw</a>
     <h1>一次 Git 合并丢了 500 个文件：三方合并的「静默删除」陷阱</h1>
-    <p class="meta">2026-11-20 · 作者 <a href="https://github.com/PHclaw">PHclaw</a> · 分类 Git / 工程实践</p>
+    <p class="meta">2026-11-20 · 作者 <a href="https://github.com/PHclaw">PHclaw</a> </p>
     <div class="post-tags">
-    <a class="cat-badge" style="background:#fff7ed;color:#c2410c" href="index.html#cat-Git">Git</a>
+    <a class="cat-badge" href="index.html#cat-Git">Git</a>
     <a class="tag-badge" href="index.html?tag=Git">#Git</a>
     <a class="tag-badge" href="index.html?tag=合并冲突">#合并冲突</a>
     <a class="tag-badge" href="index.html?tag=CI">#CI</a>
