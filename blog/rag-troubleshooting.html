@@ -151,6 +151,10 @@
   .post-tags a:hover{opacity:.75}
   .cat-badge{background:var(--primary);color:#fff}
   .tag-badge{background:var(--soft);color:var(--muted);border:1px solid var(--border)}
+
+  figure{margin:26px -8px;text-align:center}
+  figure img{max-width:100%;height:auto;border:1px solid var(--border);border-radius:12px;display:block;margin:0 auto}
+  figure figcaption{font-size:12px;color:var(--muted);margin-top:10px}
 </style>
 </head>
 <body>
@@ -180,6 +184,7 @@
 <tr><td>4</td><td>相似度阈值是否设得过高</td><td>有结果但都被过滤掉</td></tr>
 <tr><td>5</td><td>检索到的内容有没有真正注入 prompt</td><td>模型说"我不知道"，但明明检索到了</td></tr>
 </tbody></table>
+<figure><img src="assets/rag-pipeline.svg" alt="图 1：RAG 的五个环节，每一环都可能静默失败"><figcaption>图 1：RAG 的五个环节，每一环都可能静默失败</figcaption></figure>
 <h2>1. embedding 端点：最容易静默失败的一环</h2>
 <p>这是我们踩得最深的坑。Docker 镜像里<strong>没有装本地 embedding 模型</strong>——<code>sentence-transformers</code> 加模型权重要 2GB 以上，不适合塞进默认镜像。</p>
 <p>所以设计上要求用户配置外部端点：</p>
@@ -225,6 +230,7 @@ EMBEDDING_BASE_URL=...
 EMBEDDING_MODEL=...</code></pre>
 <p>这样用户想换个便宜的对话模型试效果，不会连带把整个知识库搞坏。</p>
 <p><strong>规则三：换 embedding 模型 = 重建知识库</strong>。界面上要有明确提示，不能让用户在设置页随手一改。</p>
+<figure><img src="assets/rag-threshold.svg" alt="图 3：先看原始分数分布，再决定阈值 —— 否则会把检索失败误判成阈值太高"><figcaption>图 3：先看原始分数分布，再决定阈值 —— 否则会把检索失败误判成阈值太高</figcaption></figure>
 <h2>4. 相似度阈值：别急着调</h2>
 <p>很多人检索不出内容的第一反应是"阈值太高了，调低点"。但按顺序排查时，这应该是第四步——前三步都确认正常后才看阈值。</p>
 <p>阈值设得太高的表现很特定：</p>
@@ -251,6 +257,7 @@ prompt = f"""参考以下内容回答问题。
 问题：{query}
 """</code></pre>
 <p><strong>规则五：在 prompt 里明确要求"找不到就说没有"</strong>。否则模型会基于自己的知识编答案，你以为 RAG 生效了，其实模型在自由发挥——这比检索失败更危险，因为它看起来是"正常工作"的。</p>
+<figure><img src="assets/rag-decision.svg" alt="图 2：按顺序排查，先怀疑配置再怀疑算法"><figcaption>图 2：按顺序排查，先怀疑配置再怀疑算法</figcaption></figure>
 <h2>一张排查流程图</h2>
 <pre><code>检索不出内容
    ↓

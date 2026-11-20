@@ -149,6 +149,10 @@
   .post-tags a:hover{opacity:.75}
   .cat-badge{background:var(--primary);color:#fff}
   .tag-badge{background:var(--soft);color:var(--muted);border:1px solid var(--border)}
+
+  figure{margin:26px -8px;text-align:center}
+  figure img{max-width:100%;height:auto;border:1px solid var(--border);border-radius:12px;display:block;margin:0 auto}
+  figure figcaption{font-size:12px;color:var(--muted);margin-top:10px}
 </style>
 </head>
 <body>
@@ -181,6 +185,7 @@
 <pre><code>TS2307: Cannot find module './nodes'</code></pre>
 <p>同时后端测试失败：<code>/api/v1/skills/plaza</code> 返回空列表——技能广场里一个技能都没有了。</p>
 <p><strong>诡异之处在于：本地开发时这些功能都还在。</strong> 因为本地工作树来自完整版分支，而主干上的文件已经不见了。</p>
+<figure><img src="assets/git-deleted-files.svg" alt="图 2：一条命令列出全部消失的文件及其后果"><figcaption>图 2：一条命令列出全部消失的文件及其后果</figcaption></figure>
 <h2>排查：用 diff-filter 找出「被删除的文件」</h2>
 <p>普通的 <code>git diff</code> 看不出问题，因为合并已经完成，两个分支的内容在合并提交里「一致」了。要把合并的另一个父提交拉出来对比：</p>
 <pre><code class="language-bash"># 列出「完整版分支有、合并后的 master 没有」的文件
@@ -199,6 +204,7 @@ skills/academic-search/SKILL.md
 <tr><td><code>frontend/.../workflow/nodes/</code></td><td>前端模块</td><td><code>TS2307</code> 构建失败</td></tr>
 <tr><td><code>scripts/</code></td><td>初始化脚本</td><td>文档里的命令失效</td></tr>
 </tbody></table>
+<figure><img src="assets/git-three-way.svg" alt="图 1：一方删除、另一方未修改 → Git 直接采用删除，不报冲突"><figcaption>图 1：一方删除、另一方未修改 → Git 直接采用删除，不报冲突</figcaption></figure>
 <h2>根因：三方合并的「删除 vs 未修改」</h2>
 <p>用 Git 的三方合并模型解释就清楚了：</p>
 <pre><code>     base（共同祖先）
@@ -212,6 +218,7 @@ skills/academic-search/SKILL.md
 <p>所以最危险的不是第一种吗？不——<strong>正因为不报冲突，人不会停下来检查</strong>。modify/delete 冲突反而会强制你做决定。</p>
 <p>这类「静默删除」常发生在：</p>
 <ul><li>精简分支删掉了一批文件，而完整分支自合并基线后没有再碰过它们</li><li>迁移目录结构时用了 <code>git rm</code></li><li>cherry-pick 或 revert 之后再做合并</li></ul>
+<figure><img src="assets/git-recovery.svg" alt="图 3：恢复流程 —— 直接检出，不手动重建"><figcaption>图 3：恢复流程 —— 直接检出，不手动重建</figcaption></figure>
 <h2>修复：从另一父提交恢复</h2>
 <p>确定这些文件应该保留后，直接从完整版分支检出：</p>
 <pre><code class="language-bash"># 恢复整个技能目录

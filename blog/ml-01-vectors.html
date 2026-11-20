@@ -207,7 +207,7 @@
 上海 → [0.95, 0.6]
 哈尔滨 → [0.6, 0.1]</code></pre>
 <p>把这三个点画在坐标纸上：</p>
-<figure><img src="assets/ml-01-vector-space.svg" alt="向量空间示意" loading="lazy"><figcaption>向量空间示意</figcaption></figure>
+<figure><img src="assets/ml-01-vector-space.svg" alt="向量空间示意"><figcaption>向量空间示意</figcaption></figure>
 <p class="img-note">图 1：用「人口」和「气温」两个维度描述城市，北京和上海挨得近，哈尔滨离得远。</p>
 <p>现在"北京和上海比北京和哈尔滨更相似"这件事，不需要人来判断——<strong>看谁和谁离得近就行</strong>。</p>
 <p>向量的本质就是这个：<strong>用几个数字给东西定位，相似的东西在坐标系里挨着</strong>。</p>
@@ -219,7 +219,7 @@ cos(θ) = 0    → 垂直（无关）
 cos(θ) = -1   → 完全相反</code></pre>
 <p>为什么用方向而不是距离？因为文本长度会影响向量的"长度值"：</p>
 <ul><li>"天气不错" 和 "今天天气真不错啊" 意思一样，但后者词更多，向量模长可能更大</li><li>用余弦相似度只看方向，就不受长度干扰</li></ul>
-<figure><img src="assets/ml-01-cosine.svg" alt="余弦相似度：看方向不看长度" loading="lazy"><figcaption>余弦相似度：看方向不看长度</figcaption></figure>
+<figure><img src="assets/ml-01-cosine.svg" alt="余弦相似度：看方向不看长度"><figcaption>余弦相似度：看方向不看长度</figcaption></figure>
 <p class="img-note">图 2：两个向量长度不同但方向几乎一致，余弦值接近 1——语义照样相近。</p>
 <p>这就是知识库检索的原理：</p>
 <pre><code class="language-python"># 用户提问 → 向量化
@@ -246,7 +246,7 @@ top_k = argsort(scores)[-3:]</code></pre>
 <tr><td><strong>训练</strong>（training）</td><td>看海量数据，调整模型内部参数，学会"怎么把文字变成好向量"</td><td>极高，需要大量 GPU 和数月时间</td></tr>
 <tr><td><strong>推理</strong>（inference）</td><td>拿一个已经训练好的模型，把新文本变成向量</td><td>低，普通 CPU 就能跑</td></tr>
 </tbody></table>
-<figure><img src="assets/ml-01-train-infer.svg" alt="训练与推理" loading="lazy"><figcaption>训练与推理</figcaption></figure>
+<figure><img src="assets/ml-01-train-infer.svg" alt="训练与推理"><figcaption>训练与推理</figcaption></figure>
 <p class="img-note">图 3：训练是模型公司做的重活；你调用 embedding API 时，只发生右边那一半。</p>
 <p>你用的 OpenAI <code>text-embedding-3-small</code>、本地的 Ollama 模型，都是<strong>别人训练好的成品</strong>。你只做推理——调用一次 API，得到一串数字。</p>
 <p>这就解释了为什么一个自托管项目可以完全不碰训练：</p>

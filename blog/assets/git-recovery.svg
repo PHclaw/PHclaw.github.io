@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 290" width="760" height="290">
+<rect width="760" height="290" fill="#fff"/>
+<rect x="1" y="1" width="758" height="288" rx="12" fill="none" stroke="#e5e9f0"/>
+<text x="28" y="40" font-family="Inter,PingFang SC,sans-serif" font-size="18" font-weight="700" fill="#1f2937">从另一父提交恢复</text>
+<text x="28" y="64" font-family="Inter,PingFang SC,sans-serif" font-size="12" fill="#6b7280">不要手动重建文件 —— 直接检出，保证与源分支逐字节一致</text>
+<rect x="40" y="112" width="150" height="100" rx="10" fill="#e0e7ff" stroke="#4f46e5" stroke-width="1.4"/>
+<text x="115" y="140" text-anchor="middle" font-family="Inter,PingFang SC,sans-serif" font-size="13" font-weight="700" fill="#4f46e5">检出</text>
+<text x="115" y="162" text-anchor="middle" font-family="ui-monospace,monospace" font-size="9.5" fill="#1f2937">git checkout</text>
+<text x="115" y="178" text-anchor="middle" font-family="ui-monospace,monospace" font-size="9.5" fill="#1f2937">&lt;父提交&gt; -- &lt;路径&gt;</text>
+<line x1="194" y1="162" x2="214" y2="162" stroke="#c7cbd6" stroke-width="2" stroke-linecap="round"/><polygon points="214,162 205.9,165.9 205.9,158.1" fill="#c7cbd6"/>
+<rect x="220" y="112" width="150" height="100" rx="10" fill="#cffafe" stroke="#0891b2" stroke-width="1.4"/>
+<text x="295" y="140" text-anchor="middle" font-family="Inter,PingFang SC,sans-serif" font-size="13" font-weight="700" fill="#0891b2">确认</text>
+<text x="295" y="162" text-anchor="middle" font-family="ui-monospace,monospace" font-size="9.5" fill="#1f2937">git status</text>
+<text x="295" y="178" text-anchor="middle" font-family="ui-monospace,monospace" font-size="9.5" fill="#1f2937">看到恢复的文件</text>
+<line x1="374" y1="162" x2="394" y2="162" stroke="#c7cbd6" stroke-width="2" stroke-linecap="round"/><polygon points="394,162 385.9,165.9 385.9,158.1" fill="#c7cbd6"/>
+<rect x="400" y="112" width="150" height="100" rx="10" fill="#fed7aa" stroke="#c2410c" stroke-width="1.4"/>
+<text x="475" y="140" text-anchor="middle" font-family="Inter,PingFang SC,sans-serif" font-size="13" font-weight="700" fill="#c2410c">提交</text>
+<text x="475" y="162" text-anchor="middle" font-family="ui-monospace,monospace" font-size="9.5" fill="#1f2937">git commit</text>
+<text x="475" y="178" text-anchor="middle" font-family="ui-monospace,monospace" font-size="9.5" fill="#1f2937">写明恢复原因</text>
+<line x1="554" y1="162" x2="574" y2="162" stroke="#c7cbd6" stroke-width="2" stroke-linecap="round"/><polygon points="574,162 565.9,165.9 565.9,158.1" fill="#c7cbd6"/>
+<rect x="580" y="112" width="150" height="100" rx="10" fill="#d1fae5" stroke="#059669" stroke-width="1.4"/>
+<text x="655" y="140" text-anchor="middle" font-family="Inter,PingFang SC,sans-serif" font-size="13" font-weight="700" fill="#059669">验证</text>
+<text x="655" y="162" text-anchor="middle" font-family="ui-monospace,monospace" font-size="9.5" fill="#1f2937">CI 转绿</text>
+<text x="655" y="178" text-anchor="middle" font-family="ui-monospace,monospace" font-size="9.5" fill="#1f2937">功能恢复</text>
+<text x="40" y="248" font-family="Inter,PingFang SC,sans-serif" font-size="11.5" fill="#6b7280">恢复只影响「本该存在」的文件；精简掉的内容保持删除</text>
+</svg>

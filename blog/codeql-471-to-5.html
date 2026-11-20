@@ -147,6 +147,10 @@
   .post-tags a:hover{opacity:.75}
   .cat-badge{background:var(--primary);color:#fff}
   .tag-badge{background:var(--soft);color:var(--muted);border:1px solid var(--border)}
+
+  figure{margin:26px -8px;text-align:center}
+  figure img{max-width:100%;height:auto;border:1px solid var(--border);border-radius:12px;display:block;margin:0 auto}
+  figure figcaption{font-size:12px;color:var(--muted);margin-top:10px}
 </style>
 </head>
 <body>
@@ -194,6 +198,7 @@
 <tr><td>其它</td><td>7</td></tr>
 </tbody></table>
 <p><strong>一半以上的告警来自 vendored 的第三方技能</strong>——那些是社区贡献的脚本，各自有独立的许可证和维护者，本项目的改动不会回头修它们。</p>
+<figure><img src="assets/codeql-severity.svg" alt="图 1：471 条告警的等级构成 —— 309 条根本没有安全等级"><figcaption>图 1：471 条告警的等级构成 —— 309 条根本没有安全等级</figcaption></figure>
 <h2>第一步：先看 Top 规则，别急着改代码</h2>
 <p>遇到几百条告警时，本能反应是"逐条修"。但先看规则分布，能省掉大量无用功：</p>
 <pre><code>80  py/empty-except              # except: pass，风格问题
@@ -203,6 +208,7 @@
 38  py/unused-local-variable     # 同上
 37  py/stack-trace-exposure      # 错误响应里带堆栈</code></pre>
 <p>前四条加起来 209 条，基本是"代码风格 + 静态分析噪音"。<strong>它们让真正重要的 <code>critical</code> 被埋在红点里</strong>——这才是最大的问题。</p>
+<figure><img src="assets/codeql-source.svg" alt="图 2：一半以上告警来自 skills/ 下的第三方技能，不归本项目维护"><figcaption>图 2：一半以上告警来自 skills/ 下的第三方技能，不归本项目维护</figcaption></figure>
 <h2>第二步：改查询包 + 排除第三方目录</h2>
 <p>一次配置改动，471 → 98：</p>
 <pre><code class="language-yaml">- name: Initialize CodeQL
@@ -266,6 +272,7 @@ return JSONResponse({"error": message, "trace_id": trace_id}, status_code=400)</
 <tr><td><code>py/sql-injection</code></td><td>1</td><td>false positive</td><td>表名过正则 + 白名单，值全部参数化</td></tr>
 </tbody></table>
 <p>GitHub 会记录每条的 <code>dismissed_comment</code>，随时可在 Security → Closed 里恢复。<strong>以后新代码引入同类问题，仍会照常报警</strong>——dismiss 只针对当前这条，不是给规则开永久豁免。</p>
+<figure><img src="assets/codeql-funnel.svg" alt="图 3：四步治理路径。只有「真修」改了业务代码"><figcaption>图 3：四步治理路径。只有「真修」改了业务代码</figcaption></figure>
 <h2>三条可复用的规则</h2>
 <h3>1. 查询包按用途选，不是越全越好</h3>
 <ol><li>想给代码做全面体检 → <code>security-and-quality</code></li><li>想对外展示可信的安全状态 → <code>security-extended</code></li></ol>

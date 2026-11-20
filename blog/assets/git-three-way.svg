@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 360" width="760" height="360">
+<rect width="760" height="360" fill="#fff"/>
+<rect x="1" y="1" width="758" height="358" rx="12" fill="none" stroke="#e5e9f0"/>
+<text x="28" y="40" font-family="Inter,PingFang SC,sans-serif" font-size="18" font-weight="700" fill="#1f2937">三方合并：删除 vs 未修改</text>
+<text x="28" y="64" font-family="Inter,PingFang SC,sans-serif" font-size="12" fill="#6b7280">一方删除、另一方没动过 → Git 直接采用删除，不产生冲突</text>
+<rect x="320" y="96" width="130" height="44" rx="8" fill="#fff" stroke="#6b7280" stroke-width="1.4"/>
+<text x="385" y="123" text-anchor="middle" font-family="Inter,PingFang SC,sans-serif" font-size="12.5" font-weight="600" fill="#1f2937">base（共同祖先）</text>
+<rect x="120" y="196" width="180" height="52" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+<text x="210" y="218" text-anchor="middle" font-family="Inter,PingFang SC,sans-serif" font-size="12.5" font-weight="600" fill="#1f2937">master</text>
+<text x="210" y="236" text-anchor="middle" font-family="Inter,PingFang SC,sans-serif" font-size="11" fill="#dc2626">删除文件</text>
+<rect x="470" y="196" width="180" height="52" rx="8" fill="#f0fdf4" stroke="#059669" stroke-width="1.5"/>
+<text x="560" y="218" text-anchor="middle" font-family="Inter,PingFang SC,sans-serif" font-size="12.5" font-weight="600" fill="#1f2937">refactor/phase1</text>
+<text x="560" y="236" text-anchor="middle" font-family="Inter,PingFang SC,sans-serif" font-size="11" fill="#059669">未修改该文件</text>
+<line x1="350" y1="140" x2="220" y2="194" stroke="#c7cbd6" stroke-width="1.6"/>
+<line x1="420" y1="140" x2="555" y2="194" stroke="#c7cbd6" stroke-width="1.6"/>
+<rect x="270" y="290" width="230" height="52" rx="8" fill="#fff7ed" stroke="#c2410c" stroke-width="1.6"/>
+<text x="385" y="312" text-anchor="middle" font-family="Inter,PingFang SC,sans-serif" font-size="12.5" font-weight="700" fill="#1f2937">合并结果：文件消失</text>
+<text x="385" y="330" text-anchor="middle" font-family="Inter,PingFang SC,sans-serif" font-size="11" fill="#c2410c">不报冲突 ← 关键</text>
+<line x1="210" y1="250" x2="300" y2="288" stroke="#c7cbd6" stroke-width="1.8" stroke-linecap="round"/><polygon points="300,288 291.0,288.5 294.1,281.2" fill="#c7cbd6"/>
+<line x1="560" y1="250" x2="470" y2="288" stroke="#c7cbd6" stroke-width="1.8" stroke-linecap="round"/><polygon points="470,288 475.9,281.2 479.0,288.5" fill="#c7cbd6"/>
+</svg>

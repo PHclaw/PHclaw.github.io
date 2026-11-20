@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 320" width="760" height="320">
+<rect width="760" height="320" fill="#fff"/>
+<rect x="1" y="1" width="758" height="318" rx="12" fill="none" stroke="#e5e9f0"/>
+<text x="28" y="40" font-family="Inter,PingFang SC,sans-serif" font-size="18" font-weight="700" fill="#1f2937">告警从哪来</text>
+<text x="28" y="64" font-family="Inter,PingFang SC,sans-serif" font-size="12" fill="#6b7280">排除第三方目录后，真正需要处理的只有两百多条里的一小部分</text>
+<text x="28" y="126" font-family="Inter,PingFang SC,sans-serif" font-size="12.5" fill="#1f2937">skills/（第三方技能）</text>
+<rect x="228" y="108" width="420" height="26" rx="5" fill="#fecaca"/>
+<text x="654" y="126" font-family="Inter,PingFang SC,sans-serif" font-size="12.5" font-weight="600" fill="#dc2626">246</text>
+<text x="28" y="170" font-family="Inter,PingFang SC,sans-serif" font-size="12.5" fill="#1f2937">backend/</text>
+<rect x="228" y="152" width="327" height="26" rx="5" fill="#e0e7ff"/>
+<text x="561" y="170" font-family="Inter,PingFang SC,sans-serif" font-size="12.5" font-weight="600" fill="#4f46e5">192</text>
+<text x="28" y="214" font-family="Inter,PingFang SC,sans-serif" font-size="12.5" fill="#1f2937">frontend/</text>
+<rect x="228" y="196" width="44" height="26" rx="5" fill="#cffafe"/>
+<text x="278" y="214" font-family="Inter,PingFang SC,sans-serif" font-size="12.5" font-weight="600" fill="#0891b2">26</text>
+<text x="28" y="258" font-family="Inter,PingFang SC,sans-serif" font-size="12.5" fill="#1f2937">其它</text>
+<rect x="228" y="240" width="11" height="26" rx="5" fill="#e5e7eb"/>
+<text x="245" y="258" font-family="Inter,PingFang SC,sans-serif" font-size="12.5" font-weight="600" fill="#6b7280">7</text>
+<text x="28" y="300" font-family="Inter,PingFang SC,sans-serif" font-size="11.5" fill="#dc2626">↳ 一半以上来自不归你维护的社区代码</text>
+</svg>
