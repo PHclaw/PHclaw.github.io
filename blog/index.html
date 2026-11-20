@@ -22,6 +22,18 @@
   "blogPost": [
   {
     "@type": "TechArticle",
+    "headline": "为什么「国王 - 男人 + 女人 ≈ 女王」？embedding 是怎么学会语义的",
+    "url": "https://phclaw.github.io/blog/ml-02-word2vec.html",
+    "datePublished": "2026-11-20",
+    "articleSection": "AI",
+    "keywords": "机器学习, 向量, embedding, 入门",
+    "author": {
+      "@type": "Person",
+      "name": "PHclaw"
+    }
+  },
+  {
+    "@type": "TechArticle",
     "headline": "机器学习第一课：把一句话变成一串数字，到底发生了什么？",
     "url": "https://phclaw.github.io/blog/ml-01-vectors.html",
     "datePublished": "2026-11-20",
@@ -148,21 +160,34 @@
     <h1>技术笔记</h1>
     <p class="sub">不写教程合集，只写踩过的坑。每篇都来自真实项目，附可复现的命令与图示。</p>
     <div class="stats">
-      <span><b>4</b>篇文章</span>
+      <span><b>5</b>篇文章</span>
       <span><b>3</b>个分类</span>
       <span><b>14</b>个标签</span>
     </div>
   </header>
 
   <div class="filters">
-    <div class="frow"><button class="fbtn on" data-f="all">全部 <span class="fc">4</span></button><button class="fbtn" data-f="AI">AI <span class="fc">2</span></button><button class="fbtn" data-f="安全">安全 <span class="fc">1</span></button><button class="fbtn" data-f="Git">Git <span class="fc">1</span></button></div>
-    <div class="frow"><button class="tbtn on" data-t="all">全部标签</button><button class="tbtn" data-t="embedding">#embedding</button><button class="tbtn" data-t="工程实践">#工程实践</button><button class="tbtn" data-t="CI">#CI</button><button class="tbtn" data-t="CodeQL">#CodeQL</button><button class="tbtn" data-t="Git">#Git</button><button class="tbtn" data-t="RAG">#RAG</button><button class="tbtn" data-t="入门">#入门</button><button class="tbtn" data-t="合并冲突">#合并冲突</button><button class="tbtn" data-t="向量">#向量</button><button class="tbtn" data-t="告警治理">#告警治理</button><button class="tbtn" data-t="排错">#排错</button><button class="tbtn" data-t="机器学习">#机器学习</button><button class="tbtn" data-t="知识库">#知识库</button><button class="tbtn" data-t="静态分析">#静态分析</button></div>
+    <div class="frow"><button class="fbtn on" data-f="all">全部 <span class="fc">5</span></button><button class="fbtn" data-f="AI">AI <span class="fc">3</span></button><button class="fbtn" data-f="安全">安全 <span class="fc">1</span></button><button class="fbtn" data-f="Git">Git <span class="fc">1</span></button></div>
+    <div class="frow"><button class="tbtn on" data-t="all">全部标签</button><button class="tbtn" data-t="embedding">#embedding</button><button class="tbtn" data-t="入门">#入门</button><button class="tbtn" data-t="向量">#向量</button><button class="tbtn" data-t="工程实践">#工程实践</button><button class="tbtn" data-t="机器学习">#机器学习</button><button class="tbtn" data-t="CI">#CI</button><button class="tbtn" data-t="CodeQL">#CodeQL</button><button class="tbtn" data-t="Git">#Git</button><button class="tbtn" data-t="RAG">#RAG</button><button class="tbtn" data-t="合并冲突">#合并冲突</button><button class="tbtn" data-t="告警治理">#告警治理</button><button class="tbtn" data-t="排错">#排错</button><button class="tbtn" data-t="知识库">#知识库</button><button class="tbtn" data-t="静态分析">#静态分析</button></div>
   </div>
 
   <div class="list" id="list">
-    <article class="card" data-cat="AI" data-tags="机器学习,入门,向量,embedding">
+    <article class="card" data-cat="AI" data-tags="机器学习,向量,embedding,入门">
       <span class="card-bar" style="background:#4f46e5"></span>
       <span class="card-idx">01</span>
+      <div class="card-main">
+        <div class="card-top">
+          <span class="cat" style="color:#4f46e5;background:#eef2ff">AI</span>
+          <span class="card-date">2026-11-20 · 9 分钟</span>
+        </div>
+        <h2><a href="./ml-02-word2vec.html">为什么「国王 - 男人 + 女人 ≈ 女王」？embedding 是怎么学会语义的</a></h2>
+        <p class="card-desc">向量能做加减法，是因为语义关系变成了空间里的方向。从平行四边形类比讲到对比学习的训练目标，也说清了这个性质在现代模型上的局限。</p>
+        <div class="card-tags"><a class="tg" href="index.html?tag=机器学习" onclick="event.stopPropagation()">#机器学习</a><a class="tg" href="index.html?tag=向量" onclick="event.stopPropagation()">#向量</a><a class="tg" href="index.html?tag=embedding" onclick="event.stopPropagation()">#embedding</a><a class="tg" href="index.html?tag=入门" onclick="event.stopPropagation()">#入门</a></div>
+      </div>
+    </article>
+    <article class="card" data-cat="AI" data-tags="机器学习,入门,向量,embedding">
+      <span class="card-bar" style="background:#4f46e5"></span>
+      <span class="card-idx">02</span>
       <div class="card-main">
         <div class="card-top">
           <span class="cat" style="color:#4f46e5;background:#eef2ff">AI</span>
@@ -175,7 +200,7 @@
     </article>
     <article class="card" data-cat="AI" data-tags="RAG,知识库,embedding,排错">
       <span class="card-bar" style="background:#4f46e5"></span>
-      <span class="card-idx">02</span>
+      <span class="card-idx">03</span>
       <div class="card-main">
         <div class="card-top">
           <span class="cat" style="color:#4f46e5;background:#eef2ff">AI</span>
@@ -188,7 +213,7 @@
     </article>
     <article class="card" data-cat="安全" data-tags="CodeQL,静态分析,告警治理,工程实践">
       <span class="card-bar" style="background:#059669"></span>
-      <span class="card-idx">03</span>
+      <span class="card-idx">04</span>
       <div class="card-main">
         <div class="card-top">
           <span class="cat" style="color:#059669;background:#ecfdf5">安全</span>
@@ -201,7 +226,7 @@
     </article>
     <article class="card" data-cat="Git" data-tags="Git,合并冲突,CI,工程实践">
       <span class="card-bar" style="background:#c2410c"></span>
-      <span class="card-idx">04</span>
+      <span class="card-idx">05</span>
       <div class="card-main">
         <div class="card-top">
           <span class="cat" style="color:#c2410c;background:#fff7ed">Git</span>

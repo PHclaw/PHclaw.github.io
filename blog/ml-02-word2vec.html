@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>为什么「国王 - 男人 + 女人 ≈ 女王」？embedding 是怎么学会语义的 · PHclaw</title>
+<meta name="description" content="这是「写给工程师的机器学习入门」系列第 2 篇。">
+<meta name="author" content="PHclaw">
+<meta name="keywords" content="词向量, word2vec, 向量类比, 语义空间, 对比学习, 分布式假设, embedding 原理, AgentFlow">
+<link rel="canonical" href="https://phclaw.github.io/blog/ml-02-word2vec.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="为什么「国王 - 男人 + 女人 ≈ 女王」？embedding 是怎么学会语义的">
+<meta property="og:description" content="这是「写给工程师的机器学习入门」系列第 2 篇。">
+<meta property="og:url" content="https://phclaw.github.io/blog/ml-02-word2vec.html">
+<meta property="og:site_name" content="PHclaw Blog">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="为什么「国王 - 男人 + 女人 ≈ 女王」？embedding 是怎么学会语义的">
+<meta name="twitter:description" content="这是「写给工程师的机器学习入门」系列第 2 篇。">
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "@id": "https://phclaw.github.io/blog/ml-02-word2vec.html#article",
+      "headline": "为什么「国王 - 男人 + 女人 ≈ 女王」？embedding 是怎么学会语义的",
+      "description": "这是「写给工程师的机器学习入门」系列第 2 篇。",
+      "datePublished": "2026-11-20",
+      "dateModified": "2026-11-20",
+      "inLanguage": "zh-CN",
+      "author": {
+        "@type": "Person",
+        "@id": "https://github.com/PHclaw#person",
+        "name": "PHclaw",
+        "url": "https://github.com/PHclaw"
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://phclaw.github.io/blog/ml-02-word2vec.html"
+      },
+      "about": [
+        {
+          "@type": "Thing",
+          "name": "词向量 / word embedding"
+        },
+        {
+          "@type": "Thing",
+          "name": "向量语义运算"
+        },
+        {
+          "@type": "Thing",
+          "name": "分布式假设"
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "AgentFlow",
+          "url": "https://github.com/PHclaw/agentflow"
+        }
+      ],
+      "mentions": [
+        {
+          "@type": "Thing",
+          "name": "word2vec 类比关系"
+        },
+        {
+          "@type": "Thing",
+          "name": "对比学习 / contrastive learning"
+        },
+        {
+          "@type": "Thing",
+          "name": "分布式假设 / distributional hypothesis"
+        },
+        {
+          "@type": "Thing",
+          "name": "语义空间方向"
+        },
+        {
+          "@type": "Thing",
+          "name": "领域 embedding 模型"
+        }
+      ],
+      "keywords": "词向量, word2vec, 向量类比, 国王减男人加女人, 语义空间, 对比学习, 分布式假设, embedding 原理, AgentFlow",
+      "articleSection": "AI",
+      "isAccessibleForFree": true,
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "isPartOf": {
+        "@type": "Blog",
+        "name": "写给工程师的机器学习入门",
+        "url": "https://phclaw.github.io/blog/"
+      }
+    },
+    {
+      "@type": "Person",
+      "@id": "https://github.com/PHclaw#person",
+      "name": "PHclaw",
+      "url": "https://github.com/PHclaw",
+      "sameAs": [
+        "https://phclaw.github.io/",
+        "https://github.com/PHclaw/agentflow"
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "PHclaw",
+          "item": "https://phclaw.github.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "博客",
+          "item": "https://phclaw.github.io/blog/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "为什么「国王 - 男人 + 女人 ≈ 女王」？embedding 是怎么学会语义的",
+          "item": "https://phclaw.github.io/blog/ml-02-word2vec.html"
+        }
+      ]
+    }
+  ]
+}</script>
+<style>
+  :root{--bg:#fafbfc;--surface:#fff;--border:#e5e9f0;--text:#1f2937;--muted:#6b7280;--primary:#4f46e5;--soft:#f5f7fa}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:Inter,-apple-system,"PingFang SC",sans-serif;background:var(--bg);color:var(--text);line-height:1.8;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:780px;margin:0 auto;padding:0 24px}
+  header{padding:48px 0 28px;border-bottom:1px solid var(--border);margin-bottom:36px}
+  .back{font-size:13px;color:var(--primary);text-decoration:none}
+  h1{font-size:32px;line-height:1.35;letter-spacing:-.5px;margin-bottom:16px}
+  .meta{font-size:13px;color:var(--muted)}
+  .meta a{color:var(--primary)}
+  article{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:40px 44px;box-shadow:0 1px 3px rgba(16,24,40,.05),0 8px 24px rgba(16,24,40,.04)}
+  article h2{font-size:21px;margin:38px 0 14px;padding-top:22px;border-top:1px solid #eef1f6;letter-spacing:-.2px}
+  article h2:first-child{border:0;padding-top:0;margin-top:0}
+  article h3{font-size:18px;margin:26px 0 10px}
+  article p{margin:14px 0;font-size:15.5px}
+  article ol,article ul{margin:14px 0 14px 24px}
+  article li{margin:7px 0}
+  article a{color:var(--primary);word-break:break-all}
+  article strong{font-weight:600}
+  blockquote{background:var(--soft);border-left:4px solid var(--primary);padding:16px 20px;margin:20px 0;border-radius:0 8px 8px 0;color:#374151}
+  pre{background:#1f2937;color:#e5e7eb;border-radius:10px;padding:18px 20px;overflow-x:auto;font-size:13.5px;line-height:1.7;margin:18px 0}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+  p code,li code,td code{background:#eef2ff;color:#4338ca;padding:2px 6px;border-radius:5px;font-size:13.5px;font-weight:500}
+  table{width:100%;border-collapse:collapse;margin:18px 0;font-size:14px}
+  th,td{border:1px solid var(--border);padding:10px 12px;text-align:left}
+  th{background:var(--soft)}
+  footer{padding:36px 0 56px;text-align:center;color:var(--muted);font-size:13px}
+  footer a{color:var(--primary)}
+  @media(max-width:640px){article{padding:24px 20px}h1{font-size:26px}}
+
+  figure{margin:26px -8px;text-align:center}
+  figure img{max-width:100%;height:auto;border:1px solid var(--border);border-radius:12px;display:block;margin:0 auto}
+  figure figcaption{font-size:12px;color:var(--muted);margin-top:10px}
+  p.img-note{font-size:13px;color:var(--muted);text-align:center;margin-top:-14px}
+
+  .post-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+  .post-tags a{text-decoration:none;font-size:12px;font-weight:600;padding:5px 12px;border-radius:999px;transition:opacity .15s}
+  .post-tags a:hover{opacity:.75}
+  .cat-badge{background:var(--primary);color:#fff}
+  .tag-badge{background:var(--soft);color:var(--muted);border:1px solid var(--border)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="back" href="./">← 返回博客</a>
+    <h1>为什么「国王 - 男人 + 女人 ≈ 女王」？embedding 是怎么学会语义的</h1>
+    <p class="meta">2026-11-20 · 作者 <a href="https://github.com/PHclaw">PHclaw</a></p>
+    <div class="post-tags">
+      <a class="cat-badge" href="index.html#cat-AI">AI</a>
+      <a class="tag-badge" href="index.html?tag=机器学习">#机器学习</a>
+      <a class="tag-badge" href="index.html?tag=向量">#向量</a>
+      <a class="tag-badge" href="index.html?tag=embedding">#embedding</a>
+      <a class="tag-badge" href="index.html?tag=入门">#入门</a>
+    </div>
+  </header>
+  <article>
+<blockquote>这是「写给工程师的机器学习入门」系列第 2 篇。 上一篇讲清了"语义相似 = 向量方向接近"。这篇回答一个更奇怪的问题： <strong>为什么向量之间可以做加减法，而且结果还有意义？</strong></blockquote>
+<h2>结论先说</h2>
+<p>一句话：</p>
+<blockquote><strong>向量之所以能做算术，是因为语义关系变成了空间里的「方向」。</strong> 从「男」到「女」是一个固定方向，「国王」沿着同一个方向走一步，就落到「女王」附近。</blockquote>
+<p>这听起来像魔法，但它只是训练出来的结果：模型见了足够多的文本，把"经常出现在相似上下文里的词"放到相近位置。这个过程没有任何人教它"性别是个维度"。</p>
+<h2>一、那个著名的等式</h2>
+<p>2013 年 word2vec 论文里有一个让所有人震惊的演示：</p>
+<pre><code>king - man + woman ≈ queen</code></pre>
+<p>用中文说：</p>
+<pre><code>国王 - 男人 + 女人 ≈ 女王</code></pre>
+<p>这个式子的意思是：把"国王"的向量，减掉"男人"的向量，加上"女人"的向量，得到的向量<strong>最接近"女王"</strong>。</p>
+<p>而且不止这一组。同一批论文里还有：</p>
+<pre><code>paris - france + italy ≈ rome        巴黎 - 法国 + 意大利 ≈ 罗马
+walking - walk + swim ≈ swimming     走 - 走(原形) + 游泳 ≈ 游泳(进行时)
+bigger - big + small ≈ smaller       更大 - 大 + 小 ≈ 更小</code></pre>
+<p>三组例子分别对应三种关系：<strong>性别、首都、时态</strong>。</p>
+<p>这意味着什么？意味着"性别"这个概念，在这个向量空间里是一个<strong>可以平移的方向</strong>——不管你是国王还是演员还是教师，加上"女性方向"就变成对应的女性版本。</p>
+<h2>二、为什么减法能表达"关系"？</h2>
+<p>先从简单的二维情形理解。</p>
+<p>假设我们用一个二维坐标描述人：第一个维度是"皇室程度"，第二个是"性别"（0 = 男，1 = 女）。</p>
+<pre><code>男人   man   = [0.0, 0.0]
+女人   woman = [0.0, 1.0]
+国王   king  = [1.0, 0.0]
+女王   queen = [1.0, 1.0]</code></pre>
+<p>现在做那个减法：</p>
+<pre><code>king - man + woman
+= [1.0, 0.0] - [0.0, 0.0] + [0.0, 1.0]
+= [1.0, 1.0]
+= queen  ✓</code></pre>
+<p>结果精确等于女王。</p>
+<p>为什么？因为这个减法在做两件事：</p>
+<ol><li><code>king - man</code>：两个向量的差 = <strong>从"男人"到"国王"要走的那一步</strong>（皇室 +1，性别不变）</li><li><code>+ woman</code>：从"女人"出发，走同样那一步 → 落到"女王"</li></ol>
+<figure><img src="assets/ml-02-parallelogram.svg" alt="平行四边形的向量运算"><figcaption>平行四边形的向量运算</figcaption></figure>
+<p>*图 1：king→queen 与 man→woman 是同一个方向。这就是"性别"在向量空间里的表示。*</p>
+<p>在几何上，这四个点构成一个<strong>平行四边形</strong>——两组对边平行且等长。所以严格说，这不叫"减法有意义"，而叫<strong>这个平行四边形近似成立</strong>。</p>
+<p>而它之所以近似成立，是因为模型在训练中把"性别差异"编码成了所有相关词共享的一个方向。</p>
+<h2>三、真实的 300 维空间里没有"性别维度"</h2>
+<p>上面那个二维例子是我为了讲解编的。真实的 embedding 是 300 维、768 维、1536 维，<strong>没有任何一维对应"性别"</strong>。</p>
+<p>真实情况是：</p>
+<ul><li>"性别"这个语义差异，分散在<strong>几百个维度的组合</strong>里</li><li>没有任何单一一维可以命名</li><li>人类无法解释第 47 维代表什么</li></ul>
+<p>所以那个等式在真实模型里是<strong>近似</strong>的，不是精确相等：</p>
+<pre><code>cos(king - man + woman, queen) ≈ 0.71   ← 相似但不等于 1</code></pre>
+<p>它只是排在最相似的位置上。而且这个性质<strong>并不稳定</strong>：</p>
+<table><thead><tr><th>情况</th><th>类比效果</th></tr></thead><tbody>
+<tr><td>word2vec 学词向量</td><td>显著（这是它的著名特性）</td></tr>
+<tr><td>现代句子级 embedding</td><td>弱化甚至消失</td></tr>
+<tr><td>中文模型</td><td>与英文表现不同，取决于训练语料</td></tr>
+</tbody></table>
+<p>这一点必须说清楚，否则容易变成"AI 神话"。</p>
+<h2>四、这些方向是怎么学出来的？</h2>
+<p>关键在训练目标。这里讲两种思路，理解了它们就理解了 embedding 的本质。</p>
+<h3>思路一：分布式假设</h3>
+<p>语言学家 Firth 在 1957 年说过一句话：</p>
+<blockquote>You shall know a word by the company it keeps. （看一个词和谁混在一起，就知道它是什么词。）</blockquote>
+<p>意思是：<strong>一个词的意思，由它经常出现的上下文决定</strong>。</p>
+<p>比如：</p>
+<pre><code>我早上喜欢喝 ___ 。
+我下午也常喝 ___ 。</code></pre>
+<p>空格里能填"咖啡"、"茶"、"牛奶"。这三个词出现在<strong>相似的上下文</strong>里，所以它们的意思相近——在向量空间里应该挨着。</p>
+<p>而"汽车"不会出现在这个位置（"我早上喜欢喝汽车"不通），所以它离得远。</p>
+<figure><img src="assets/ml-02-context.svg" alt="分布式假设：相同上下文导致相邻"><figcaption>分布式假设：相同上下文导致相邻</figcaption></figure>
+<p>*图 2：能填进同一个空格的词，向量会被拉近。语义就是这么"算"出来的。*</p>
+<h3>思路二：对比学习</h3>
+<p>现代 embedding 模型（包括你在用的 <code>text-embedding-3-small</code>）大多用对比学习：</p>
+<pre><code class="language-python">for (句子A, 它的改写版) in 训练数据:
+    v1 = model(句子A)
+    v2 = model(改写版)
+    拉近(v1, v2)          # 正样本：意思一样，向量靠近
+
+for (句子A, 无关的句子) in 训练数据:
+    推远(vA, v_无关)      # 负样本：意思无关，向量远离</code></pre>
+<p>反复做这两件事几亿次，模型就学会了"什么样的句子该放在一起"。</p>
+<p><strong>关键点</strong>：训练目标里没有"语义"这个词，只有"该近"和"该远"的标签。语义结构是这个过程的副产品。</p>
+<figure><img src="assets/ml-02-training.svg" alt="训练前后的语义空间"><figcaption>训练前后的语义空间</figcaption></figure>
+<p>*图 3：训练前向量随机散布；训练后同类聚集、异类推远。方向结构是训练"挤"出来的。*</p>
+<h2>五、三个常见误解</h2>
+<h3>误解 1：「模型理解了性别是什么意思」</h3>
+<p>没有。它只是发现"男/女"这组词在大量文本里呈现出一致的差异模式，于是把这个模式压缩成一个方向。它不知道性别是什么，只知道这组词的关系是稳定的。</p>
+<h3>误解 2：「所有 embedding 都能做类比」</h3>
+<p>不能。类比能力是 word2vec 那一代<strong>词级</strong>模型的特征。现代<strong>句子级</strong>模型（你调 API 拿到的那个）优化的是"整句语义相似"，不是"单个词的线性关系"。</p>
+<p>拿 <code>text-embedding-3-small</code> 去做 <code>国王 - 男人 + 女人</code>，结果大概率不理想。不是模型差，是它的训练目标不同。</p>
+<h3>误解 3：「维度越高类比越准」</h3>
+<p>无关。维度影响的是表达能力和存储成本，类比能力取决于<strong>训练目标与数据</strong>。用 300 维的 word2vec 做类比，可能比用 1536 维的通用句向量更准。</p>
+<h2>六、知道了这个，工程上能干什么？</h2>
+<p>三个直接可用的判断：</p>
+<h3>1. 为什么语义搜索能匹配"没出现过的词"</h3>
+<p>用户搜"笔记本续航"，文档里写的是"电池使用时间"。字面零重叠，但向量接近，所以能召回。<strong>这就是 RAG 能work 的根本原因</strong>——不是关键词匹配，是方向匹配。</p>
+<h3>2. 为什么"领域模型"常常比"更大模型"更好</h3>
+<p>通用模型在通用语料上训练，医学词、法律词的"方向结构"可能没学好。用领域语料训练的模型，在这个领域里的相对位置更准。</p>
+<p>这也解释了为什么很多团队发现：<strong>换一个 1024 维的中文领域模型，检索效果比 1536 维的通用模型好</strong>。</p>
+<h3>3. 为什么不能混用不同模型的向量</h3>
+<p>不同模型的坐标系完全不同——"性别方向"在 A 模型里可能是第 3 和第 7 维的组合，在 B 模型里可能是另外几十维。两套向量放在一起算距离没有意义。</p>
+<p>这就是上一篇提到的"换 embedding 模型必须重建知识库"的<strong>深层原因</strong>：不只是维度不同，是整个坐标系都换了。</p>
+<h2>本篇小结</h2>
+<p>三句话：</p>
+<ol><li><strong>语义关系 = 空间中的方向</strong>，所以向量能做算术</li><li><strong>方向是训练出来的</strong>，靠"相似上下文放在一起"这个目标</li><li><strong>坐标系统一才能比较</strong>，换模型等于换地图</li></ol>
+<h2>下一篇预告</h2>
+<p><strong>《你说的"相似"到底是什么相似？——余弦、点积与归一化》</strong></p>
+<p>下一篇讲三个容易混淆的相似度度量，以及为什么很多 API 默认返回的分数不能直接当"相关度百分比"用。</p>
+<p>---</p>
+<h2>关于作者</h2>
+<p>本文是「写给工程师的机器学习入门」系列第 2 篇。作者 PHclaw 在做 <strong>AgentFlow</strong>——一个自托管 AI Agent 平台，知识库检索、embedding 端点配置、多模型热切换都在真实代码里。</p>
+<ul><li>源码：https://github.com/PHclaw/agentflow</li><li>在线演示：http://159.75.21.251:3000</li><li>文档：https://phclaw.github.io/agentflow/</li><li>全部文章：https://phclaw.github.io/blog/</li></ul>
+<p>对向量空间有疑问，欢迎在 Discussions 里讨论。</p>
+  </article>
+  <footer>
+    <a href="https://github.com/PHclaw">GitHub @PHclaw</a> · <a href="https://github.com/PHclaw/agentflow">AgentFlow</a> · <a href="https://phclaw.github.io/blog/">更多踩坑笔记</a>
+  </footer>
+</div>
+</body>
+</html>
