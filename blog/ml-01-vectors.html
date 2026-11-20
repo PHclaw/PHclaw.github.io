@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>机器学习第一课：把一句话变成一串数字，到底发生了什么？ · PHclaw</title>
+<meta name="description" content="这是「写给工程师的机器学习入门」系列第 1 篇。">
+<meta name="author" content="PHclaw">
+<meta name="keywords" content="机器学习入门, 什么是向量, embedding 是什么, 余弦相似度, 训练与推理, 工程师学机器学习, AgentFlow">
+<link rel="canonical" href="https://phclaw.github.io/blog/ml-01-vectors.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="机器学习第一课：把一句话变成一串数字，到底发生了什么？">
+<meta property="og:description" content="这是「写给工程师的机器学习入门」系列第 1 篇。">
+<meta property="og:url" content="https://phclaw.github.io/blog/ml-01-vectors.html">
+<meta property="og:site_name" content="PHclaw Blog">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="机器学习第一课：把一句话变成一串数字，到底发生了什么？">
+<meta name="twitter:description" content="这是「写给工程师的机器学习入门」系列第 1 篇。">
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "@id": "https://phclaw.github.io/blog/ml-01-vectors.html#article",
+      "headline": "机器学习第一课：把一句话变成一串数字，到底发生了什么？",
+      "description": "这是「写给工程师的机器学习入门」系列第 1 篇。",
+      "datePublished": "2026-11-20",
+      "dateModified": "2026-11-20",
+      "inLanguage": "zh-CN",
+      "author": {
+        "@type": "Person",
+        "@id": "https://github.com/PHclaw#person",
+        "name": "PHclaw",
+        "url": "https://github.com/PHclaw"
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://phclaw.github.io/blog/ml-01-vectors.html"
+      },
+      "about": [
+        {
+          "@type": "Thing",
+          "name": "机器学习入门",
+          "description": "面向工程师的机器学习基础概念"
+        },
+        {
+          "@type": "Thing",
+          "name": "向量 / embedding",
+          "description": "把文本变成数字表示"
+        },
+        {
+          "@type": "Thing",
+          "name": "余弦相似度",
+          "description": "衡量向量方向接近程度的指标"
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "AgentFlow",
+          "url": "https://github.com/PHclaw/agentflow"
+        }
+      ],
+      "mentions": [
+        {
+          "@type": "Thing",
+          "name": "vector representation / 向量表示"
+        },
+        {
+          "@type": "Thing",
+          "name": "cosine similarity / 余弦相似度"
+        },
+        {
+          "@type": "Thing",
+          "name": "training vs inference / 训练与推理"
+        },
+        {
+          "@type": "Thing",
+          "name": "embedding model / 嵌入模型"
+        },
+        {
+          "@type": "Thing",
+          "name": "representation learning / 表示学习"
+        }
+      ],
+      "keywords": "机器学习入门, 什么是向量, embedding 是什么, 余弦相似度, 训练与推理, 工程师学机器学习, AgentFlow",
+      "articleSection": "AI / 机器学习 / 入门",
+      "isAccessibleForFree": true,
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "isPartOf": {
+        "@type": "Blog",
+        "name": "写给工程师的机器学习入门",
+        "url": "https://phclaw.github.io/blog/"
+      }
+    },
+    {
+      "@type": "Person",
+      "@id": "https://github.com/PHclaw#person",
+      "name": "PHclaw",
+      "url": "https://github.com/PHclaw",
+      "sameAs": [
+        "https://phclaw.github.io/",
+        "https://github.com/PHclaw/agentflow"
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "PHclaw",
+          "item": "https://phclaw.github.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "博客",
+          "item": "https://phclaw.github.io/blog/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "机器学习第一课：把一句话变成一串数字，到底发生了什么？",
+          "item": "https://phclaw.github.io/blog/ml-01-vectors.html"
+        }
+      ]
+    }
+  ]
+}</script>
+<style>
+  :root{--bg:#fafbfc;--surface:#fff;--border:#e5e9f0;--text:#1f2937;--muted:#6b7280;--primary:#4f46e5;--soft:#f5f7fa}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:Inter,-apple-system,"PingFang SC",sans-serif;background:var(--bg);color:var(--text);line-height:1.8;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:780px;margin:0 auto;padding:0 24px}
+  header{padding:48px 0 28px;border-bottom:1px solid var(--border);margin-bottom:36px}
+  .back{font-size:13px;color:var(--primary);text-decoration:none}
+  h1{font-size:32px;line-height:1.35;letter-spacing:-.5px;margin-bottom:16px}
+  .meta{font-size:13px;color:var(--muted)}
+  .meta a{color:var(--primary)}
+  article{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:36px 40px;box-shadow:0 1px 3px rgba(16,24,40,.05)}
+  article h2{font-size:22px;margin:36px 0 14px;padding-top:20px;border-top:1px solid var(--border)}
+  article h2:first-child{border:0;padding-top:0;margin-top:0}
+  article h3{font-size:18px;margin:26px 0 10px}
+  article p{margin:14px 0;font-size:15.5px}
+  article ol,article ul{margin:14px 0 14px 24px}
+  article li{margin:7px 0}
+  article a{color:var(--primary);word-break:break-all}
+  article strong{font-weight:600}
+  blockquote{background:var(--soft);border-left:4px solid var(--primary);padding:16px 20px;margin:20px 0;border-radius:0 8px 8px 0;color:#374151}
+  pre{background:#1f2937;color:#e5e7eb;border-radius:10px;padding:18px 20px;overflow-x:auto;font-size:13.5px;line-height:1.7;margin:18px 0}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+  p code,li code,td code{background:var(--soft);padding:2px 6px;border-radius:5px;font-size:13.5px}
+  table{width:100%;border-collapse:collapse;margin:18px 0;font-size:14px}
+  th,td{border:1px solid var(--border);padding:10px 12px;text-align:left}
+  th{background:var(--soft)}
+  footer{padding:36px 0 56px;text-align:center;color:var(--muted);font-size:13px}
+  footer a{color:var(--primary)}
+  @media(max-width:640px){article{padding:24px 20px}h1{font-size:26px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="back" href="./">← 返回博客</a>
+    <h1>机器学习第一课：把一句话变成一串数字，到底发生了什么？</h1>
+    <p class="meta">2026-11-20 · 作者 <a href="https://github.com/PHclaw">PHclaw</a> · 分类 AI / 机器学习 / 入门</p>
+  </header>
+  <article>
+<blockquote>这是「写给工程师的机器学习入门」系列第 1 篇。 不讲公式、不讲论文，从一个你每天都在用的东西讲起：<strong>为什么电脑能判断两句话"意思相近"？</strong> 答案藏在三个词里：向量、距离、模型。</blockquote>
+<h2>结论先说</h2>
+<p>机器学习的本质，可以用一句话讲完：</p>
+<blockquote><strong>把现实世界的东西（文字、图片、声音）变成一串数字，然后让计算机在这串数字上做数学运算。</strong></blockquote>
+<p>那串数字叫<strong>向量</strong>（vector）。把东西变成向量的过程叫<strong>embedding</strong>（嵌入）。而"两句话意思相近"这件事，在计算机里就变成了"两个向量离得近"。</p>
+<p>听起来简单，但这正是包括 ChatGPT、知识库检索、推荐系统在内的几乎所有 AI 应用的地基。</p>
+<h2>一、为什么必须是数字？</h2>
+<p>计算机不理解"意思"，它只会做算术。</p>
+<p>你说"我想买一台轻薄本"，你说"有没有适合出差用的笔记本电脑"——人类一眼知道这两句在问同一件事。但计算机看到的只是两串字符，没有任何重叠的关键词："轻薄本"和"笔记本电脑"字面完全不同。</p>
+<p>要让计算机处理"语义"，唯一的办法是：<strong>把语义编码成数字</strong>。</p>
+<pre><code>"我想买一台轻薄本"  →  [0.21, -0.43, 0.87, 0.12, ..., 0.56]   （1536 个数字）
+"适合出差用的笔记本" →  [0.19, -0.41, 0.85, 0.15, ..., 0.54]   （1536 个数字）</code></pre>
+<p>这两个数组长得几乎一样。计算机不需要"理解"中文，只需要算一下这两个数组有多接近——<strong>接近，就意味着意思相近</strong>。</p>
+<p>这就是向量表示（vector representation）的核心思想。</p>
+<h2>二、向量是什么？从一个熟悉的例子开始</h2>
+<p>如果你觉得"1536 个数字"很抽象，先看一个二维的例子。</p>
+<p>假设我们只用两个维度描述城市：</p>
+<pre><code>维度 1 = 人口规模（0 到 1）
+维度 2 = 平均气温（0 到 1）
+
+北京 → [0.9, 0.4]
+上海 → [0.95, 0.6]
+哈尔滨 → [0.6, 0.1]</code></pre>
+<p>把这三个点画在坐标纸上：</p>
+<pre><code>气温 ↑
+ 0.6 |        上海 ●
+ 0.4 |    北京 ●
+ 0.1 |  哈尔滨 ●
+     +----------------→ 人口
+      0.6  0.9  0.95</code></pre>
+<p>现在"北京和上海比北京和哈尔滨更相似"这件事，不需要人来判断——<strong>看谁和谁离得近就行</strong>。</p>
+<p>向量的本质就是这个：<strong>用几个数字给东西定位，相似的东西在坐标系里挨着</strong>。</p>
+<p>区别只在于：描述城市只需要 2 个维度，描述语言的细微差别需要几百到几千个维度。人类没法想象 1536 维空间，但计算机算距离毫无压力。</p>
+<h2>三、"距离"怎么算？余弦相似度</h2>
+<p>高维空间里最常用的是<strong>余弦相似度</strong>（cosine similarity）。它不看两个向量的绝对位置，只看它们的<strong>方向</strong>是否一致：</p>
+<pre><code>cos(θ) = 1    → 完全同向（意思极近）
+cos(θ) = 0    → 垂直（无关）
+cos(θ) = -1   → 完全相反</code></pre>
+<p>为什么用方向而不是距离？因为文本长度会影响向量的"长度值"：</p>
+<ul><li>"天气不错" 和 "今天天气真不错啊" 意思一样，但后者词更多，向量模长可能更大</li><li>用余弦相似度只看方向，就不受长度干扰</li></ul>
+<p>这就是知识库检索的原理：</p>
+<pre><code class="language-python"># 用户提问 → 向量化
+q_vec = embedding("怎么重置密码？")
+
+# 知识库里的每段文档 → 事先向量化存好
+doc_vecs = [...]
+
+# 算相似度，取最像的几段
+scores = cosine_similarity(q_vec, doc_vecs)
+top_k = argsort(scores)[-3:]</code></pre>
+<p><strong>检索的本质，就是在一个巨大的向量堆里找"离问题最近的几段话"。</strong></p>
+<h2>四、这些有意义的数字，是谁定出来的？</h2>
+<p>关键问题来了：为什么"轻薄本"和"笔记本电脑"的向量会挨着？谁规定了这些数字？</p>
+<p>答案是：<strong> nobody 规定的，是模型从海量文本里自己学出来的</strong>。</p>
+<p>训练过程大致是这样（简化版）：</p>
+<ol><li>给模型看海量文本："轻薄本适合出差携带…"、"笔记本电脑方便移动办公…"</li><li>模型发现这两个词经常出现在<strong>相似的上下文</strong>里</li><li>于是调整内部参数，让它们的向量靠近</li><li>反复几十亿次，最终形成一个"语义地图"——意思相近的词，位置就相近</li></ol>
+<p>一个重要结论：</p>
+<blockquote><strong>向量里的每一个数字，人类都无法解释它代表什么。</strong> 它可能对应"能否携带"，也可能对应"价格区间"，或者完全是某种人类没有名字的特征组合。</blockquote>
+<p>我们不需要理解它，只需要它<strong>好用</strong>——语义相近的东西确实挨得近。这就是"表示学习"（representation learning）的思想。</p>
+<h2>五、训练 vs 推理：为什么你只需要后半段</h2>
+<p>理解这两个词，能解开很多工程困惑：</p>
+<table><thead><tr><th>阶段</th><th>做什么</th><th>成本</th></tr></thead><tbody>
+<tr><td><strong>训练</strong>（training）</td><td>看海量数据，调整模型内部参数，学会"怎么把文字变成好向量"</td><td>极高，需要大量 GPU 和数月时间</td></tr>
+<tr><td><strong>推理</strong>（inference）</td><td>拿一个已经训练好的模型，把新文本变成向量</td><td>低，普通 CPU 就能跑</td></tr>
+</tbody></table>
+<p>你用的 OpenAI <code>text-embedding-3-small</code>、本地的 Ollama 模型，都是<strong>别人训练好的成品</strong>。你只做推理——调用一次 API，得到一串数字。</p>
+<p>这就解释了为什么一个自托管项目可以完全不碰训练：</p>
+<pre><code class="language-python"># AgentFlow 里的真实代码（backend/app/services/knowledge.py）
+resp = self._client.embeddings.create(
+    model=self.model,
+    input=batch,
+)
+vectors.extend(item.embedding for item in resp.data)</code></pre>
+<p>本地 Ollama 只需配置一个地址：</p>
+<pre><code class="language-bash">EMBEDDING_BASE_URL=http://localhost:11434/v1
+EMBEDDING_MODEL=bge-large-zh</code></pre>
+<p><strong>你不需要 GPU、不需要训练数据、不需要懂反向传播</strong>——因为你站在别人训练好的模型肩膀上。</p>
+<h2>六、为什么向量维度很重要？</h2>
+<p>上一篇文章里提到过"换 embedding 模型要重建知识库"，现在可以解释为什么了。</p>
+<p>不同模型输出的向量维度不同：</p>
+<table><thead><tr><th>模型</th><th>维度</th></tr></thead><tbody>
+<tr><td>text-embedding-3-small</td><td>1536</td></tr>
+<tr><td>text-embedding-ada-002</td><td>1536</td></tr>
+<tr><td>bge-large-zh</td><td>1024</td></tr>
+</tbody></table>
+<p><strong>1536 维的向量和 1024 维的向量没法算余弦相似度</strong>——就像你不能拿一个 3 位坐标和一个 2 位坐标算距离。</p>
+<p>所以一旦换了模型，已经入库的所有向量全部作废，必须用新模型重新生成。这是工程上必须知道的约束。</p>
+<h2>七、三个常见误解</h2>
+<h3>误解 1：「AI 就是 if-else 写多了」</h3>
+<p>不是。if-else 是人写规则；机器学习是<strong>从数据里学规则</strong>。前者你完全掌控逻辑，后者你只掌控数据和目标，规则是模型自己总结的——而且往往说不清它总结出了什么。</p>
+<h3>误解 2：「向量是模型'理解'了语言」</h3>
+<p>模型没有理解，它只是学到了一套<strong>统计上有用的坐标系统</strong>。它在你的任务上表现好，是因为这套坐标恰好把语义相近的东西放在一起。换个领域（比如医学文献），通用模型可能就不够好——需要领域模型或微调。</p>
+<h3>误解 3：「维度越高越好」</h3>
+<p>不一定。高维度能表达更细微的差别，但也更稀疏、更吃存储、检索更慢。1024 维的中文模型在很多场景不输 1536 维的通用模型——<strong>选模型要看场景，不是看参数表</strong>。</p>
+<h2>本篇小结</h2>
+<p>记住三句话就够了：</p>
+<ol><li><strong>向量</strong>是把现实世界的东西变成数字的方式</li><li><strong>语义相似 = 向量方向接近</strong>（余弦相似度）</li><li><strong>模型负责"怎么变"，你只负责"调 API 拿结果"</strong>（推理）</li></ol>
+<p>这三句话是理解 RAG、推荐系统、语义搜索的起点。</p>
+<h2>下一篇预告</h2>
+<p><strong>《为什么"国王 - 男人 + 女人 ≈ 女王"？embedding 是怎么学会语义的》</strong></p>
+<p>下一篇讲向量空间里那些有趣的现象，以及为什么模型能做到"没见过的词也能大概猜出意思"。</p>
+<p>---</p>
+<h2>关于作者</h2>
+<p>本文是「写给工程师的机器学习入门」系列第 1 篇。作者 PHclaw 在做 <strong>AgentFlow</strong>——一个自托管 AI Agent 平台，把文章里的概念落到了真实代码里：知识库 RAG、embedding 端点配置、多模型热切换。</p>
+<ul><li>源码：https://github.com/PHclaw/agentflow</li><li>在线演示：http://159.75.21.251:3000</li><li>文档：https://phclaw.github.io/agentflow/</li><li>全部文章：https://phclaw.github.io/blog/</li></ul>
+<p>对机器学习概念有疑问，欢迎在 Discussions 里提问。</p>
+  </article>
+  <footer>
+    <a href="https://github.com/PHclaw">GitHub @PHclaw</a> · <a href="https://github.com/PHclaw/agentflow">AgentFlow</a> · <a href="https://phclaw.github.io/blog/">更多踩坑笔记</a>
+  </footer>
+</div>
+</body>
+</html>
