@@ -73,8 +73,8 @@
           "name": "CI 构建失败 TS2307"
         }
       ],
-      "keywords": "Git 三方合并, git merge 丢文件, diff-filter=D, 静默删除, 合并冲突排查, AgentFlow, CI 失败",
-      "articleSection": "Git / 工程实践",
+      "keywords": "Git, 合并冲突, CI, 工程实践, Git 三方合并, git merge 丢文件, diff-filter=D, 静默删除, 合并冲突排查, AgentFlow, CI 失败",
+      "articleSection": "Git",
       "isAccessibleForFree": true,
       "license": "https://creativecommons.org/licenses/by/4.0/"
     },
@@ -143,6 +143,12 @@
   footer{padding:36px 0 56px;text-align:center;color:var(--muted);font-size:13px}
   footer a{color:var(--primary)}
   @media(max-width:640px){article{padding:24px 20px}h1{font-size:26px}}
+
+  .post-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+  .post-tags a{text-decoration:none;font-size:12px;font-weight:600;padding:5px 12px;border-radius:999px;transition:opacity .15s}
+  .post-tags a:hover{opacity:.75}
+  .cat-badge{border:1px solid currentColor}
+  .tag-badge{background:var(--soft);color:var(--muted);border:1px solid var(--border)}
 </style>
 </head>
 <body>
@@ -151,6 +157,13 @@
     <a class="back" href="../">← 返回 PHclaw</a>
     <h1>一次 Git 合并丢了 500 个文件：三方合并的「静默删除」陷阱</h1>
     <p class="meta">2026-11-20 · 作者 <a href="https://github.com/PHclaw">PHclaw</a> · 分类 Git / 工程实践</p>
+    <div class="post-tags">
+    <a class="cat-badge" style="background:#fff7ed;color:#c2410c" href="index.html#cat-Git">Git</a>
+    <a class="tag-badge" href="index.html?tag=Git">#Git</a>
+    <a class="tag-badge" href="index.html?tag=合并冲突">#合并冲突</a>
+    <a class="tag-badge" href="index.html?tag=CI">#CI</a>
+    <a class="tag-badge" href="index.html?tag=工程实践">#工程实践</a>
+    </div>
   </header>
   <article>
 <blockquote>合并显示「干净」，CI 却开始报模块找不到、技能广场空空如也。 根因不是冲突解决错了，而是<strong>根本没有冲突</strong>——这正是最危险的地方。</blockquote>

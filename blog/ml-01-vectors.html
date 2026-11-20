@@ -81,8 +81,8 @@
           "name": "representation learning / 表示学习"
         }
       ],
-      "keywords": "机器学习入门, 什么是向量, embedding 是什么, 余弦相似度, 训练与推理, 工程师学机器学习, AgentFlow",
-      "articleSection": "AI / 机器学习 / 入门",
+      "keywords": "机器学习, 入门, 向量, embedding, 机器学习入门, 什么是向量, embedding 是什么, 余弦相似度, 训练与推理, 工程师学机器学习, AgentFlow",
+      "articleSection": "AI",
       "isAccessibleForFree": true,
       "license": "https://creativecommons.org/licenses/by/4.0/",
       "isPartOf": {
@@ -160,6 +160,12 @@
   figure img{max-width:100%;height:auto;border:1px solid var(--border);border-radius:12px;display:block;margin:0 auto}
   figure figcaption{font-size:12px;color:var(--muted);margin-top:10px}
   p.img-note{font-size:13px;color:var(--muted);text-align:center;margin-top:-14px}
+
+  .post-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+  .post-tags a{text-decoration:none;font-size:12px;font-weight:600;padding:5px 12px;border-radius:999px;transition:opacity .15s}
+  .post-tags a:hover{opacity:.75}
+  .cat-badge{border:1px solid currentColor}
+  .tag-badge{background:var(--soft);color:var(--muted);border:1px solid var(--border)}
 </style>
 </head>
 <body>
@@ -168,6 +174,13 @@
     <a class="back" href="./">← 返回博客</a>
     <h1>机器学习第一课：把一句话变成一串数字，到底发生了什么？</h1>
     <p class="meta">2026-11-20 · 作者 <a href="https://github.com/PHclaw">PHclaw</a> · 分类 AI / 机器学习 / 入门</p>
+    <div class="post-tags">
+    <a class="cat-badge" style="background:#eef2ff;color:#4f46e5" href="index.html#cat-AI">AI</a>
+    <a class="tag-badge" href="index.html?tag=机器学习">#机器学习</a>
+    <a class="tag-badge" href="index.html?tag=入门">#入门</a>
+    <a class="tag-badge" href="index.html?tag=向量">#向量</a>
+    <a class="tag-badge" href="index.html?tag=embedding">#embedding</a>
+    </div>
   </header>
   <article>
 <blockquote>这是「写给工程师的机器学习入门」系列第 1 篇。 不讲公式、不讲论文，从一个你每天都在用的东西讲起：<strong>为什么电脑能判断两句话"意思相近"？</strong> 答案藏在三个词里：向量、距离、模型。</blockquote>

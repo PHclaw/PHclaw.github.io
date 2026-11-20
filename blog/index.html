@@ -63,6 +63,17 @@
   .post .tag{display:inline-block;font-size:11px;color:var(--primary);background:#eef2ff;border-radius:5px;padding:2px 8px;margin-right:8px}
   footer{padding:36px 0 56px;text-align:center;color:var(--muted);font-size:13px}
   footer a{color:var(--primary)}
+
+  .filter-nav{display:flex;gap:8px;margin:0 0 12px;flex-wrap:wrap}
+  .filter-btn{background:var(--surface);border:1px solid var(--border);border-radius:999px;padding:7px 16px;font-size:13px;color:var(--muted);cursor:pointer;font-family:inherit;transition:all .15s}
+  .filter-btn:hover,.filter-btn.active{border-color:var(--primary);color:var(--primary)}
+  .filter-btn.active{background:#eef2ff;font-weight:600}
+  .filter-hint{font-size:12px;color:var(--muted);margin-bottom:18px}
+  .filter-hint a{color:var(--primary)}
+  .card-tags{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 10px}
+  .card-cat,.card-tag{font-size:11px;font-weight:600;padding:3px 9px;border-radius:999px}
+  .card-tag{background:var(--soft);color:var(--muted)}
+  .post.hidden{display:none}
 </style>
 </head>
 <body>
@@ -73,37 +84,93 @@
     <p class="sub">来自真实开源项目维护的工程实践笔记。不写教程合集，只写踩过的坑。</p>
   </header>
 
-  <a class="post" href="./ml-01-vectors.html">
+  <a class="post" data-category="AI" data-tags="机器学习,入门,向量,embedding" href="./ml-01-vectors.html">
     <h2>机器学习第一课：把一句话变成一串数字，到底发生了什么？</h2>
     <p>写给工程师的机器学习入门第 1 篇。从"为什么电脑能判断两句话意思相近"讲起：向量、距离、模型。不讲公式，用真实代码说清楚 embedding 是什么。</p>
     <span class="tag">AI</span><span class="tag">机器学习</span><span class="tag">入门</span>
-    <span class="meta">2026-11-20 · 约 2200 字</span>
+<div class="card-tags"><span class="card-cat" style="background:#eef2ff;color:#4f46e5">AI</span><span class="card-tag">#机器学习</span><span class="card-tag">#入门</span><span class="card-tag">#向量</span><span class="card-tag">#embedding</span></div>
+        <span class="meta">2026-11-20 · 约 2200 字</span>
   </a>
 
-  <a class="post" href="./rag-troubleshooting.html">
+  <a class="post" data-category="AI" data-tags="RAG,知识库,embedding,排错" href="./rag-troubleshooting.html">
     <h2>RAG 检索不出东西？先查这 5 个地方（附真实排错过程）</h2>
     <p>知识库建好了、文档上传成功，就是检索不出内容。按 embedding 端点 → 分块 → 维度 → 阈值 → 注入的顺序排查，每一步都要「响亮地失败」。</p>
     <span class="tag">AI</span><span class="tag">RAG</span><span class="tag">工程实践</span>
-    <span class="meta">2026-11-20 · 约 1900 字</span>
+<div class="card-tags"><span class="card-cat" style="background:#eef2ff;color:#4f46e5">AI</span><span class="card-tag">#RAG</span><span class="card-tag">#知识库</span><span class="card-tag">#embedding</span><span class="card-tag">#排错</span></div>
+        <span class="meta">2026-11-20 · 约 1900 字</span>
   </a>
 
-  <a class="post" href="./codeql-471-to-5.html">
+
+  <nav class="filter-nav">
+    <button class="filter-btn active" data-filter="all">全部</button>
+    <button class="filter-btn" data-filter="AI">AI</button>
+    <button class="filter-btn" data-filter="安全">安全</button>
+    <button class="filter-btn" data-filter="Git">Git</button>
+  </nav>
+  <p class="filter-hint">点击卡片上的标签可按主题筛选 · <a href="#" id="clear-filter">清除筛选</a></p>
+  <a class="post" data-category="安全" data-tags="CodeQL,静态分析,告警治理,工程实践" href="./codeql-471-to-5.html">
     <h2>CodeQL 报了 471 个漏洞，真正的只有 5 个</h2>
     <p>安全面板一片红，但 309 条连安全等级都没有、246 条来自第三方技能。改查询包、排除 vendored 代码、真修 5 处、剩余逐条标注理由——471 到 0 的完整过程。</p>
     <span class="tag">安全</span><span class="tag">CodeQL</span><span class="tag">工程实践</span>
-    <span class="meta">2026-11-20 · 约 2000 字</span>
+<div class="card-tags"><span class="card-cat" style="background:#ecfdf5;color:#059669">安全</span><span class="card-tag">#CodeQL</span><span class="card-tag">#静态分析</span><span class="card-tag">#告警治理</span><span class="card-tag">#工程实践</span></div>
+        <span class="meta">2026-11-20 · 约 2000 字</span>
   </a>
 
-  <a class="post" href="./git-merge-silent-deletion.html">
+  <a class="post" data-category="Git" data-tags="Git,合并冲突,CI,工程实践" href="./git-merge-silent-deletion.html">
     <h2>一次 Git 合并丢了 500 个文件：三方合并的「静默删除」陷阱</h2>
     <p>合并显示「干净」，CI 却开始报模块找不到、技能广场空空如也。根因不是冲突解决错了，而是根本没有冲突——这正是最危险的地方。含排查命令与三条防护规则。</p>
     <span class="tag">Git</span><span class="tag">工程实践</span>
-    <span class="meta">2026-11-20 · 约 1800 字</span>
+<div class="card-tags"><span class="card-cat" style="background:#fff7ed;color:#c2410c">Git</span><span class="card-tag">#Git</span><span class="card-tag">#合并冲突</span><span class="card-tag">#CI</span><span class="card-tag">#工程实践</span></div>
+        <span class="meta">2026-11-20 · 约 1800 字</span>
   </a>
 
   <footer>
     <a href="https://github.com/PHclaw">GitHub @PHclaw</a> · <a href="https://phclaw.github.io/agentflow/">AgentFlow 文档</a>
   </footer>
 </div>
+
+<script>
+(function(){
+  var params = new URLSearchParams(location.search);
+  var initialTag = params.get('tag');
+  var buttons = document.querySelectorAll('.filter-btn');
+  var cards = document.querySelectorAll('.post');
+  var hint = document.querySelector('.filter-hint');
+
+  function apply(category, tag){
+    cards.forEach(function(c){
+      var cats = c.getAttribute('data-category') || '';
+      var tags = (c.getAttribute('data-tags') || '').split(',');
+      var ok = (category === 'all' || cats === category) && (!tag || tags.indexOf(tag) >= 0);
+      c.classList.toggle('hidden', !ok);
+    });
+    buttons.forEach(function(b){
+      b.classList.toggle('active', b.getAttribute('data-filter') === category && !tag);
+    });
+    if (hint) {
+      hint.innerHTML = tag
+        ? '正在筛选 <b>#' + tag + '</b> · <a href="#" id="clear-filter">清除筛选</a>'
+        : '点击卡片上的标签可按主题筛选 · <a href="#" id="clear-filter">清除筛选</a>';
+    }
+  }
+
+  buttons.forEach(function(b){
+    b.addEventListener('click', function(){
+      history.replaceState(null, '', location.pathname);
+      apply(b.getAttribute('data-filter'), null);
+    });
+  });
+
+  document.addEventListener('click', function(e){
+    if (e.target && e.target.id === 'clear-filter') {
+      e.preventDefault();
+      history.replaceState(null, '', location.pathname);
+      apply('all', null);
+    }
+  });
+
+  if (initialTag) apply('all', initialTag);
+})();
+</script>
 </body>
 </html>
