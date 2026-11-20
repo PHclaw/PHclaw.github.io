@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CodeQL 报了 471 个漏洞，真正的只有 5 个 · PHclaw</title>
+<meta name="description" content="Security 面板一片红：471 个未处理告警，其中 2 个 critical。">
+<meta name="author" content="PHclaw">
+<meta name="keywords" content="CodeQL, security-and-quality, security-extended, 代码扫描, 告警治理, AgentFlow">
+<link rel="canonical" href="https://phclaw.github.io/blog/codeql-471-to-5.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CodeQL 报了 471 个漏洞，真正的只有 5 个">
+<meta property="og:description" content="Security 面板一片红：471 个未处理告警，其中 2 个 critical。">
+<meta property="og:url" content="https://phclaw.github.io/blog/codeql-471-to-5.html">
+<meta property="og:site_name" content="PHclaw Blog">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="CodeQL 报了 471 个漏洞，真正的只有 5 个">
+<meta name="twitter:description" content="Security 面板一片红：471 个未处理告警，其中 2 个 critical。">
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "@id": "https://phclaw.github.io/blog/codeql-471-to-5.html#article",
+      "headline": "CodeQL 报了 471 个漏洞，真正的只有 5 个",
+      "description": "Security 面板一片红：471 个未处理告警，其中 2 个 critical。",
+      "datePublished": "2026-11-20",
+      "dateModified": "2026-11-20",
+      "inLanguage": "zh-CN",
+      "author": {
+        "@type": "Person",
+        "@id": "https://github.com/PHclaw#person",
+        "name": "PHclaw",
+        "url": "https://github.com/PHclaw"
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://phclaw.github.io/blog/codeql-471-to-5.html"
+      },
+      "about": [
+        {
+          "@type": "SoftwareApplication",
+          "name": "GitHub CodeQL",
+          "applicationCategory": "DeveloperApplication"
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "AgentFlow",
+          "url": "https://github.com/PHclaw/agentflow",
+          "description": "自托管 AI Agent 平台，SQLite 单机可跑"
+        }
+      ],
+      "mentions": [
+        {
+          "@type": "Thing",
+          "name": "security-and-quality query suite"
+        },
+        {
+          "@type": "Thing",
+          "name": "security-extended query suite"
+        },
+        {
+          "@type": "Thing",
+          "name": "paths-ignore"
+        },
+        {
+          "@type": "Thing",
+          "name": "stack trace exposure"
+        },
+        {
+          "@type": "Thing",
+          "name": "CodeQL alert dismissal"
+        }
+      ],
+      "keywords": "CodeQL, security-and-quality, security-extended, 代码扫描, 静态分析, 告警治理, 供应链安全, AgentFlow",
+      "articleSection": "安全 / 工程实践",
+      "isAccessibleForFree": true,
+      "license": "https://creativecommons.org/licenses/by/4.0/"
+    },
+    {
+      "@type": "Person",
+      "@id": "https://github.com/PHclaw#person",
+      "name": "PHclaw",
+      "url": "https://github.com/PHclaw",
+      "sameAs": [
+        "https://phclaw.github.io/",
+        "https://github.com/PHclaw/agentflow"
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "PHclaw",
+          "item": "https://phclaw.github.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "博客",
+          "item": "https://phclaw.github.io/blog/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "CodeQL 报了 471 个漏洞，真正的只有 5 个",
+          "item": "https://phclaw.github.io/blog/codeql-471-to-5.html"
+        }
+      ]
+    }
+  ]
+}</script>
+<style>
+  :root{--bg:#fafbfc;--surface:#fff;--border:#e5e9f0;--text:#1f2937;--muted:#6b7280;--primary:#4f46e5;--soft:#f5f7fa}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:Inter,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--text);line-height:1.8;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:780px;margin:0 auto;padding:0 24px}
+  header{padding:48px 0 28px;border-bottom:1px solid var(--border);margin-bottom:36px}
+  .back{font-size:13px;color:var(--primary);margin-bottom:20px;display:inline-block}
+  h1{font-size:32px;line-height:1.35;letter-spacing:-.5px;margin-bottom:16px}
+  .meta{font-size:13px;color:var(--muted)}
+  .meta a{color:var(--primary)}
+  article{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:36px 40px;box-shadow:0 1px 3px rgba(16,24,40,.05)}
+  article h2{font-size:22px;margin:36px 0 14px;padding-top:20px;border-top:1px solid var(--border)}
+  article h2:first-child{border:0;padding-top:0;margin-top:0}
+  article h3{font-size:18px;margin:26px 0 10px}
+  article p{margin:14px 0;font-size:15.5px}
+  article ul{margin:14px 0 14px 24px}
+  article li{margin:7px 0}
+  article a{color:var(--primary);word-break:break-all}
+  article strong{font-weight:600}
+  blockquote{background:var(--soft);border-left:4px solid var(--primary);padding:16px 20px;margin:20px 0;border-radius:0 8px 8px 0;color:#374151}
+  pre{background:#1f2937;color:#e5e7eb;border-radius:10px;padding:18px 20px;overflow-x:auto;font-size:13.5px;line-height:1.7;margin:18px 0}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+  p code, li code{background:var(--soft);padding:2px 6px;border-radius:5px;font-size:13.5px}
+  table{width:100%;border-collapse:collapse;margin:18px 0;font-size:14px}
+  th,td{border:1px solid var(--border);padding:10px 12px;text-align:left}
+  th{background:var(--soft)}
+  footer{padding:36px 0 56px;text-align:center;color:var(--muted);font-size:13px}
+  footer a{color:var(--primary)}
+  @media(max-width:640px){article{padding:24px 20px}h1{font-size:26px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="back" href="./">← 返回博客</a>
+    <h1>CodeQL 报了 471 个漏洞，真正的只有 5 个</h1>
+    <p class="meta">2026-11-20 · 作者 <a href="https://github.com/PHclaw">PHclaw</a> · 分类 安全 / 工程实践</p>
+  </header>
+  <article>
+<blockquote>Security 面板一片红：471 个未处理告警，其中 2 个 critical。 花了半天逐条看下来，真正值得改的是 5 处。 问题不在代码有多烂，在<strong>查询包选错了</strong>、<strong>第三方代码没排除</strong>、<strong>告警没有分级处理</strong>。</blockquote>
+<h2>结论先说</h2>
+<p>代码扫描工具报的数字，和项目真实的安全状况，往往是两回事。这次的经历可以浓缩成三条：</p>
+<ol><li><strong><code>security-and-quality</code> 会把代码质量问题也算成"安全告警"</strong>——471 条里有 309 条根本没有安全等级</li><li><strong>vendored 的第三方代码必须排除</strong>——246 条来自 <code>skills/</code> 下的社区技能，那些代码不归本项目维护</li><li><strong>批量 dismiss 要写理由</strong>——不是为了把数字清零，而是让留下来的每一条都有意义</li></ol>
+<p>最终数字变化：</p>
+<pre><code>471  →  98  →  94  →  0
+     改查询包   真修5处   标记94条</code></pre>
+<h2>现象：面板上有 471 个红点</h2>
+<p>给项目接入 CodeQL 时，我在工作流里写了：</p>
+<pre><code class="language-yaml">- name: Initialize CodeQL
+  uses: github/codeql-action/init@v3
+  with:
+    languages: ${{ matrix.language }}
+    queries: security-and-quality</code></pre>
+<p><code>security-and-quality</code> 听起来很全面——既查安全又查质量，有什么不好？</p>
+<p>扫描跑完，Security 面板显示 <strong>471 个 open alerts</strong>。按等级拆开：</p>
+<table><thead><tr><th>等级</th><th>数量</th><th>说明</th></tr></thead><tbody>
+<tr><td>quality（无安全等级）</td><td>309</td><td>纯代码质量，不是漏洞</td></tr>
+<tr><td>high</td><td>79</td><td>需人工确认的模式告警</td></tr>
+<tr><td>medium</td><td>81</td><td>同上</td></tr>
+<tr><td>critical</td><td>2</td><td>需要看</td></tr>
+</tbody></table>
+<p>按目录拆开，问题更明显：</p>
+<table><thead><tr><th>来源</th><th>数量</th></tr></thead><tbody>
+<tr><td><code>skills/</code>（第三方技能）</td><td>246</td></tr>
+<tr><td><code>backend/</code></td><td>192</td></tr>
+<tr><td><code>frontend/</code></td><td>26</td></tr>
+<tr><td>其它</td><td>7</td></tr>
+</tbody></table>
+<p><strong>一半以上的告警来自 vendored 的第三方技能</strong>——那些是社区贡献的脚本，各自有独立的许可证和维护者，本项目的改动不会回头修它们。</p>
+<h2>第一步：先看 Top 规则，别急着改代码</h2>
+<p>遇到几百条告警时，本能反应是"逐条修"。但先看规则分布，能省掉大量无用功：</p>
+<pre><code>80  py/empty-except              # except: pass，风格问题
+60  py/path-injection            # 路径拼接，多数在技能脚本里读自己的资源
+51  py/unused-global-variable    # 未使用变量
+40  py/unused-import             # 未使用 import
+38  py/unused-local-variable     # 同上
+37  py/stack-trace-exposure      # 错误响应里带堆栈</code></pre>
+<p>前四条加起来 209 条，基本是"代码风格 + 静态分析噪音"。<strong>它们让真正重要的 <code>critical</code> 被埋在红点里</strong>——这才是最大的问题。</p>
+<h2>第二步：改查询包 + 排除第三方目录</h2>
+<p>一次配置改动，471 → 98：</p>
+<pre><code class="language-yaml">- name: Initialize CodeQL
+  uses: github/codeql-action/init@v3
+  with:
+    languages: ${{ matrix.language }}
+    # 只跑安全类规则，去掉质量噪音
+    queries: security-extended
+    config: |
+      paths-ignore:
+        - skills/**              # vendored 第三方代码
+        - '**/node_modules/**'
+        - '**/dist/**'
+        - '**/__pycache__/**'</code></pre>
+<p>两个变化：</p>
+<ol><li><strong><code>security-extended</code></strong>：只跑安全规则集，不把"未使用变量""空 except"算进来</li><li><strong><code>paths-ignore</code></strong>：第三方技能不归本项目维护，它们的告警既不 actionable，也会淹没自己代码的问题</li></ol>
+<p>这一步没有改任何业务代码，告警降了 79%。</p>
+<h2>第三步：从 98 条里挑出真正要改的</h2>
+<p>剩下的 98 条按规则分布：</p>
+<table><thead><tr><th>规则</th><th>数量</th><th>判断</th></tr></thead><tbody>
+<tr><td><code>py/path-injection</code></td><td>48</td><td>多数已有 resolve + 工作区边界校验，误报</td></tr>
+<tr><td><code>py/log-injection</code></td><td>29</td><td>日志面向运维，写入方已认证，低风险</td></tr>
+<tr><td><code>py/stack-trace-exposure</code></td><td>10</td><td><strong>真问题</strong></td></tr>
+<tr><td><code>py/partial-ssrf</code></td><td>2</td><td>设计使然（自定义模型端点）</td></tr>
+<tr><td><code>py/incomplete-url-substring-sanitization</code></td><td>2</td><td>仅学术站点识别，不参与鉴权</td></tr>
+<tr><td>其它</td><td>7</td><td>含 weak-hashing 等</td></tr>
+</tbody></table>
+<p><strong>值得真改的是 <code>py/stack-trace-exposure</code></strong>。逐条看过去，5 处确实在把异常原文回给客户端：</p>
+<table><thead><tr><th>位置</th><th>原来的问题</th></tr></thead><tbody>
+<tr><td>全局异常处理</td><td><code>message = str(exc) if settings.DEBUG</code>——生产环境一旦误开 DEBUG 就泄露堆栈</td></tr>
+<tr><td>Stripe webhook</td><td>解析失败直接回 <code>str(e)</code>，报错里可能带签名片段</td></tr>
+<tr><td>知识库重排降级</td><td><code>except</code> 分支回 <code>str(e)</code></td></tr>
+<tr><td><code>/health/ready</code></td><td><strong>免认证公开端点</strong>，回 <code>str(e)</code> 会泄露连接串和主机名</td></tr>
+<tr><td>SSE 对话流</td><td><code>f"执行失败：{exc}"</code> 会原样显示在对话气泡里</td></tr>
+</tbody></table>
+<h2>修复：统一异常遮蔽，只给 trace id</h2>
+<p>新增一个模块，把异常原文留在日志里，响应里只给固定文案 + 追踪 ID：</p>
+<pre><code class="language-python">def log_and_mask(exc, *, where: str, fallback: str = "服务暂时不可用"):
+    """异常原文只进日志，对外返回固定文案 + trace id。"""
+    trace_id = uuid.uuid4().hex[:12]
+    logger.error("[%s] trace=%s: %s", where, trace_id, exc, exc_info=True)
+    return trace_id, fallback</code></pre>
+<p>然后在各处替换：</p>
+<pre><code class="language-python"># 改前
+return JSONResponse({"error": str(e)}, status_code=400)
+
+# 改后
+trace_id, message = log_and_mask(e, where="billing.webhook", fallback="Webhook 校验失败")
+return JSONResponse({"error": message, "trace_id": trace_id}, status_code=400)</code></pre>
+<p>用户报障时报 trace id，我们凭日志定位；攻击者拿不到文件路径、依赖版本、SQL 片段。</p>
+<p>顺手把两个用 <code>md5</code> 生成 key 的地方换成了 <code>sha256</code>（限流 key 和缓存 key）。严格说这不是安全存储、属于误报，但换哈希成本为零，省掉以后每次解释。</p>
+<h2>第四步：批量 dismiss，但每条都写理由</h2>
+<p>剩下的 94 条不是"忽略掉就行"，而是按规则分组、逐条写明理由：</p>
+<table><thead><tr><th>规则</th><th>数量</th><th>标记</th><th>理由要点</th></tr></thead><tbody>
+<tr><td><code>py/path-injection</code></td><td>48</td><td>won't fix</td><td>路径先 resolve 再校验，必须落在工作区/生成目录内</td></tr>
+<tr><td><code>py/log-injection</code></td><td>29</td><td>won't fix</td><td>日志面向运维，写入方已认证</td></tr>
+<tr><td><code>py/stack-trace-exposure</code></td><td>7</td><td>false positive</td><td>文案来自 humanize 函数，不含堆栈</td></tr>
+<tr><td><code>py/partial-ssrf</code></td><td>2</td><td>won't fix</td><td>自定义模型端点是产品能力（要连内网 Ollama）</td></tr>
+<tr><td><code>py/incomplete-url-substring-...</code></td><td>2</td><td>false positive</td><td>仅学术站点识别，不参与鉴权</td></tr>
+<tr><td><code>js/insecure-temporary-file</code></td><td>2</td><td>won't fix</td><td>开发期录屏脚本，不随产品分发</td></tr>
+<tr><td><code>py/sql-injection</code></td><td>1</td><td>false positive</td><td>表名过正则 + 白名单，值全部参数化</td></tr>
+</tbody></table>
+<p>GitHub 会记录每条的 <code>dismissed_comment</code>，随时可在 Security → Closed 里恢复。<strong>以后新代码引入同类问题，仍会照常报警</strong>——dismiss 只针对当前这条，不是给规则开永久豁免。</p>
+<h2>三条可复用的规则</h2>
+<h3>1. 查询包按用途选，不是越全越好</h3>
+<ol><li>想给代码做全面体检 → <code>security-and-quality</code></li><li>想对外展示可信的安全状态 → <code>security-extended</code></li></ol>
+<p>前者适合内审阶段，后者适合长期挂着。</p>
+<h3>2. vendored 代码一定要排除</h3>
+<p>第三方库、技能、生成代码不归你维护。让扫描器扫它们，只会制造噪音。CodeQL 的 <code>paths-ignore</code> 一行就能解决。</p>
+<h3>3. 告警要分级处理，不要只做两头</h3>
+<p>面对几百条告警，正确的动作顺序是：</p>
+<pre><code>改查询包 → 排除无关代码 → 挑真问题修 → 剩余的逐条标注理由</code></pre>
+<p>直接 dismiss 全部等于没做扫描；逐条硬修 471 条则是浪费时间。</p>
+<h2>一句话总结</h2>
+<blockquote><strong>安全面板的价值不在于告警数量少，而在于每一条都值得看。</strong> 471 个红点等于没有信号；0 个 open + 94 条带理由的 closed，才是一个能用的状态。</blockquote>
+<p>---</p>
+<h2>关于作者</h2>
+<p>本文来自 <strong>AgentFlow</strong> 的真实维护记录——一个自托管 AI Agent 平台，默认 SQLite 单机可跑，包含拖拽工作流、知识库 RAG 和 26 个内置技能。项目 CI / CodeQL / Pages 三条流水线全绿，安全面板 0 个未处理告警。</p>
+<ol><li>源码：https://github.com/PHclaw/agentflow</li><li>在线演示：http://159.75.21.251:3000</li><li>文档：https://phclaw.github.io/agentflow/</li><li>更多踩坑笔记：https://phclaw.github.io/blog/</li></ol>
+<p>对 CodeQL 配置有异议或补充，欢迎在 Discussions 里讨论。</p>
+  </article>
+  <footer>
+    <a href="https://github.com/PHclaw">GitHub @PHclaw</a> · <a href="https://github.com/PHclaw/agentflow">AgentFlow</a> · <a href="https://phclaw.github.io/blog/">更多踩坑笔记</a>
+  </footer>
+</div>
+</body>
+</html>
