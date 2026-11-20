@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>博客 · PHclaw</title>
+<meta name="description" content="PHclaw 的工程实践笔记：Git 合并陷阱、CI 排错、CodeQL 告警治理、开源项目维护复盘。每篇文章都来自真实踩坑。">
+<link rel="canonical" href="https://phclaw.github.io/blog/">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  "name": "PHclaw 博客",
+  "description": "来自真实开源项目维护的工程实践笔记",
+  "url": "https://phclaw.github.io/blog/",
+  "author": {"@type": "Person", "name": "PHclaw", "url": "https://github.com/PHclaw"},
+  "blogPost": [
+    {
+      "@type": "TechArticle",
+      "headline": "一次 Git 合并丢了 500 个文件：三方合并的「静默删除」陷阱",
+      "url": "https://phclaw.github.io/blog/git-merge-silent-deletion.html",
+      "datePublished": "2026-11-20",
+      "author": {"@type": "Person", "name": "PHclaw"}
+    }
+  ]
+}
+</script>
+<style>
+  :root{--bg:#fafbfc;--surface:#fff;--border:#e5e9f0;--text:#1f2937;--muted:#6b7280;--primary:#4f46e5}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:Inter,-apple-system,"PingFang SC",sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+  .wrap{max-width:780px;margin:0 auto;padding:0 24px}
+  header{padding:52px 0 30px;border-bottom:1px solid var(--border);margin-bottom:32px}
+  .back{font-size:13px;color:var(--primary);text-decoration:none}
+  h1{font-size:32px;margin:18px 0 8px}
+  .sub{color:var(--muted);font-size:15px}
+  .post{display:block;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:22px 26px;margin-bottom:14px;text-decoration:none;color:inherit;transition:border-color .15s,transform .15s}
+  .post:hover{border-color:var(--primary);transform:translateY(-2px)}
+  .post h2{font-size:19px;margin-bottom:8px}
+  .post p{font-size:14px;color:var(--muted);margin-bottom:10px}
+  .post .meta{font-size:12px;color:var(--muted)}
+  .post .tag{display:inline-block;font-size:11px;color:var(--primary);background:#eef2ff;border-radius:5px;padding:2px 8px;margin-right:8px}
+  footer{padding:36px 0 56px;text-align:center;color:var(--muted);font-size:13px}
+  footer a{color:var(--primary)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="back" href="../">← 返回 PHclaw</a>
+    <h1>博客</h1>
+    <p class="sub">来自真实开源项目维护的工程实践笔记。不写教程合集，只写踩过的坑。</p>
+  </header>
+
+  <a class="post" href="./git-merge-silent-deletion.html">
+    <h2>一次 Git 合并丢了 500 个文件：三方合并的「静默删除」陷阱</h2>
+    <p>合并显示「干净」，CI 却开始报模块找不到、技能广场空空如也。根因不是冲突解决错了，而是根本没有冲突——这正是最危险的地方。含排查命令与三条防护规则。</p>
+    <span class="tag">Git</span><span class="tag">工程实践</span>
+    <span class="meta">2026-11-20 · 约 1800 字</span>
+  </a>
+
+  <footer>
+    <a href="https://github.com/PHclaw">GitHub @PHclaw</a> · <a href="https://phclaw.github.io/agentflow/">AgentFlow 文档</a>
+  </footer>
+</div>
+</body>
+</html>

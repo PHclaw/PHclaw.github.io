@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>一次 Git 合并丢了 500 个文件：三方合并的「静默删除」陷阱 · PHclaw</title>
+<meta name="description" content="合并显示「干净」，CI 却开始报模块找不到、技能广场空空如也。">
+<meta name="author" content="PHclaw">
+<meta name="keywords" content="Git 三方合并, git merge 丢文件, diff-filter=D, 静默删除, AgentFlow">
+<link rel="canonical" href="https://phclaw.github.io/blog/git-merge-silent-deletion.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一次 Git 合并丢了 500 个文件：三方合并的「静默删除」陷阱">
+<meta property="og:description" content="合并显示「干净」，CI 却开始报模块找不到、技能广场空空如也。">
+<meta property="og:url" content="https://phclaw.github.io/blog/git-merge-silent-deletion.html">
+<meta property="og:site_name" content="PHclaw Blog">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="一次 Git 合并丢了 500 个文件：三方合并的「静默删除」陷阱">
+<meta name="twitter:description" content="合并显示「干净」，CI 却开始报模块找不到、技能广场空空如也。">
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "@id": "https://phclaw.github.io/blog/git-merge-silent-deletion.html#article",
+      "headline": "一次 Git 合并丢了 500 个文件：三方合并的「静默删除」陷阱",
+      "description": "合并显示「干净」，CI 却开始报模块找不到、技能广场空空如也。",
+      "datePublished": "2026-11-20",
+      "dateModified": "2026-11-20",
+      "inLanguage": "zh-CN",
+      "author": {
+        "@type": "Person",
+        "@id": "https://github.com/PHclaw#person",
+        "name": "PHclaw",
+        "url": "https://github.com/PHclaw"
+      },
+      "publisher": {
+        "@type": "Person",
+        "@id": "https://github.com/PHclaw#person"
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://phclaw.github.io/blog/git-merge-silent-deletion.html"
+      },
+      "about": [
+        {
+          "@type": "SoftwareApplication",
+          "name": "Git",
+          "applicationCategory": "DeveloperApplication"
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "AgentFlow",
+          "url": "https://github.com/PHclaw/agentflow",
+          "description": "自托管 AI Agent 平台，SQLite 单机可跑，拖拽工作流 + 知识库 RAG + 26 个技能"
+        }
+      ],
+      "mentions": [
+        {
+          "@type": "Thing",
+          "name": "Git 三方合并",
+          "description": "three-way merge"
+        },
+        {
+          "@type": "Thing",
+          "name": "git diff --diff-filter=D"
+        },
+        {
+          "@type": "Thing",
+          "name": "静默删除 / silent deletion in merge"
+        },
+        {
+          "@type": "Thing",
+          "name": "CI 构建失败 TS2307"
+        }
+      ],
+      "keywords": "Git 三方合并, git merge 丢文件, diff-filter=D, 静默删除, 合并冲突排查, AgentFlow, CI 失败",
+      "articleSection": "Git / 工程实践",
+      "isAccessibleForFree": true,
+      "license": "https://creativecommons.org/licenses/by/4.0/"
+    },
+    {
+      "@type": "Person",
+      "@id": "https://github.com/PHclaw#person",
+      "name": "PHclaw",
+      "alternateName": "PH penguin",
+      "url": "https://github.com/PHclaw",
+      "sameAs": [
+        "https://phclaw.github.io/",
+        "https://github.com/PHclaw/agentflow"
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "PHclaw",
+          "item": "https://phclaw.github.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "博客",
+          "item": "https://phclaw.github.io/blog/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "一次 Git 合并丢了 500 个文件：三方合并的「静默删除」陷阱",
+          "item": "https://phclaw.github.io/blog/git-merge-silent-deletion.html"
+        }
+      ]
+    }
+  ]
+}</script>
+<style>
+  :root{--bg:#fafbfc;--surface:#fff;--border:#e5e9f0;--text:#1f2937;--muted:#6b7280;--primary:#4f46e5;--soft:#f5f7fa}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:Inter,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--text);line-height:1.8;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:780px;margin:0 auto;padding:0 24px}
+  header{padding:48px 0 28px;border-bottom:1px solid var(--border);margin-bottom:36px}
+  .back{font-size:13px;color:var(--primary);margin-bottom:20px;display:inline-block}
+  h1{font-size:32px;line-height:1.35;letter-spacing:-.5px;margin-bottom:16px}
+  .meta{font-size:13px;color:var(--muted)}
+  .meta a{color:var(--primary)}
+  article{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:36px 40px;box-shadow:0 1px 3px rgba(16,24,40,.05)}
+  article h2{font-size:22px;margin:36px 0 14px;padding-top:20px;border-top:1px solid var(--border)}
+  article h2:first-child{border:0;padding-top:0;margin-top:0}
+  article h3{font-size:18px;margin:26px 0 10px}
+  article p{margin:14px 0;font-size:15.5px}
+  article ul{margin:14px 0 14px 24px}
+  article li{margin:7px 0}
+  article a{color:var(--primary);word-break:break-all}
+  article strong{font-weight:600}
+  blockquote{background:var(--soft);border-left:4px solid var(--primary);padding:16px 20px;margin:20px 0;border-radius:0 8px 8px 0;color:#374151}
+  pre{background:#1f2937;color:#e5e7eb;border-radius:10px;padding:18px 20px;overflow-x:auto;font-size:13.5px;line-height:1.7;margin:18px 0}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+  p code, li code{background:var(--soft);padding:2px 6px;border-radius:5px;font-size:13.5px}
+  table{width:100%;border-collapse:collapse;margin:18px 0;font-size:14px}
+  th,td{border:1px solid var(--border);padding:10px 12px;text-align:left}
+  th{background:var(--soft)}
+  footer{padding:36px 0 56px;text-align:center;color:var(--muted);font-size:13px}
+  footer a{color:var(--primary)}
+  @media(max-width:640px){article{padding:24px 20px}h1{font-size:26px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="back" href="../">← 返回 PHclaw</a>
+    <h1>一次 Git 合并丢了 500 个文件：三方合并的「静默删除」陷阱</h1>
+    <p class="meta">2026-11-20 · 作者 <a href="https://github.com/PHclaw">PHclaw</a> · 分类 Git / 工程实践</p>
+  </header>
+  <article>
+<blockquote>合并显示「干净」，CI 却开始报模块找不到、技能广场空空如也。 根因不是冲突解决错了，而是<strong>根本没有冲突</strong>——这正是最危险的地方。</blockquote>
+<h2>结论先说</h2>
+<p>Git 三方合并有一个容易被忽略的默认行为：</p>
+<blockquote>当「一方删除了文件、另一方没有修改它」时，Git 会直接采用删除结果，<strong>不报冲突</strong>。</blockquote>
+<p>这意味着一次看起来完全干净的合并，可能悄悄丢掉一整个目录。本文记录我在合并 AgentFlow 完整版分支时踩到这个坑的完整过程、排查命令和三条可复用的防护规则。</p>
+<h2>现象：合并很干净，功能却少了</h2>
+<p>背景是这样的：一个分支为了精简产品，删除了控制台、工作流、知识库等模块以及 <code>skills/</code> 下的技能目录；另一条分支（完整版）保留了这些能力。需要把完整版合并回主干。</p>
+<p>合并过程没有任何冲突提示：</p>
+<pre><code class="language-bash">git merge refactor/phase1
+# Auto-merging ...
+# No conflicts.</code></pre>
+<p>提交、推送，看起来一切正常。但 CI 立刻开始报错：</p>
+<pre><code>TS2307: Cannot find module './nodes'</code></pre>
+<p>同时后端测试失败：<code>/api/v1/skills/plaza</code> 返回空列表——技能广场里一个技能都没有了。</p>
+<p><strong>诡异之处在于：本地开发时这些功能都还在。</strong> 因为本地工作树来自完整版分支，而主干上的文件已经不见了。</p>
+<h2>排查：用 diff-filter 找出「被删除的文件」</h2>
+<p>普通的 <code>git diff</code> 看不出问题，因为合并已经完成，两个分支的内容在合并提交里「一致」了。要把合并的另一个父提交拉出来对比：</p>
+<pre><code class="language-bash"># 列出「完整版分支有、合并后的 master 没有」的文件
+git diff --diff-filter=D --name-only refactor/phase1 origin/master</code></pre>
+<p>这一条命令直接列出了 500 多个消失的文件：</p>
+<pre><code>frontend/src/components/workflow/nodes/index.ts
+scripts/init.ps1
+scripts/init.sh
+skills/excel/SKILL.md
+skills/pdf/SKILL.md
+skills/academic-search/SKILL.md
+...</code></pre>
+<p>按目录统计后发现主要集中在三处：</p>
+<table><thead><tr><th>目录</th><th>性质</th><th>后果</th></tr></thead><tbody>
+<tr><td><code>skills/</code>（11 个技能目录）</td><td>业务能力</td><td>技能广场返回空</td></tr>
+<tr><td><code>frontend/.../workflow/nodes/</code></td><td>前端模块</td><td><code>TS2307</code> 构建失败</td></tr>
+<tr><td><code>scripts/</code></td><td>初始化脚本</td><td>文档里的命令失效</td></tr>
+</tbody></table>
+<h2>根因：三方合并的「删除 vs 未修改」</h2>
+<p>用 Git 的三方合并模型解释就清楚了：</p>
+<pre><code>     base（共同祖先）
+      /        \
+  master      refactor/phase1
+  （删除文件）   （未修改文件）
+      \        /
+       合并结果</code></pre>
+<p>Git 对这种情况的规则是：</p>
+<ul><li>一方删除、另一方未改 → <strong>采用删除</strong>，不产生冲突</li><li>一方删除、另一方修改 → 冲突（modify/delete），需要人工决定</li><li>双方都删除 → 一致删除</li></ul>
+<p>所以最危险的不是第一种吗？不——<strong>正因为不报冲突，人不会停下来检查</strong>。modify/delete 冲突反而会强制你做决定。</p>
+<p>这类「静默删除」常发生在：</p>
+<ul><li>精简分支删掉了一批文件，而完整分支自合并基线后没有再碰过它们</li><li>迁移目录结构时用了 <code>git rm</code></li><li>cherry-pick 或 revert 之后再做合并</li></ul>
+<h2>修复：从另一父提交恢复</h2>
+<p>确定这些文件应该保留后，直接从完整版分支检出：</p>
+<pre><code class="language-bash"># 恢复整个技能目录
+git checkout refactor/phase1 -- skills/
+
+# 恢复单个文件和脚本
+git checkout refactor/phase1 -- \
+  frontend/src/components/workflow/nodes/index.ts \
+  scripts/init.ps1 scripts/init.sh
+
+git add -A
+git commit -m "fix: 恢复合并时被静默删除的文件"</code></pre>
+<p>提交后 CI 恢复：前端 <code>tsc</code> 通过，技能广场重新返回 26 个技能。</p>
+<h2>三条可复用的防护规则</h2>
+<h3>1. 合并后固定跑一次删除检查</h3>
+<p>把这条命令加入合并后的检查清单：</p>
+<pre><code class="language-bash">git diff --diff-filter=D --name-only &lt;另一个父提交&gt; HEAD</code></pre>
+<p>看到不该消失的文件，就说明合并把「静默删除」当成了一致结果。</p>
+<h3>2. 「精简」优先用配置开关，不要直接删文件</h3>
+<p>如果目的是下线功能，更安全的做法是：</p>
+<ul><li>前端路由用 feature flag 控制显隐</li><li>技能用状态字段（published / archived）控制上下架</li><li>脚本保留，文档里标注 deprecated</li></ul>
+<p>文件还在，合并就不会丢；功能是否可用由运行时配置决定。</p>
+<h3>3. CI 要覆盖「功能是否存在」，不只是「能否构建」</h3>
+<p>这次前端构建和后端测试其实都给出了信号：</p>
+<ul><li><code>TS2307</code> 说明模块缺失</li><li>技能广场测试断言返回非空，失败</li></ul>
+<p>如果 CI 只跑 lint 而跳过这两类测试，这个错误可能要到用户反馈才会发现。</p>
+<h2>一句话总结</h2>
+<blockquote><strong>Git 合并里最危险的冲突，是那些不报的冲突。</strong> 只要合并涉及「删文件」，就一定要用 <code>git diff --diff-filter=D</code> 复核一遍。</blockquote>
+<p>---</p>
+<h2>关于作者</h2>
+<p>本文来自一次真实的开源项目维护记录：<strong>AgentFlow</strong> 是一个自托管 AI Agent 平台，默认 SQLite 单机可跑，包含拖拽工作流、知识库 RAG 和 26 个内置技能。</p>
+<ul><li>源码：https://github.com/PHclaw/agentflow</li><li>在线演示：http://159.75.21.251:3000</li><li>文档：https://phclaw.github.io/agentflow/</li></ul>
+<p>如果这个坑你也踩过，欢迎在 issue 或 Discussions 里补充你的排查思路。</p>
+  </article>
+  <footer>
+    <a href="https://github.com/PHclaw">GitHub @PHclaw</a> · <a href="https://github.com/PHclaw/agentflow">AgentFlow</a> · <a href="https://phclaw.github.io/agentflow/">项目文档</a>
+  </footer>
+</div>
+</body>
+</html>
