@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>你说的「相似」到底是什么相似？余弦、点积与归一化 · PHclaw</title>
+<meta name="description" content="这是「写给工程师的机器学习入门」系列第 3 篇。">
+<meta name="author" content="PHclaw">
+<meta name="keywords" content="余弦相似度, 点积, 欧氏距离, 向量归一化, 相似度分数, 阈值设置, embedding 检索, AgentFlow">
+<link rel="canonical" href="https://phclaw.github.io/blog/ml-03-similarity.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="你说的「相似」到底是什么相似？余弦、点积与归一化">
+<meta property="og:description" content="这是「写给工程师的机器学习入门」系列第 3 篇。">
+<meta property="og:url" content="https://phclaw.github.io/blog/ml-03-similarity.html">
+<meta property="og:site_name" content="PHclaw Blog">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="你说的「相似」到底是什么相似？余弦、点积与归一化">
+<meta name="twitter:description" content="这是「写给工程师的机器学习入门」系列第 3 篇。">
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "@id": "https://phclaw.github.io/blog/ml-03-similarity.html#article",
+      "headline": "你说的「相似」到底是什么相似？余弦、点积与归一化",
+      "description": "这是「写给工程师的机器学习入门」系列第 3 篇。",
+      "datePublished": "2026-11-21",
+      "dateModified": "2026-11-21",
+      "inLanguage": "zh-CN",
+      "author": {
+        "@type": "Person",
+        "@id": "https://github.com/PHclaw#person",
+        "name": "PHclaw",
+        "url": "https://github.com/PHclaw"
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://phclaw.github.io/blog/ml-03-similarity.html"
+      },
+      "about": [
+        {
+          "@type": "Thing",
+          "name": "余弦相似度"
+        },
+        {
+          "@type": "Thing",
+          "name": "向量点积"
+        },
+        {
+          "@type": "Thing",
+          "name": "向量归一化"
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "AgentFlow",
+          "url": "https://github.com/PHclaw/agentflow"
+        }
+      ],
+      "mentions": [
+        {
+          "@type": "Thing",
+          "name": "cosine similarity / 余弦相似度"
+        },
+        {
+          "@type": "Thing",
+          "name": "dot product / 点积"
+        },
+        {
+          "@type": "Thing",
+          "name": "Euclidean distance / 欧氏距离"
+        },
+        {
+          "@type": "Thing",
+          "name": "L2 normalization / 归一化"
+        },
+        {
+          "@type": "Thing",
+          "name": "similarity threshold / 相似度阈值"
+        }
+      ],
+      "keywords": "余弦相似度, 点积, 欧氏距离, 向量归一化, 相似度分数, 阈值设置, embedding 检索, AgentFlow",
+      "articleSection": "AI",
+      "isAccessibleForFree": true,
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "isPartOf": {
+        "@type": "Blog",
+        "name": "写给工程师的机器学习入门",
+        "url": "https://phclaw.github.io/blog/"
+      }
+    },
+    {
+      "@type": "Person",
+      "@id": "https://github.com/PHclaw#person",
+      "name": "PHclaw",
+      "url": "https://github.com/PHclaw",
+      "sameAs": [
+        "https://phclaw.github.io/",
+        "https://github.com/PHclaw/agentflow"
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "PHclaw",
+          "item": "https://phclaw.github.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "博客",
+          "item": "https://phclaw.github.io/blog/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "你说的「相似」到底是什么相似？余弦、点积与归一化",
+          "item": "https://phclaw.github.io/blog/ml-03-similarity.html"
+        }
+      ]
+    }
+  ]
+}</script>
+<style>
+  :root{--bg:#fafbfc;--surface:#fff;--border:#e5e9f0;--text:#1f2937;--muted:#6b7280;--primary:#4f46e5;--soft:#f5f7fa}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:Inter,-apple-system,"PingFang SC",sans-serif;background:var(--bg);color:var(--text);line-height:1.8;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:780px;margin:0 auto;padding:0 24px}
+  header{padding:48px 0 28px;border-bottom:1px solid var(--border);margin-bottom:36px}
+  .back{font-size:13px;color:var(--primary);text-decoration:none}
+  h1{font-size:32px;line-height:1.35;letter-spacing:-.5px;margin-bottom:16px}
+  .meta{font-size:13px;color:var(--muted)}
+  .meta a{color:var(--primary)}
+  article{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:40px 44px;box-shadow:0 1px 3px rgba(16,24,40,.05),0 8px 24px rgba(16,24,40,.04)}
+  article h2{font-size:21px;margin:38px 0 14px;padding-top:22px;border-top:1px solid #eef1f6;letter-spacing:-.2px}
+  article h2:first-child{border:0;padding-top:0;margin-top:0}
+  article h3{font-size:18px;margin:26px 0 10px}
+  article p{margin:14px 0;font-size:15.5px}
+  article ol,article ul{margin:14px 0 14px 24px}
+  article li{margin:7px 0}
+  article a{color:var(--primary);word-break:break-all}
+  article strong{font-weight:600}
+  blockquote{background:var(--soft);border-left:4px solid var(--primary);padding:16px 20px;margin:20px 0;border-radius:0 8px 8px 0;color:#374151}
+  pre{background:#1f2937;color:#e5e7eb;border-radius:10px;padding:18px 20px;overflow-x:auto;font-size:13.5px;line-height:1.7;margin:18px 0}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+  p code,li code,td code{background:#eef2ff;color:#4338ca;padding:2px 6px;border-radius:5px;font-size:13.5px;font-weight:500}
+  table{width:100%;border-collapse:collapse;margin:18px 0;font-size:14px}
+  th,td{border:1px solid var(--border);padding:10px 12px;text-align:left}
+  th{background:var(--soft)}
+  footer{padding:36px 0 56px;text-align:center;color:var(--muted);font-size:13px}
+  footer a{color:var(--primary)}
+  @media(max-width:640px){article{padding:24px 20px}h1{font-size:26px}}
+
+  figure{margin:26px -8px;text-align:center}
+  figure img{max-width:100%;height:auto;border:1px solid var(--border);border-radius:12px;display:block;margin:0 auto}
+  figure figcaption{font-size:12px;color:var(--muted);margin-top:10px}
+  p.img-note{font-size:13px;color:var(--muted);text-align:center;margin-top:-14px}
+
+  .post-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+  .post-tags a{text-decoration:none;font-size:12px;font-weight:600;padding:5px 12px;border-radius:999px;transition:opacity .15s}
+  .post-tags a:hover{opacity:.75}
+  .cat-badge{background:var(--primary);color:#fff}
+  .tag-badge{background:var(--soft);color:var(--muted);border:1px solid var(--border)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="back" href="./">← 返回博客</a>
+    <h1>你说的「相似」到底是什么相似？余弦、点积与归一化</h1>
+    <p class="meta">2026-11-21 · 作者 <a href="https://github.com/PHclaw">PHclaw</a></p>
+    <div class="post-tags">
+      <a class="cat-badge" href="index.html#cat-AI">AI</a>
+      <a class="tag-badge" href="index.html?tag=机器学习">#机器学习</a>
+      <a class="tag-badge" href="index.html?tag=向量">#向量</a>
+      <a class="tag-badge" href="index.html?tag=embedding">#embedding</a>
+      <a class="tag-badge" href="index.html?tag=检索">#检索</a>
+    </div>
+  </header>
+  <article>
+<blockquote>这是「写给工程师的机器学习入门」系列第 3 篇。 前两篇讲了「语义相似 = 向量方向接近」。这篇要拆开一个更具体的问题： <strong>为什么检索接口返回的 0.83，不能理解成「83% 相关」？</strong></blockquote>
+<h2>结论先说</h2>
+<p>三句话：</p>
+<ol><li><strong>余弦相似度</strong>看方向，不看长度，范围 [-1, 1]</li><li><strong>点积</strong>是「方向 × 长度」，长度会影响结果，除非先归一化</li><li><strong>欧氏距离</strong>看直线距离，越小越相似——方向相反的两个向量可能被算成"很近"</li></ol>
+<p>而"0.83 是不是 83%"这个问题，答案是：<strong>不是</strong>。分数只是一个排序依据，它的绝对数值取决于模型和数据集，没有统一含义。</p>
+<h2>一、三种度量，几何上完全不是一回事</h2>
+<p>先看一张图理解差别。</p>
+<figure><img src="assets/ml-03-metrics.svg" alt="三种相似度度量的几何差异"><figcaption>三种相似度度量的几何差异</figcaption></figure>
+<p>*图 1：同样两个向量，余弦看夹角（0.94），点积受长度影响（28），欧氏距离看端点间距（2.4）。*</p>
+<table><thead><tr><th>度量</th><th>公式</th><th>看什么</th><th>越大越相似？</th></tr></thead><tbody>
+<tr><td>余弦相似度</td><td><code>cos(θ) = (A·B) / (‖A‖·‖B‖)</code></td><td>夹角</td><td>是</td></tr>
+<tr><td>点积</td><td><code>A·B = ‖A‖·‖B‖·cos(θ)</code></td><td>夹角 + 长度</td><td>是</td></tr>
+<tr><td>欧氏距离</td><td><code>‖A - B‖</code></td><td>端点直线距离</td><td><strong>否</strong>，越小越近</td></tr>
+</tbody></table>
+<p>注意欧氏距离那一列：它和余弦<strong>不是单调对应</strong>的。两个向量方向完全一致、只是一个长一个短，余弦会是 1.0，但欧氏距离可能很大。</p>
+<p>这就解释了为什么用不同的向量库，同样的数据会给出不同的检索结果——<strong>它们默认用的度量不一样</strong>。</p>
+<h2>二、余弦相似度：只看角度</h2>
+<p>余弦相似度的定义很干净：</p>
+<pre><code class="language-python">import numpy as np
+
+def cosine(a, b):
+    return np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b))</code></pre>
+<p>分子是点积，分母是两个向量的模长。所以<strong>长度被除掉了</strong>，只剩方向。</p>
+<p>为什么这适合文本？因为文本长度不该影响语义判断：</p>
+<ul><li>"天气不错" 和 "今天天气真不错啊" 意思一样，但后者更长</li><li>如果直接用点积，长的那句分数会更高——这不是我们想要的</li></ul>
+<p>余弦的取值：</p>
+<pre><code> 1.0  → 方向完全一致
+ 0.0  → 垂直（无关）
+-1.0  → 方向完全相反</code></pre>
+<p><strong>但实践中，文本 embedding 的余弦值几乎不会是负数。</strong> 因为大部分模型输出的向量都落在同一个"象限"里，实际范围大概是 0.0 到 1.0。</p>
+<p>这点很重要：如果你看到"余弦相似度理论范围 [-1,1]"，然后据此把阈值设成 0.5 觉得"过半数就算相关"，那是错的——真实分布完全是另一回事。</p>
+<h2>三、点积：方便，但会被长度带偏</h2>
+<p>点积是三个度量里计算最快的（就是乘加），所以很多系统直接用它。</p>
+<p>但它的语义是「夹角 × 长度」：</p>
+<pre><code class="language-python">a = np.array([1.0, 0.0])      # 短向量，指向右
+b = np.array([1.0, 0.0])      # 同方向
+c = np.array([10.0, 0.0])     # 同方向，长 10 倍
+
+np.dot(a, b)   # 1.0
+np.dot(a, c)   # 10.0  ← 方向完全一样，但分数高 10 倍</code></pre>
+<p><code>a</code> 和 <code>c</code> 的方向完全一致，余弦是 1.0，但点积差了 10 倍。如果拿点积排序，长向量会系统性地占优势。</p>
+<p><strong>除非先归一化。</strong></p>
+<h2>四、归一化：把长度抹掉，让点积等于余弦</h2>
+<p>归一化就是把每个向量除以自己的长度，变成单位向量：</p>
+<pre><code class="language-python">def normalize(v):
+    return v / np.linalg.norm(v)</code></pre>
+<p>做完之后，所有向量的长度都是 1，于是：</p>
+<pre><code>A·B = ‖A‖·‖B‖·cos(θ) = 1 · 1 · cos(θ) = cos(θ)</code></pre>
+<p><strong>点积就等于余弦了。</strong> 这不是巧合，是设计出来的——很多系统（包括不少 embedding API）输出的向量<strong>本身就是归一化的</strong>，所以：</p>
+<ul><li>用点积和用余弦，结果完全一样</li><li>计算更快（省掉两次开方和除法）</li><li>可以用一些针对单位向量的优化索引（如内积索引）</li></ul>
+<figure><img src="assets/ml-03-normalize.svg" alt="归一化前后对比"><figcaption>归一化前后对比</figcaption></figure>
+<p>*图 2：归一化把所有向量投影到单位圆上，长度信息被丢弃，只剩方向。*</p>
+<p>所以有一个实用判断：</p>
+<blockquote><strong>如果你的 embedding 已经归一化，那点积、余弦、内积检索是一回事。</strong> 如果没归一化，三者结果可能差很多。</blockquote>
+<p>怎么知道有没有归一化？算一下向量长度：</p>
+<pre><code class="language-python">norm = np.linalg.norm(vec)
+print(norm)   # 接近 1.0 说明已归一化</code></pre>
+<h2>五、欧氏距离：最容易误用的那个</h2>
+<p>很多向量数据库（包括 chromadb 的部分配置）默认用 L2 距离：</p>
+<pre><code class="language-python">dist = np.linalg.norm(a - b)    # 越小越相似</code></pre>
+<p>它和余弦的关系不固定：</p>
+<table><thead><tr><th>情况</th><th>余弦</th><th>欧氏距离</th></tr></thead><tbody>
+<tr><td>同方向，长度不同</td><td>1.0（最相似）</td><td>可能很大</td></tr>
+<tr><td>同长度，方向略偏</td><td>0.98</td><td>小</td></tr>
+<tr><td>方向相反，长度相同</td><td>-1.0</td><td>中等</td></tr>
+</tbody></table>
+<p>关键陷阱在这里：<strong>两个方向相反但都很长的向量，欧氏距离可能不大，但余弦是 -1（最不相似）</strong>。</p>
+<p>如果检索结果明显"不太对但又说不出哪里不对"，先查一下向量库用的是哪个度量。这个在配置里通常叫 <code>metric</code>、<code>distance</code> 或 <code>space</code>，取值可能是 <code>cosine</code> / <code>l2</code> / <code>ip</code>（内积）。</p>
+<h2>六、回到那个问题：0.83 是 83% 吗？</h2>
+<p>不是。原因是分数分布没有统一标准：</p>
+<figure><img src="assets/ml-03-threshold.svg" alt="分数分布与阈值"><figcaption>分数分布与阈值</figcaption></figure>
+<p>*图 3：同一个模型在不同数据集上，分数分布完全不同。阈值必须按实际分布定，不能套用固定数字。*</p>
+<p>具体来说：</p>
+<ol><li><strong>不同模型的分数尺度不同</strong>。模型 A 认为"相关"的分数是 0.8，模型 B 可能给出 0.6</li><li><strong>不同数据集的分布不同</strong>。问答对之间的相似度普遍偏高（都是中文、都在问问题），长文档之间的相似度普遍偏低</li><li><strong>同模型不同片段长度也不同</strong>。一句话和一段话的向量，相似度分数不在一个量级</li></ol>
+<p>所以正确做法是：<strong>先看分布，再定阈值</strong>。</p>
+<pre><code class="language-python">scores = [s for _, s in vectorstore.similarity_search_with_score(query, k=50)]
+import statistics
+print("最高:", max(scores))
+print("中位:", statistics.median(scores))
+print("最低:", min(scores))</code></pre>
+<p>如果最高分 0.45、中位 0.32，那阈值设 0.7 就等于永远检索不到东西——<strong>这不是阈值的问题，是链路前面某处出错了</strong>（这个坑在上一篇 RAG 排错里讲过）。</p>
+<p>如果最高分 0.82、中位 0.41，那 0.7 可能刚好能筛出真正相关的几条。</p>
+<h2>七、四个实用建议</h2>
+<h3>1. 同一个知识库里只用一种度量</h3>
+<p>混用会让分数不可比。换度量等于换打分标准，历史数据、阈值、评测基线全部失效。</p>
+<h3>2. 阈值按数据定，不按直觉定</h3>
+<p>标一批"相关 / 不相关"的样本，看两组分数的分布重叠在哪，阈值就设在那。通常是个区间而不是一个点。</p>
+<h3>3. 相对排序比绝对分数可靠</h3>
+<p>检索取 top-k 时，<strong>排序</strong>是稳定的；但"分数 0.75 以上算相关"这种绝对判断，换个模型就崩。要卡质量就卡排序后的截断位置，别卡分数。</p>
+<h3>4. 换 embedding 模型 = 所有阈值作废</h3>
+<p>不只是维度要重建（第 1 篇讲过），分数的尺度也变了。原来的 0.7 在新模型上可能对应完全不同的含义。</p>
+<h2>本篇小结</h2>
+<ol><li><strong>余弦看方向、点积看方向×长度、欧氏距离看端点距离</strong>，三者不单调等价</li><li><strong>归一化之后，点积 = 余弦</strong></li><li><strong>分数不是百分比</strong>，它只在同一个模型 + 同一个数据集内部可比</li></ol>
+<h2>下一篇预告</h2>
+<p><strong>《从 RAG 看一个完整的机器学习系统》</strong></p>
+<p>下一篇把前三篇的零件拼起来：为什么 RAG 的每一个环节都能单独失败，以及怎么设计一个"出问题能被发现"的检索系统。</p>
+<p>---</p>
+<h2>关于作者</h2>
+<p>本文是「写给工程师的机器学习入门」系列第 3 篇。作者 PHclaw 在做 <strong>AgentFlow</strong>——一个自托管 AI Agent 平台，知识库检索默认走 chromadb，embedding 端点可指向本地 Ollama。</p>
+<ul><li>源码：https://github.com/PHclaw/agentflow</li><li>在线演示：http://159.75.21.251:3000</li><li>文档：https://phclaw.github.io/agentflow/</li><li>全部文章：https://phclaw.github.io/blog/</li></ul>
+<p>对相似度度量有疑问，欢迎在 Discussions 里讨论。</p>
+  </article>
+  <footer>
+    <a href="https://github.com/PHclaw">GitHub @PHclaw</a> · <a href="https://github.com/PHclaw/agentflow">AgentFlow</a> · <a href="https://phclaw.github.io/blog/">更多踩坑笔记</a>
+  </footer>
+</div>
+</body>
+</html>

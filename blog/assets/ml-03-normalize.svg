@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 390" width="760" height="390">
+<rect width="760" height="390" fill="#fff"/>
+<rect x="1" y="1" width="758" height="388" rx="12" fill="none" stroke="#e5e9f0"/>
+<text x="28" y="40" font-family="Inter,PingFang SC,sans-serif" font-size="18" font-weight="700" fill="#1f2937">归一化把长度抹掉</text>
+<text x="28" y="64" font-family="Inter,PingFang SC,sans-serif" font-size="12" fill="#6b7280">很多 embedding API 直接返回单位向量，所以点积检索和余弦检索等价</text>
+<line x1="150" y1="300" x2="350" y2="300" stroke="#e5e9f0"/>
+<line x1="150" y1="300" x2="150" y2="110" stroke="#e5e9f0"/>
+<line x1="150" y1="300" x2="250" y2="170" stroke="#4f46e5" stroke-width="2.4" stroke-linecap="round"/><polygon points="250,170 247.7,179.7 241.2,174.8" fill="#4f46e5"/>
+<line x1="150" y1="300" x2="170" y2="120" stroke="#0891b2" stroke-width="2.4" stroke-linecap="round"/><polygon points="170,120 173.0,129.5 164.9,128.6" fill="#0891b2"/>
+<line x1="150" y1="300" x2="110" y2="76" stroke="#c2410c" stroke-width="2.4" stroke-linecap="round"/><polygon points="110,76 115.6,84.3 107.6,85.7" fill="#c2410c"/>
+<text x="150" y="328" text-anchor="middle" font-family="Inter,PingFang SC,sans-serif" font-size="11.5" fill="#6b7280">归一化前</text>
+<text x="150" y="346" text-anchor="middle" font-family="Inter,PingFang SC,sans-serif" font-size="10.5" fill="#6b7280">长度各不相同</text>
+<line x1="372" y1="210" x2="420" y2="210" stroke="#6b7280" stroke-width="2.4" stroke-linecap="round"/><polygon points="420,210 410.9,214.1 410.9,205.9" fill="#6b7280"/>
+<text x="396" y="196" text-anchor="middle" font-family="Inter,PingFang SC,sans-serif" font-size="11.5" font-weight="600" fill="#6b7280">÷‖v‖</text>
+<circle cx="570" cy="220" r="110" fill="#059669" opacity="0.07"/>
+<circle cx="570" cy="220" r="110" fill="none" stroke="#059669" stroke-width="1.5" stroke-dasharray="5 5"/>
+<line x1="434" y1="220" x2="706" y2="220" stroke="#e5e9f0"/>
+<line x1="570" y1="84" x2="570" y2="356" stroke="#e5e9f0"/>
+<line x1="570" y1="220" x2="637.0681836934662" y2="132.811361198494" stroke="#4f46e5" stroke-width="2.2" stroke-linecap="round"/><polygon points="637.0681836934662,132.811361198494 634.7,142.5 628.3,137.6" fill="#4f46e5"/>
+<line x1="570" y1="220" x2="582.1474678682331" y2="110.67278918590193" stroke="#0891b2" stroke-width="2.2" stroke-linecap="round"/><polygon points="582.1474678682331,110.67278918590193 585.2,120.2 577.1,119.3" fill="#0891b2"/>
+<line x1="570" y1="220" x2="550.6630297667976" y2="111.71296669406698" stroke="#c2410c" stroke-width="2.2" stroke-linecap="round"/><polygon points="550.6630297667976,111.71296669406698 556.3,120.0 548.3,121.4" fill="#c2410c"/>
+<text x="570" y="376" text-anchor="middle" font-family="Inter,PingFang SC,sans-serif" font-size="11.5" fill="#059669">归一化后：都在单位圆上</text>
+<text x="570" y="72" text-anchor="middle" font-family="Inter,PingFang SC,sans-serif" font-size="11" fill="#6b7280">长度信息被丢弃，只剩方向</text>
+<text x="28" y="368" font-family="Inter,PingFang SC,sans-serif" font-size="11.5" fill="#059669">此时 点积 = 余弦  —— 因为 1 × 1 × cos(θ) = cos(θ)</text>
+</svg>

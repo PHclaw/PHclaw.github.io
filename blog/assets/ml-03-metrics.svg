@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 400" width="760" height="400">
+<rect width="760" height="400" fill="#fff"/>
+<rect x="1" y="1" width="758" height="398" rx="12" fill="none" stroke="#e5e9f0"/>
+<text x="28" y="40" font-family="Inter,PingFang SC,sans-serif" font-size="18" font-weight="700" fill="#1f2937">同一对向量，三种度量给出三个数字</text>
+<text x="28" y="64" font-family="Inter,PingFang SC,sans-serif" font-size="12" fill="#6b7280">它们回答的是不同问题 —— 不是同一个分数的三种写法</text>
+<line x1="120" y1="300" x2="700" y2="300" stroke="#e5e9f0"/>
+<line x1="120" y1="300" x2="120" y2="100" stroke="#e5e9f0"/>
+<line x1="120" y1="300" x2="420" y2="100" stroke="#4f46e5" stroke-width="2.8" stroke-linecap="round"/><polygon points="420,100 414.7,108.5 410.1,101.7" fill="#4f46e5"/>
+<line x1="120" y1="300" x2="240" y2="238" stroke="#0891b2" stroke-width="2.8" stroke-linecap="round"/><polygon points="240,238 233.8,245.8 230.0,238.6" fill="#0891b2"/>
+<text x="428" y="104" font-family="Inter,PingFang SC,sans-serif" font-size="13" font-weight="700" fill="#4f46e5">A</text>
+<text x="248" y="242" font-family="Inter,PingFang SC,sans-serif" font-size="13" font-weight="700" fill="#0891b2">B</text>
+<path d="M 196 300 A 76 76 0 0 0 189 268" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+<text x="204" y="288" font-family="Inter,PingFang SC,sans-serif" font-size="11.5" fill="#6b7280">θ</text>
+<rect x="472" y="108" width="262" height="72" rx="9" fill="#eef2ff" stroke="#4f46e5" stroke-width="1.2"/>
+<text x="490" y="132" font-family="Inter,PingFang SC,sans-serif" font-size="12.5" font-weight="600" fill="#1f2937">余弦相似度</text>
+<text x="716" y="134" text-anchor="end" font-family="Inter,PingFang SC,sans-serif" font-size="17" font-weight="700" fill="#4f46e5">0.94</text>
+<text x="490" y="158" font-family="Inter,PingFang SC,sans-serif" font-size="11" fill="#6b7280">只看夹角，与长度无关</text>
+<rect x="472" y="192" width="262" height="72" rx="9" fill="#fed7aa" stroke="#c2410c" stroke-width="1.2"/>
+<text x="490" y="216" font-family="Inter,PingFang SC,sans-serif" font-size="12.5" font-weight="600" fill="#1f2937">点积</text>
+<text x="716" y="218" text-anchor="end" font-family="Inter,PingFang SC,sans-serif" font-size="17" font-weight="700" fill="#c2410c">28.0</text>
+<text x="490" y="242" font-family="Inter,PingFang SC,sans-serif" font-size="11" fill="#6b7280">夹角 × 长度，长向量占优</text>
+<rect x="472" y="276" width="262" height="72" rx="9" fill="#cffafe" stroke="#0891b2" stroke-width="1.2"/>
+<text x="490" y="300" font-family="Inter,PingFang SC,sans-serif" font-size="12.5" font-weight="600" fill="#1f2937">欧氏距离</text>
+<text x="716" y="302" text-anchor="end" font-family="Inter,PingFang SC,sans-serif" font-size="17" font-weight="700" fill="#0891b2">2.4</text>
+<text x="490" y="326" font-family="Inter,PingFang SC,sans-serif" font-size="11" fill="#6b7280">端点间距，越小越近</text>
+</svg>
