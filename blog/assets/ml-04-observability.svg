@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 420" width="760" height="420">
+<rect width="760" height="420" fill="#fff"/>
+<rect x="1" y="1" width="758" height="418" rx="12" fill="none" stroke="#e5e9f0"/>
+<text x="28" y="40" font-family="Inter,PingFang SC,sans-serif" font-size="18" font-weight="700" fill="#1f2937">四个观测点：哪一步归零都立刻可见</text>
+<text x="28" y="64" font-family="Inter,PingFang SC,sans-serif" font-size="12" fill="#6b7280">不加 try/except，而是校验每一步的返回值</text>
+<rect x="30" y="100" width="150" height="56" rx="8" fill="#fed7aa" stroke="#c2410c" stroke-width="1.3"/>
+<text x="105" y="134" text-anchor="middle" font-family="Inter,PingFang SC,sans-serif" font-size="12.5" font-weight="700" fill="#1f2937">① 分块后</text>
+<rect x="212" y="106" width="300" height="44" rx="7" fill="#fff" stroke="#e5e9f0"/>
+<text x="226" y="134" font-family="Inter,PingFang SC,sans-serif" font-size="11.5" fill="#1f2937">总块数 / 每文档平均块数</text>
+<text x="530" y="134" font-family="Inter,PingFang SC,sans-serif" font-size="11" fill="#dc2626">✕ 某文档为 0</text>
+<line x1="105" y1="158" x2="105" y2="176" stroke="#c7cbd6" stroke-width="1.8" stroke-linecap="round"/><polygon points="105,176 101.5,168.8 108.5,168.8" fill="#c7cbd6"/>
+<rect x="30" y="174" width="150" height="56" rx="8" fill="#e0e7ff" stroke="#4f46e5" stroke-width="1.3"/>
+<text x="105" y="208" text-anchor="middle" font-family="Inter,PingFang SC,sans-serif" font-size="12.5" font-weight="700" fill="#1f2937">② 向量化后</text>
+<rect x="212" y="180" width="300" height="44" rx="7" fill="#fff" stroke="#e5e9f0"/>
+<text x="226" y="208" font-family="Inter,PingFang SC,sans-serif" font-size="11.5" fill="#1f2937">向量条数 / 维度 / 是否归一化</text>
+<text x="530" y="208" font-family="Inter,PingFang SC,sans-serif" font-size="11" fill="#dc2626">✕ 条数 ≠ 块数</text>
+<line x1="105" y1="232" x2="105" y2="250" stroke="#c7cbd6" stroke-width="1.8" stroke-linecap="round"/><polygon points="105,250 101.5,242.8 108.5,242.8" fill="#c7cbd6"/>
+<rect x="30" y="248" width="150" height="56" rx="8" fill="#cffafe" stroke="#0891b2" stroke-width="1.3"/>
+<text x="105" y="282" text-anchor="middle" font-family="Inter,PingFang SC,sans-serif" font-size="12.5" font-weight="700" fill="#1f2937">③ 入库后</text>
+<rect x="212" y="254" width="300" height="44" rx="7" fill="#fff" stroke="#e5e9f0"/>
+<text x="226" y="282" font-family="Inter,PingFang SC,sans-serif" font-size="11.5" fill="#1f2937">索引内向量总数</text>
+<text x="530" y="282" font-family="Inter,PingFang SC,sans-serif" font-size="11" fill="#dc2626">✕ 少于累计上传量</text>
+<line x1="105" y1="306" x2="105" y2="324" stroke="#c7cbd6" stroke-width="1.8" stroke-linecap="round"/><polygon points="105,324 101.5,316.8 108.5,316.8" fill="#c7cbd6"/>
+<rect x="30" y="322" width="150" height="56" rx="8" fill="#d1fae5" stroke="#059669" stroke-width="1.3"/>
+<text x="105" y="356" text-anchor="middle" font-family="Inter,PingFang SC,sans-serif" font-size="12.5" font-weight="700" fill="#1f2937">④ 检索后</text>
+<rect x="212" y="328" width="300" height="44" rx="7" fill="#fff" stroke="#e5e9f0"/>
+<text x="226" y="356" font-family="Inter,PingFang SC,sans-serif" font-size="11.5" fill="#1f2937">Top-K 分数分布</text>
+<text x="530" y="356" font-family="Inter,PingFang SC,sans-serif" font-size="11" fill="#dc2626">✕ 最高分异常低 / 全部相同</text>
+<text x="30" y="410" font-family="Inter,PingFang SC,sans-serif" font-size="11.5" fill="#6b7280">第 ④ 个最有诊断价值：看一眼分数分布，就能判断问题在阈值还是在前面的环节</text>
+</svg>

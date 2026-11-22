@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>从 RAG 看一个完整的机器学习系统 · PHclaw</title>
+<meta name="description" content="这是「写给工程师的机器学习入门」系列第 4 篇。">
+<meta name="author" content="PHclaw">
+<meta name="keywords" content="RAG 系统设计, 检索质量评估, Hit Rate, MRR, 静默失败, embedding 校验, 向量检索观测, AgentFlow">
+<link rel="canonical" href="https://phclaw.github.io/blog/ml-04-rag-system.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从 RAG 看一个完整的机器学习系统">
+<meta property="og:description" content="这是「写给工程师的机器学习入门」系列第 4 篇。">
+<meta property="og:url" content="https://phclaw.github.io/blog/ml-04-rag-system.html">
+<meta property="og:site_name" content="PHclaw Blog">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="从 RAG 看一个完整的机器学习系统">
+<meta name="twitter:description" content="这是「写给工程师的机器学习入门」系列第 4 篇。">
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "@id": "https://phclaw.github.io/blog/ml-04-rag-system.html#article",
+      "headline": "从 RAG 看一个完整的机器学习系统",
+      "description": "这是「写给工程师的机器学习入门」系列第 4 篇。",
+      "datePublished": "2026-11-22",
+      "dateModified": "2026-11-22",
+      "inLanguage": "zh-CN",
+      "author": {
+        "@type": "Person",
+        "@id": "https://github.com/PHclaw#person",
+        "name": "PHclaw",
+        "url": "https://github.com/PHclaw"
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://phclaw.github.io/blog/ml-04-rag-system.html"
+      },
+      "about": [
+        {
+          "@type": "Thing",
+          "name": "RAG 系统设计"
+        },
+        {
+          "@type": "Thing",
+          "name": "检索质量评估"
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "AgentFlow",
+          "url": "https://github.com/PHclaw/agentflow"
+        }
+      ],
+      "mentions": [
+        {
+          "@type": "Thing",
+          "name": "RAG pipeline / 检索增强生成链路"
+        },
+        {
+          "@type": "Thing",
+          "name": "静默失败 / silent failure"
+        },
+        {
+          "@type": "Thing",
+          "name": "Hit Rate 命中率"
+        },
+        {
+          "@type": "Thing",
+          "name": "MRR / Mean Reciprocal Rank"
+        },
+        {
+          "@type": "Thing",
+          "name": "观测点与指标设计"
+        }
+      ],
+      "keywords": "RAG 系统设计, 检索质量评估, Hit Rate, MRR, 静默失败, embedding 校验, 向量检索观测, AgentFlow",
+      "articleSection": "AI",
+      "isAccessibleForFree": true,
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "isPartOf": {
+        "@type": "Blog",
+        "name": "写给工程师的机器学习入门",
+        "url": "https://phclaw.github.io/blog/"
+      }
+    },
+    {
+      "@type": "Person",
+      "@id": "https://github.com/PHclaw#person",
+      "name": "PHclaw",
+      "url": "https://github.com/PHclaw",
+      "sameAs": [
+        "https://phclaw.github.io/",
+        "https://github.com/PHclaw/agentflow"
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "PHclaw",
+          "item": "https://phclaw.github.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "博客",
+          "item": "https://phclaw.github.io/blog/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "从 RAG 看一个完整的机器学习系统",
+          "item": "https://phclaw.github.io/blog/ml-04-rag-system.html"
+        }
+      ]
+    }
+  ]
+}</script>
+<style>
+  :root{--bg:#fafbfc;--surface:#fff;--border:#e5e9f0;--text:#1f2937;--muted:#6b7280;--primary:#4f46e5;--soft:#f5f7fa}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:Inter,-apple-system,"PingFang SC",sans-serif;background:var(--bg);color:var(--text);line-height:1.8;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:780px;margin:0 auto;padding:0 24px}
+  header{padding:48px 0 28px;border-bottom:1px solid var(--border);margin-bottom:36px}
+  .back{font-size:13px;color:var(--primary);text-decoration:none}
+  h1{font-size:32px;line-height:1.35;letter-spacing:-.5px;margin-bottom:16px}
+  .meta{font-size:13px;color:var(--muted)}
+  .meta a{color:var(--primary)}
+  article{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:40px 44px;box-shadow:0 1px 3px rgba(16,24,40,.05),0 8px 24px rgba(16,24,40,.04)}
+  article h2{font-size:21px;margin:38px 0 14px;padding-top:22px;border-top:1px solid #eef1f6;letter-spacing:-.2px}
+  article h2:first-child{border:0;padding-top:0;margin-top:0}
+  article h3{font-size:18px;margin:26px 0 10px}
+  article p{margin:14px 0;font-size:15.5px}
+  article ol,article ul{margin:14px 0 14px 24px}
+  article li{margin:7px 0}
+  article a{color:var(--primary);word-break:break-all}
+  article strong{font-weight:600}
+  blockquote{background:var(--soft);border-left:4px solid var(--primary);padding:16px 20px;margin:20px 0;border-radius:0 8px 8px 0;color:#374151}
+  pre{background:#1f2937;color:#e5e7eb;border-radius:10px;padding:18px 20px;overflow-x:auto;font-size:13.5px;line-height:1.7;margin:18px 0}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+  p code,li code,td code{background:#eef2ff;color:#4338ca;padding:2px 6px;border-radius:5px;font-size:13.5px;font-weight:500}
+  table{width:100%;border-collapse:collapse;margin:18px 0;font-size:14px}
+  th,td{border:1px solid var(--border);padding:10px 12px;text-align:left}
+  th{background:var(--soft)}
+  footer{padding:36px 0 56px;text-align:center;color:var(--muted);font-size:13px}
+  footer a{color:var(--primary)}
+  @media(max-width:640px){article{padding:24px 20px}h1{font-size:26px}}
+
+  figure{margin:26px -8px;text-align:center}
+  figure img{max-width:100%;height:auto;border:1px solid var(--border);border-radius:12px;display:block;margin:0 auto}
+  figure figcaption{font-size:12px;color:var(--muted);margin-top:10px}
+  p.img-note{font-size:13px;color:var(--muted);text-align:center;margin-top:-14px}
+
+  .post-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+  .post-tags a{text-decoration:none;font-size:12px;font-weight:600;padding:5px 12px;border-radius:999px;transition:opacity .15s}
+  .post-tags a:hover{opacity:.75}
+  .cat-badge{background:var(--primary);color:#fff}
+  .tag-badge{background:var(--soft);color:var(--muted);border:1px solid var(--border)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="back" href="./">← 返回博客</a>
+    <h1>从 RAG 看一个完整的机器学习系统</h1>
+    <p class="meta">2026-11-22 · 作者 <a href="https://github.com/PHclaw">PHclaw</a></p>
+    <div class="post-tags">
+      <a class="cat-badge" href="index.html#cat-AI">AI</a>
+      <a class="tag-badge" href="index.html?tag=机器学习">#机器学习</a>
+      <a class="tag-badge" href="index.html?tag=RAG">#RAG</a>
+      <a class="tag-badge" href="index.html?tag=检索">#检索</a>
+      <a class="tag-badge" href="index.html?tag=系统设计">#系统设计</a>
+    </div>
+  </header>
+  <article>
+<blockquote>这是「写给工程师的机器学习入门」系列第 4 篇。 前三篇讲了向量、语义运算、相似度度量。这篇把它们拼成系统， 回答一个更实际的问题：<strong>怎么设计一个「出问题能被发现」的检索系统？</strong></blockquote>
+<h2>结论先说</h2>
+<p>RAG 不是一个功能，是<strong>五个可以各自失败的环节</strong>：</p>
+<pre><code>文档 → 分块 → 向量化 → 存储 → 检索 → 注入 prompt → 生成
+       ①       ②        ③       ④         ⑤</code></pre>
+<p>每一环的失败，用户看到的都是同一句话：<strong>「它答得不对」</strong>。</p>
+<p>所以设计这类系统的重点不是「把链路跑通」，而是<strong>让每一环失败时都有信号</strong>。这篇讲三件事：链路的数据形态、四个观测点、三个质量指标。</p>
+<h2>一、先看清楚数据在每一环变成什么</h2>
+<p>大多数 RAG 出问题，是因为搞混了「哪一环处理的是什么东西」。</p>
+<figure><img src="assets/ml-04-pipeline.svg" alt="RAG 链路中的数据形态变化"><figcaption>RAG 链路中的数据形态变化</figcaption></figure>
+<p>*图 1：同一条链路，数据从文本变成块、变成向量、变成 Top-K 片段，最后变成一段 prompt。*</p>
+<table><thead><tr><th>环节</th><th>输入</th><th>输出</th><th>常见错误</th></tr></thead><tbody>
+<tr><td>① 分块</td><td>PDF / Markdown / 网页</td><td>若干文本块</td><td>扫描件无文字层 → 0 块</td></tr>
+<tr><td>② 向量化</td><td>文本块</td><td><code>N × D</code> 的向量矩阵</td><td>embedding 端点未配置，静默返回空</td></tr>
+<tr><td>③ 存储</td><td>向量 + 原文 + 元数据</td><td>可检索的索引</td><td>维度不匹配、换模型没重建</td></tr>
+<tr><td>④ 检索</td><td>查询向量</td><td>Top-K 片段 + 分数</td><td>阈值过高、度量选错</td></tr>
+<tr><td>⑤ 注入</td><td>Top-K 片段</td><td>一段带上下文的 prompt</td><td>检索到了但没拼进去</td></tr>
+</tbody></table>
+<p><strong>关键认知</strong>：这五步里只有 ⑤ 是「提示词工程」，前四步全是数据工程。绝大多数检索质量问题出在前四步，但大家的注意力都在 ⑤。</p>
+<h2>二、三个真实的静默失败</h2>
+<p>「静默失败」指系统没报错、界面正常、但结果为空或错误。这三类我在实际项目里都遇到过。</p>
+<h3>1. embedding 端点没配，向量全是空的</h3>
+<pre><code class="language-python"># 看起来正常的调用
+vectors = embeddings.embed_documents(chunks)
+vectorstore.add_documents(chunks, vectors)   # 没报错
+
+# 检索时
+results = vectorstore.similarity_search(query, k=5)
+# → []  什么都不返回，也没有异常</code></pre>
+<p>表现：知识库能建、文档能传、进度条走完，<strong>检索永远返回空</strong>。</p>
+<p>正确做法是启动时就检查：</p>
+<pre><code class="language-python">try:
+    service._get_embeddings()
+except EmbeddingNotConfiguredError:
+    raise RuntimeError("EMBEDDING_BASE_URL 未配置，知识库无法工作")</code></pre>
+<p>宁可部署时挂掉，也不要上线三天后才发现知识库一直空着。</p>
+<h3>2. 分块数为 0，但上传状态是「成功」</h3>
+<pre><code class="language-python">chunks = splitter.split_documents(doc)
+# doc 是扫描件 PDF，没有文字层 → chunks == []
+vectorstore.add_documents(chunks)   # 空列表，没报错</code></pre>
+<p>表现：文档列表里有这个文件，但检索永远命不中它。</p>
+<p>正确做法是上传后就校验：</p>
+<pre><code class="language-python">if len(chunks) == 0:
+    raise ValueError(f"{doc.name}: 提取到 0 个分块，检查是否为扫描件")</code></pre>
+<h3>3. 检索到了，但没注入</h3>
+<pre><code class="language-python">context = "\n".join(d.page_content for d in results)
+prompt = f"请回答用户问题：{query}"    # context 定义了但没用上</code></pre>
+<p>表现：模型说「资料中没有相关信息」，但你明明看到检索返回了 5 条。</p>
+<p>这三类失败的共同点是：<strong>每一步都「成功」返回了，但返回值是空或无效</strong>。所以防御手段不是加 try/except，而是<strong>校验返回值</strong>。</p>
+<h2>三、四个观测点</h2>
+<p>设计可观测性时，问自己一个问题：<strong>如果这条链路出问题，我能在哪一步看出来？</strong></p>
+<figure><img src="assets/ml-04-observability.svg" alt="四个观测点及其指标"><figcaption>四个观测点及其指标</figcaption></figure>
+<p>*图 2：在每一环后面埋一个计数或分布，任何一步归零都能立刻定位。*</p>
+<table><thead><tr><th>观测点</th><th>指标</th><th>异常信号</th></tr></thead><tbody>
+<tr><td>① 分块后</td><td>总块数 / 每文档平均块数</td><td>某文档为 0；平均块数远低于预期</td></tr>
+<tr><td>② 向量化后</td><td>向量条数、维度、是否归一化</td><td>条数 ≠ 块数；维度不是预期值</td></tr>
+<tr><td>③ 入库后</td><td>索引内向量总数</td><td>少于累计上传量（增量更新漏了）</td></tr>
+<tr><td>④ 检索后</td><td>Top-K 分数分布</td><td>最高分异常低；全部相同；全部为 0</td></tr>
+</tbody></table>
+<p>第 ④ 个最有用。很多「检索不准」的问题，看一眼分数分布就能定位：</p>
+<pre><code class="language-python">results = vectorstore.similarity_search_with_score(query, k=10)
+scores = [s for _, s in results]
+print(f"top1={max(scores):.3f} median={sorted(scores)[len(scores)//2]:.3f}")</code></pre>
+<ul><li><code>top1 = 0.0</code> 或报错 → 前面的环节坏了</li><li><code>top1</code> 正常但都被阈值滤掉 → 阈值问题</li><li><code>top1 ≈ median</code> → 分数区分度差，可能分块太大</li></ul>
+<h2>四、三个质量指标</h2>
+<p>有了观测点，还需要衡量「检索得对不对」。三个指标按重要性排序：</p>
+<figure><img src="assets/ml-04-metrics.svg" alt="检索质量三指标"><figcaption>检索质量三指标</figcaption></figure>
+<p>*图 3：命中率告诉你「有没有找到」，排序质量告诉你「排得对不对」，分布告诉你「阈值能不能用」。*</p>
+<h3>1. 命中率（Hit Rate）</h3>
+<p>构造一批「问题 → 应该命中的文档」样本，看 Top-K 里有多少真命中了：</p>
+<pre><code class="language-python">hits = 0
+for question, expected_doc_id in test_cases:
+    results = retrieve(question, k=5)
+    if any(r.doc_id == expected_doc_id for r in results):
+        hits += 1
+print(f"Hit@5 = {hits / len(test_cases):.1%}")</code></pre>
+<p>这是最基础也最重要的指标。<strong>如果 Hit@5 只有 40%，后面调什么都白费。</strong></p>
+<p>20–30 条测试样本就能测出大概水平，不需要上千条。</p>
+<h3>2. 排序质量（MRR）</h3>
+<p>命中率只看「在不在前 5 个」，不看位置。MRR（Mean Reciprocal Rank）看第一个正确结果排在第几：</p>
+<pre><code>第 1 位 → 1.0
+第 2 位 → 0.5
+第 3 位 → 0.33
+第 5 位 → 0.2</code></pre>
+<p>对 RAG 尤其重要——LLM 的上下文窗口有限，排在第 5 位的片段很可能被忽略。</p>
+<h3>3. 分数分布</h3>
+<p>不是「指标」，但决定阈值怎么设。前面第 3 篇讲过：分数不是百分比，必须看分布。</p>
+<pre><code class="language-python"># 收集 100 条查询的 top1 分数
+top1_scores = [...]
+# 看分布，找「相关」和「不相关」的分界</code></pre>
+<h2>五、一个最小自检脚本</h2>
+<p>把上面三件事合成一个脚本，放在部署后跑一次：</p>
+<pre><code class="language-python">def self_check(vectorstore, questions, expected):
+    """返回四个数字：块数、向量数、Hit@5、分数中位数。"""
+    stats = vectorstore._collection.count()
+    print(f"索引内向量数: {stats}")
+
+    hits, scores = 0, []
+    for q, doc_id in zip(questions, expected):
+        results = vectorstore.similarity_search_with_score(q, k=5)
+        if not results:
+            print(f"  [空结果] {q}")
+            continue
+        scores.append(results[0][1])
+        if any(r.metadata.get("doc_id") == doc_id for r, _ in results):
+            hits += 1
+
+    n = len(questions)
+    print(f"Hit@5: {hits}/{n} = {hits/n:.1%}")
+    print(f"top1 分数中位数: {sorted(scores)[len(scores)//2]:.3f}")
+    return stats, hits / n</code></pre>
+<p>跑一次就能知道系统是「能用」还是「看起来能用」。</p>
+<h2>六、三条设计原则</h2>
+<h3>1. 每一环都要「响亮地失败」</h3>
+<p>返回值校验比异常捕获重要。空列表、零块数、维度不符——这些都是失败，要主动抛。</p>
+<h3>2. 先建指标，再调参数</h3>
+<p>没有 Hit@5 这个数字之前，调阈值、换模型、改分块大小都是盲调。<strong>先有基线，再谈优化。</strong></p>
+<h3>3. 把「检索」和「生成」分开评</h3>
+<p>模型答错了，可能是检索给错了材料，也可能是材料对了但模型没用。混在一起评，永远不知道改哪边。</p>
+<pre><code class="language-python"># 分开记
+print("检索命中:", hit_rate)      # 前四环的质量
+print("答案准确:", answer_score)   # ⑤ 的质量</code></pre>
+<h2>本篇小结</h2>
+<ol><li><strong>RAG 是五个可独立失败的环节</strong>，只有最后一环是提示词工程</li><li><strong>静默失败靠校验返回值发现</strong>，不靠 try/except</li><li><strong>先有 Hit@5，再调参数</strong>——没有基线就没有优化方向</li></ol>
+<h2>下一篇预告</h2>
+<p><strong>《为什么「准确率 95%」可能毫无意义》</strong></p>
+<p>下一篇讲分类任务里的评估陷阱：类别不平衡时准确率会骗人，以及 precision / recall / F1 到底该怎么选。</p>
+<p>---</p>
+<h2>关于作者</h2>
+<p>本文是「写给工程师的机器学习入门」系列第 4 篇。作者 PHclaw 在做 <strong>AgentFlow</strong>——一个自托管 AI Agent 平台，知识库检索默认走 chromadb，embedding 端点独立配置。</p>
+<ul><li>源码：https://github.com/PHclaw/agentflow</li><li>在线演示：http://159.75.21.251:3000</li><li>文档：https://phclaw.github.io/agentflow/</li><li>全部文章：https://phclaw.github.io/blog/</li></ul>
+<p>对 RAG 系统设计有想法，欢迎在 Discussions 里讨论。</p>
+  </article>
+  <footer>
+    <a href="https://github.com/PHclaw">GitHub @PHclaw</a> · <a href="https://github.com/PHclaw/agentflow">AgentFlow</a> · <a href="https://phclaw.github.io/blog/">更多踩坑笔记</a>
+  </footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 430" width="760" height="430">
+<rect width="760" height="430" fill="#fff"/>
+<rect x="1" y="1" width="758" height="428" rx="12" fill="none" stroke="#e5e9f0"/>
+<text x="28" y="40" font-family="Inter,PingFang SC,sans-serif" font-size="18" font-weight="700" fill="#1f2937">三个指标，回答三个不同的问题</text>
+<text x="28" y="64" font-family="Inter,PingFang SC,sans-serif" font-size="12" fill="#6b7280">没有基线就开始调参数，等于盲调</text>
+<rect x="28" y="96" width="220" height="150" rx="10" fill="#eef2ff" stroke="#4f46e5" stroke-width="1.2"/>
+<text x="138" y="122" text-anchor="middle" font-family="Inter,PingFang SC,sans-serif" font-size="13" font-weight="700" fill="#4f46e5">Hit Rate</text>
+<text x="138" y="142" text-anchor="middle" font-family="Inter,PingFang SC,sans-serif" font-size="10.5" fill="#6b7280">Top-5 里有没有正确答案</text>
+<rect x="46" y="164" width="26" height="26" rx="5" fill="#fff" stroke="#cbd5e1" stroke-width="1.4"/>
+<text x="59" y="182" text-anchor="middle" font-family="Inter,PingFang SC,sans-serif" font-size="11" fill="#6b7280">1</text>
+<rect x="80" y="164" width="26" height="26" rx="5" fill="#d1fae5" stroke="#059669" stroke-width="1.4"/>
+<text x="93" y="182" text-anchor="middle" font-family="Inter,PingFang SC,sans-serif" font-size="11" fill="#059669">✓</text>
+<rect x="114" y="164" width="26" height="26" rx="5" fill="#fff" stroke="#cbd5e1" stroke-width="1.4"/>
+<text x="127" y="182" text-anchor="middle" font-family="Inter,PingFang SC,sans-serif" font-size="11" fill="#6b7280">3</text>
+<rect x="148" y="164" width="26" height="26" rx="5" fill="#fff" stroke="#cbd5e1" stroke-width="1.4"/>
+<text x="161" y="182" text-anchor="middle" font-family="Inter,PingFang SC,sans-serif" font-size="11" fill="#6b7280">4</text>
+<rect x="182" y="164" width="26" height="26" rx="5" fill="#fff" stroke="#cbd5e1" stroke-width="1.4"/>
+<text x="195" y="182" text-anchor="middle" font-family="Inter,PingFang SC,sans-serif" font-size="11" fill="#6b7280">5</text>
+<text x="138" y="222" text-anchor="middle" font-family="Inter,PingFang SC,sans-serif" font-size="12" font-weight="600" fill="#059669">命中 → 计 1 分</text>
+<text x="138" y="238" text-anchor="middle" font-family="Inter,PingFang SC,sans-serif" font-size="10.5" fill="#6b7280">最基础也最重要</text>
+<rect x="268" y="96" width="220" height="150" rx="10" fill="#cffafe" stroke="#0891b2" stroke-width="1.2"/>
+<text x="378" y="122" text-anchor="middle" font-family="Inter,PingFang SC,sans-serif" font-size="13" font-weight="700" fill="#0891b2">MRR</text>
+<text x="378" y="142" text-anchor="middle" font-family="Inter,PingFang SC,sans-serif" font-size="10.5" fill="#6b7280">第一个正确结果排第几</text>
+<text x="300" y="162" font-family="Inter,PingFang SC,sans-serif" font-size="11" fill="#6b7280">第 1 位</text>
+<text x="418" y="162" text-anchor="end" font-family="Inter,PingFang SC,sans-serif" font-size="11.5" font-weight="600" fill="#0891b2">1.00</text>
+<text x="300" y="182" font-family="Inter,PingFang SC,sans-serif" font-size="11" fill="#6b7280">第 2 位</text>
+<text x="418" y="182" text-anchor="end" font-family="Inter,PingFang SC,sans-serif" font-size="11.5" font-weight="600" fill="#0891b2">0.50</text>
+<text x="300" y="202" font-family="Inter,PingFang SC,sans-serif" font-size="11" fill="#6b7280">第 3 位</text>
+<text x="418" y="202" text-anchor="end" font-family="Inter,PingFang SC,sans-serif" font-size="11.5" font-weight="600" fill="#0891b2">0.33</text>
+<text x="300" y="222" font-family="Inter,PingFang SC,sans-serif" font-size="11" fill="#6b7280">第 5 位</text>
+<text x="418" y="222" text-anchor="end" font-family="Inter,PingFang SC,sans-serif" font-size="11.5" font-weight="600" fill="#0891b2">0.20</text>
+<rect x="508" y="96" width="224" height="150" rx="10" fill="#fff7ed" stroke="#c2410c" stroke-width="1.2"/>
+<text x="620" y="122" text-anchor="middle" font-family="Inter,PingFang SC,sans-serif" font-size="13" font-weight="700" fill="#c2410c">分数分布</text>
+<text x="620" y="142" text-anchor="middle" font-family="Inter,PingFang SC,sans-serif" font-size="10.5" fill="#6b7280">决定阈值设在哪</text>
+<rect x="534" y="157" width="20" height="73" rx="3" fill="#fed7aa" stroke="#c2410c" stroke-width="1"/>
+<rect x="566" y="167" width="20" height="63" rx="3" fill="#fed7aa" stroke="#c2410c" stroke-width="1"/>
+<rect x="598" y="178" width="20" height="52" rx="3" fill="#fed7aa" stroke="#c2410c" stroke-width="1"/>
+<rect x="630" y="191" width="20" height="39" rx="3" fill="#fed7aa" stroke="#c2410c" stroke-width="1"/>
+<rect x="662" y="201" width="20" height="29" rx="3" fill="#fed7aa" stroke="#c2410c" stroke-width="1"/>
+<rect x="694" y="212" width="20" height="18" rx="3" fill="#fed7aa" stroke="#c2410c" stroke-width="1"/>
+<text x="28" y="290" font-family="Inter,PingFang SC,sans-serif" font-size="12" font-weight="600" fill="#1f2937">三个指标解决三个不同问题</text>
+<text x="28" y="316" font-family="Inter,PingFang SC,sans-serif" font-size="11.5" fill="#6b7280">① Hit@5 只有 40% → 先别调阈值，去修分块和 embedding</text>
+<text x="28" y="338" font-family="Inter,PingFang SC,sans-serif" font-size="11.5" fill="#6b7280">② Hit@5 高但 MRR 低 → 排序有问题，考虑加 rerank</text>
+<text x="28" y="360" font-family="Inter,PingFang SC,sans-serif" font-size="11.5" fill="#6b7280">③ 分数都挤在一个区间 → 分块太粗，语义被平均掉了</text>
+<text x="28" y="392" font-family="Inter,PingFang SC,sans-serif" font-size="11.5" fill="#059669">20–30 条测试样本就够建基线，不需要上千条</text>
+</svg>
