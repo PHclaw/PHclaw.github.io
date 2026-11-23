@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 400" width="760" height="400">
+<rect width="760" height="400" fill="#fff"/>
+<rect x="1" y="1" width="758" height="398" rx="12" fill="none" stroke="#e5e9f0"/>
+<text x="28" y="40" font-family="Inter,PingFang SC,sans-serif" font-size="18" font-weight="700" fill="#1f2937">precision 与 recall 是一对跷跷板</text>
+<text x="28" y="64" font-family="Inter,PingFang SC,sans-serif" font-size="12" fill="#6b7280">它们由同一个阈值控制，不可能同时最大化</text>
+<line x1="100" y1="310" x2="690" y2="310" stroke="#1f2937" stroke-width="1.4"/>
+<line x1="100" y1="310" x2="100" y2="110" stroke="#1f2937" stroke-width="1.4"/>
+<text x="624" y="334" font-family="Inter,PingFang SC,sans-serif" font-size="11.5" fill="#6b7280">阈值 →</text>
+<text x="34" y="122" font-family="Inter,PingFang SC,sans-serif" font-size="11.5" fill="#6b7280">指标</text>
+<text x="86" y="269" text-anchor="end" font-family="Inter,PingFang SC,sans-serif" font-size="10" fill="#6b7280">0.25</text>
+<line x1="100" y1="265" x2="690" y2="265" stroke="#e5e9f0" stroke-dasharray="3 4"/>
+<text x="86" y="224" text-anchor="end" font-family="Inter,PingFang SC,sans-serif" font-size="10" fill="#6b7280">0.50</text>
+<line x1="100" y1="220" x2="690" y2="220" stroke="#e5e9f0" stroke-dasharray="3 4"/>
+<text x="86" y="179" text-anchor="end" font-family="Inter,PingFang SC,sans-serif" font-size="10" fill="#6b7280">0.75</text>
+<line x1="100" y1="175" x2="690" y2="175" stroke="#e5e9f0" stroke-dasharray="3 4"/>
+<text x="86" y="134" text-anchor="end" font-family="Inter,PingFang SC,sans-serif" font-size="10" fill="#6b7280">1.00</text>
+<line x1="100" y1="130" x2="690" y2="130" stroke="#e5e9f0" stroke-dasharray="3 4"/>
+<path d="M 124 278 L 151 237 L 178 223 L 205 213 L 232 204 L 259 197 L 286 191 L 313 185 L 340 180 L 367 175 L 394 170 L 421 166 L 448 161 L 475 157 L 502 154 L 529 150 L 556 146 L 583 143 L 610 140 L 637 137 L 664 134" fill="none" stroke="#4f46e5" stroke-width="2.6"/>
+<path d="M 124 134 L 151 145 L 178 154 L 205 163 L 232 171 L 259 179 L 286 187 L 313 194 L 340 201 L 367 208 L 394 215 L 421 222 L 448 229 L 475 236 L 502 243 L 529 249 L 556 256 L 583 262 L 610 269 L 637 275 L 664 281" fill="none" stroke="#c2410c" stroke-width="2.6"/>
+<text x="658" y="121.6" text-anchor="end" font-family="Inter,PingFang SC,sans-serif" font-size="12.5" font-weight="700" fill="#4f46e5">precision ↑</text>
+<text x="658" y="301.2" text-anchor="end" font-family="Inter,PingFang SC,sans-serif" font-size="12.5" font-weight="700" fill="#c2410c">recall ↓</text>
+<line x1="380" y1="110" x2="380" y2="310" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="5 4"/>
+<text x="388" y="126" font-family="Inter,PingFang SC,sans-serif" font-size="10.5" fill="#6b7280">工作点</text>
+<circle cx="380" cy="210" r="5" fill="#6b7280"/>
+<text x="28" y="352" font-family="Inter,PingFang SC,sans-serif" font-size="11.5" fill="#1f2937">同一个模型，滑动阈值就得到不同的 (precision, recall) 组合</text>
+<text x="28" y="374" font-family="Inter,PingFang SC,sans-serif" font-size="11.5" fill="#6b7280">「两个都提到 95%」在单一模型上通常做不到 —— 要换模型或补数据</text>
+</svg>

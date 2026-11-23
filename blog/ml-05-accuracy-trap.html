@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>为什么「准确率 95%」可能毫无意义 · PHclaw</title>
+<meta name="description" content="这是「写给工程师的机器学习入门」系列第 5 篇。">
+<meta name="author" content="PHclaw">
+<meta name="keywords" content="准确率陷阱, 类别不平衡, 混淆矩阵, precision recall 权衡, F1, 模型评估指标, Recall@K, AgentFlow">
+<link rel="canonical" href="https://phclaw.github.io/blog/ml-05-accuracy-trap.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="为什么「准确率 95%」可能毫无意义">
+<meta property="og:description" content="这是「写给工程师的机器学习入门」系列第 5 篇。">
+<meta property="og:url" content="https://phclaw.github.io/blog/ml-05-accuracy-trap.html">
+<meta property="og:site_name" content="PHclaw Blog">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="为什么「准确率 95%」可能毫无意义">
+<meta name="twitter:description" content="这是「写给工程师的机器学习入门」系列第 5 篇。">
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "@id": "https://phclaw.github.io/blog/ml-05-accuracy-trap.html#article",
+      "headline": "为什么「准确率 95%」可能毫无意义",
+      "description": "这是「写给工程师的机器学习入门」系列第 5 篇。",
+      "datePublished": "2026-11-23",
+      "dateModified": "2026-11-23",
+      "inLanguage": "zh-CN",
+      "author": {
+        "@type": "Person",
+        "@id": "https://github.com/PHclaw#person",
+        "name": "PHclaw",
+        "url": "https://github.com/PHclaw"
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://phclaw.github.io/blog/ml-05-accuracy-trap.html"
+      },
+      "about": [
+        {
+          "@type": "Thing",
+          "name": "机器学习模型评估"
+        },
+        {
+          "@type": "Thing",
+          "name": "类别不平衡"
+        },
+        {
+          "@type": "Thing",
+          "name": "混淆矩阵"
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "AgentFlow",
+          "url": "https://github.com/PHclaw/agentflow"
+        }
+      ],
+      "mentions": [
+        {
+          "@type": "Thing",
+          "name": "accuracy paradox / 准确率悖论"
+        },
+        {
+          "@type": "Thing",
+          "name": "precision 精确率"
+        },
+        {
+          "@type": "Thing",
+          "name": "recall 召回率"
+        },
+        {
+          "@type": "Thing",
+          "name": "F1 score"
+        },
+        {
+          "@type": "Thing",
+          "name": "confusion matrix 混淆矩阵"
+        }
+      ],
+      "keywords": "准确率陷阱, 类别不平衡, 混淆矩阵, precision recall 权衡, F1, 模型评估指标, Recall@K, AgentFlow",
+      "articleSection": "AI",
+      "isAccessibleForFree": true,
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "isPartOf": {
+        "@type": "Blog",
+        "name": "写给工程师的机器学习入门",
+        "url": "https://phclaw.github.io/blog/"
+      }
+    },
+    {
+      "@type": "Person",
+      "@id": "https://github.com/PHclaw#person",
+      "name": "PHclaw",
+      "url": "https://github.com/PHclaw",
+      "sameAs": [
+        "https://phclaw.github.io/",
+        "https://github.com/PHclaw/agentflow"
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "PHclaw",
+          "item": "https://phclaw.github.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "博客",
+          "item": "https://phclaw.github.io/blog/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "为什么「准确率 95%」可能毫无意义",
+          "item": "https://phclaw.github.io/blog/ml-05-accuracy-trap.html"
+        }
+      ]
+    }
+  ]
+}</script>
+<style>
+  :root{--bg:#fafbfc;--surface:#fff;--border:#e5e9f0;--text:#1f2937;--muted:#6b7280;--primary:#4f46e5;--soft:#f5f7fa}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:Inter,-apple-system,"PingFang SC",sans-serif;background:var(--bg);color:var(--text);line-height:1.8;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:780px;margin:0 auto;padding:0 24px}
+  header{padding:48px 0 28px;border-bottom:1px solid var(--border);margin-bottom:36px}
+  .back{font-size:13px;color:var(--primary);text-decoration:none}
+  h1{font-size:32px;line-height:1.35;letter-spacing:-.5px;margin-bottom:16px}
+  .meta{font-size:13px;color:var(--muted)}
+  .meta a{color:var(--primary)}
+  article{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:40px 44px;box-shadow:0 1px 3px rgba(16,24,40,.05),0 8px 24px rgba(16,24,40,.04)}
+  article h2{font-size:21px;margin:38px 0 14px;padding-top:22px;border-top:1px solid #eef1f6;letter-spacing:-.2px}
+  article h2:first-child{border:0;padding-top:0;margin-top:0}
+  article h3{font-size:18px;margin:26px 0 10px}
+  article p{margin:14px 0;font-size:15.5px}
+  article ol,article ul{margin:14px 0 14px 24px}
+  article li{margin:7px 0}
+  article a{color:var(--primary);word-break:break-all}
+  article strong{font-weight:600}
+  blockquote{background:var(--soft);border-left:4px solid var(--primary);padding:16px 20px;margin:20px 0;border-radius:0 8px 8px 0;color:#374151}
+  pre{background:#1f2937;color:#e5e7eb;border-radius:10px;padding:18px 20px;overflow-x:auto;font-size:13.5px;line-height:1.7;margin:18px 0}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+  p code,li code,td code{background:#eef2ff;color:#4338ca;padding:2px 6px;border-radius:5px;font-size:13.5px;font-weight:500}
+  table{width:100%;border-collapse:collapse;margin:18px 0;font-size:14px}
+  th,td{border:1px solid var(--border);padding:10px 12px;text-align:left}
+  th{background:var(--soft)}
+  footer{padding:36px 0 56px;text-align:center;color:var(--muted);font-size:13px}
+  footer a{color:var(--primary)}
+  @media(max-width:640px){article{padding:24px 20px}h1{font-size:26px}}
+
+  figure{margin:26px -8px;text-align:center}
+  figure img{max-width:100%;height:auto;border:1px solid var(--border);border-radius:12px;display:block;margin:0 auto}
+  figure figcaption{font-size:12px;color:var(--muted);margin-top:10px}
+  p.img-note{font-size:13px;color:var(--muted);text-align:center;margin-top:-14px}
+
+  .post-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+  .post-tags a{text-decoration:none;font-size:12px;font-weight:600;padding:5px 12px;border-radius:999px;transition:opacity .15s}
+  .post-tags a:hover{opacity:.75}
+  .cat-badge{background:var(--primary);color:#fff}
+  .tag-badge{background:var(--soft);color:var(--muted);border:1px solid var(--border)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="back" href="./">← 返回博客</a>
+    <h1>为什么「准确率 95%」可能毫无意义</h1>
+    <p class="meta">2026-11-23 · 作者 <a href="https://github.com/PHclaw">PHclaw</a></p>
+    <div class="post-tags">
+      <a class="cat-badge" href="index.html#cat-AI">AI</a>
+      <a class="tag-badge" href="index.html?tag=机器学习">#机器学习</a>
+      <a class="tag-badge" href="index.html?tag=模型评估">#模型评估</a>
+      <a class="tag-badge" href="index.html?tag=检索">#检索</a>
+      <a class="tag-badge" href="index.html?tag=入门">#入门</a>
+    </div>
+  </header>
+  <article>
+<blockquote>这是「写给工程师的机器学习入门」系列第 5 篇。 前面四篇讲的是「系统怎么搭」。这篇讲一个更基础的问题： <strong>你怎么知道它到底好不好？</strong></blockquote>
+<h2>结论先说</h2>
+<p>三句话：</p>
+<ol><li><strong>准确率只看「猜对了多少」，不看「错在哪」</strong>，类别不平衡时会严重失真</li><li><strong>precision 和 recall 是一对跷跷板</strong>，调阈值必然此消彼长</li><li><strong>选哪个指标由业务代价决定</strong>，不是由哪个数字好看决定</li></ol>
+<h2>一、一个荒谬但常见的例子</h2>
+<p>假设你要做一个「异常登录检测」，1000 次登录里有 10 次是攻击。</p>
+<p>现在有一个<strong>什么都不做</strong>的模型：把每一次登录都判定为「正常」。</p>
+<p>它的准确率是：</p>
+<pre><code>猜对 990 次 / 总共 1000 次 = 99%</code></pre>
+<p><strong>99% 准确率，但它一个攻击都没抓到。</strong></p>
+<figure><img src="assets/ml-05-imbalance.svg" alt="不平衡数据下的准确率陷阱"><figcaption>不平衡数据下的准确率陷阱</figcaption></figure>
+<p>*图 1：左边 300 个格子代表 1000 次登录，红点是那 10 次攻击；右边是全猜负例的成绩单——准确率 99%，recall 0%。*</p>
+<p>这就是类别不平衡下的经典陷阱：当负例占绝对多数时，全部猜负例就能得到很高的准确率，而这个模型毫无用处。</p>
+<p>真实场景里这种比例很常见：</p>
+<table><thead><tr><th>场景</th><th>正例占比</th><th>全猜负例的准确率</th></tr></thead><tbody>
+<tr><td>异常登录检测</td><td>1%</td><td>99%</td></tr>
+<tr><td>疾病筛查（罕见病）</td><td>0.5%</td><td>99.5%</td></tr>
+<tr><td>垃圾评论识别</td><td>5%</td><td>95%</td></tr>
+<tr><td>工业质检（缺陷率）</td><td>2%</td><td>98%</td></tr>
+</tbody></table>
+<p>所以看到「准确率 95%」，第一个该问的问题是：<strong>正例占多少？</strong></p>
+<h2>二、混淆矩阵：把「对错」拆成四种</h2>
+<p>要看清模型错在哪，得把预测结果拆开。二分类有四种可能：</p>
+<figure><img src="assets/ml-05-confusion.svg" alt="混淆矩阵的四种结果"><figcaption>混淆矩阵的四种结果</figcaption></figure>
+<p>*图 2：真正例 / 假正例 / 假负例 / 真负例 —— 准确率只算对角的两个格子。*</p>
+<table><thead><tr><th></th><th>实际为正</th><th>实际为负</th></tr></thead><tbody>
+<tr><td><strong>预测为正</strong></td><td>TP（真正例）</td><td>FP（假正例，误报）</td></tr>
+<tr><td><strong>预测为负</strong></td><td>FN（假负例，漏报）</td><td>TN（真负例）</td></tr>
+</tbody></table>
+<p>准确率只看对角线上两个格子（TP + TN），把 FP 和 FN 一视同仁地算作「错」。</p>
+<p>但现实中，<strong>误报和漏报的代价往往差几个数量级</strong>：</p>
+<ul><li>垃圾邮件误判：一封正常邮件进了垃圾箱（用户可能永远看不到）</li><li>欺诈交易漏判：一笔欺诈通过了（直接损失钱）</li></ul>
+<p>这两件事能等价吗？显然不能。混淆矩阵的价值就是<strong>逼你把它们分开看</strong>。</p>
+<h2>三、从混淆矩阵推出三个指标</h2>
+<h3>Precision（精确率）：我报出来的，有多少是真的？</h3>
+<pre><code>precision = TP / (TP + FP)</code></pre>
+<p>分母是「所有被我判定为正的」。它回答：<strong>报警里有多少是真的</strong>。</p>
+<p>低 precision 意味着「狼来了」——报太多假警，用户会开始忽略告警。</p>
+<h3>Recall（召回率）：该报的，我报出了多少？</h3>
+<pre><code>recall = TP / (TP + FN)</code></pre>
+<p>分母是「所有实际为正的」。它回答：<strong>真正的目标我抓到了几成</strong>。</p>
+<p>低 recall 意味着「漏」——该发现的问题没发现。</p>
+<h3>F1：两者的调和平均</h3>
+<pre><code>F1 = 2 × (precision × recall) / (precision + recall)</code></pre>
+<p>用调和平均而不是算术平均，是因为它<strong>惩罚极端值</strong>：precision 1.0、recall 0.1 的模型，算术平均 0.55，但 F1 只有 0.18。这更符合直觉——偏科的系统就是不好。</p>
+<h2>四、为什么它们必然此消彼长</h2>
+<p>这是最容易忽略的一点：<strong>precision 和 recall 不是独立的，它们由同一个阈值控制</strong>。</p>
+<figure><img src="assets/ml-05-tradeoff.svg" alt="阈值滑动导致 precision 与 recall 此消彼长"><figcaption>阈值滑动导致 precision 与 recall 此消彼长</figcaption></figure>
+<p>*图 3：阈值调高 → 更保守 → precision 上升、recall 下降；调低则相反。*</p>
+<table><thead><tr><th>阈值调整</th><th>precision</th><th>recall</th><th>直觉</th></tr></thead><tbody>
+<tr><td>调高（更严格）</td><td>↑</td><td>↓</td><td>只报很有把握的，准但漏</td></tr>
+<tr><td>调低（更宽松）</td><td>↓</td><td>↑</td><td>宁可错报不可漏报，全但杂</td></tr>
+</tbody></table>
+<p>所以「把 precision 和 recall 都提到 95%」这种要求，在同一个模型上通常做不到——除非换模型或改数据。</p>
+<p><strong>正确问法是</strong>：「在我能接受的误报率下，recall 最高能到多少？」这才是一个可以优化的问题。</p>
+<h2>五、业务决定选哪个</h2>
+<p>同样是二分类，不同场景的取舍完全相反：</p>
+<table><thead><tr><th>场景</th><th>更该保哪个</th><th>理由</th></tr></thead><tbody>
+<tr><td>癌症筛查</td><td><strong>recall</strong></td><td>漏诊的代价远大于复查的成本</td></tr>
+<tr><td>垃圾邮件过滤</td><td><strong>precision</strong></td><td>正常邮件被误删，用户会愤怒</td></tr>
+<tr><td>欺诈检测</td><td>看金额</td><td>大额偏 recall，小额偏 precision</td></tr>
+<tr><td>内容审核</td><td>看合规要求</td><td>监管严格时偏 recall（宁可错杀）</td></tr>
+</tbody></table>
+<p>一个实用做法：<strong>先把代价写下来，再选指标</strong>。</p>
+<pre><code>漏报一次欺诈 → 平均损失 5000 元
+误报一次 → 人工核查成本 50 元
+
+→ 漏报代价是误报的 100 倍
+→ recall 优先，precision 可以放宽到 30%</code></pre>
+<p>这样算完，指标选择就不是「哪个数字好看」，而是有依据的。</p>
+<h2>六、RAG 里也是同一套逻辑</h2>
+<p>这套东西不只用于分类。检索系统里的两个指标本质相同：</p>
+<table><thead><tr><th>检索术语</th><th>对应分类指标</th><th>含义</th></tr></thead><tbody>
+<tr><td>召回率 Recall@K</td><td>recall</td><td>所有相关文档里，被检索到多少</td></tr>
+<tr><td>精确率 Precision@K</td><td>precision</td><td>检索出的 K 条里，有多少相关</td></tr>
+</tbody></table>
+<p>而且它们的取舍关系更直接——<strong>K 越大，召回越高、精确越低</strong>：</p>
+<pre><code>K = 3   → 召回 55%，但 3 条里大概 2 条相关
+K = 20  → 召回 92%，但 20 条里可能只有 4 条相关</code></pre>
+<p>RAG 场景的特殊之处在于：<strong>送进 LLM 的上下文窗口是有限的</strong>。塞 20 条不相关的片段，不仅浪费 token，还会干扰模型判断（context pollution）。</p>
+<p>所以 RAG 里通常不是「越大越好」，而是找一个 K 让 recall 够用的同时 precision 别太低。这也是为什么「重排序（rerank）」有价值——它能在不增大 K 的前提下提高 precision。</p>
+<h2>七、三个常见误用</h2>
+<h3>1. 只看一个数字就下结论</h3>
+<p>「准确率 95%，效果不错」——先问正例占比、再问混淆矩阵。一个数字永远不够。</p>
+<h3>2. 用训练集指标评估</h3>
+<p>模型在训练数据上表现好是必然的。评估必须用<strong>没见过</strong>的数据，否则测的是记忆能力。</p>
+<h3>3. 整体指标掩盖了分层差异</h3>
+<p>总 recall 80%，听起来还行。但拆开看可能是：</p>
+<pre><code>类别 A（样本多）：recall 95%
+类别 B（样本少）：recall 30%   ← 少数类被牺牲了</code></pre>
+<p><strong>一定要按类别拆开看</strong>，尤其是你真正关心的那个类别。</p>
+<h2>八、一个可执行的评估流程</h2>
+<pre><code>① 先看数据分布：正例占比多少？够不够训练？
+   ↓
+② 建一个「全猜负例」的基线：准确率是多少？
+   如果模型打不过这个基线，说明它什么都没学到
+   ↓
+③ 算混淆矩阵：误报和漏报各多少？
+   ↓
+④ 按业务代价选指标：recall 优先还是 precision 优先？
+   ↓
+⑤ 调阈值到合适的工作点，而不是追求最大值
+   ↓
+⑥ 按类别拆开验证，确认没有被平均掉的短板</code></pre>
+<p>第 ② 步最容易被跳过，但它能一眼戳穿「看起来不错的模型」。</p>
+<h2>本篇小结</h2>
+<ol><li><strong>准确率在不平衡数据上会骗人</strong>，先看分布再看数字</li><li><strong>precision 和 recall 由同一阈值控制</strong>，必然此消彼长</li><li><strong>指标选择由业务代价决定</strong>，把代价写下来再选</li></ol>
+<h2>下一篇预告</h2>
+<p><strong>《从零跑通一个最小的机器学习流程》</strong></p>
+<p>下一篇是系列的收尾：用一份真实的小数据集，从划分训练/测试集、训练模型、评估、到保存与调用，走完一遍完整流程——不讲公式，只讲每一步在做什么、容易错在哪。</p>
+<p>---</p>
+<h2>关于作者</h2>
+<p>本文是「写给工程师的机器学习入门」系列第 5 篇。作者 PHclaw 在做 <strong>AgentFlow</strong>——一个自托管 AI Agent 平台，知识库检索与产物交付都在真实代码里。</p>
+<ul><li>源码：https://github.com/PHclaw/agentflow</li><li>在线演示：http://159.75.21.251:3000</li><li>文档：https://phclaw.github.io/agentflow/</li><li>全部文章：https://phclaw.github.io/blog/</li></ul>
+<p>对评估指标有不同看法，欢迎在 Discussions 里讨论。</p>
+  </article>
+  <footer>
+    <a href="https://github.com/PHclaw">GitHub @PHclaw</a> · <a href="https://github.com/PHclaw/agentflow">AgentFlow</a> · <a href="https://phclaw.github.io/blog/">更多踩坑笔记</a>
+  </footer>
+</div>
+</body>
+</html>
