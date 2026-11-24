@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 420" width="760" height="420">
+<rect width="760" height="420" fill="#fff"/>
+<rect x="1" y="1" width="758" height="418" rx="12" fill="none" stroke="#e5e9f0"/>
+<text x="28" y="40" font-family="Inter,PingFang SC,sans-serif" font-size="18" font-weight="700" fill="#1f2937">完整流程的七个步骤</text>
+<text x="28" y="64" font-family="Inter,PingFang SC,sans-serif" font-size="12" fill="#6b7280">训练只占其中一步，前后两头才是翻车高发区</text>
+<rect x="30" y="100" width="158" height="66" rx="9" fill="#e5e7eb" stroke="#6b7280" stroke-width="1.4"/>
+<text x="109.0" y="128" text-anchor="middle" font-family="Inter,PingFang SC,sans-serif" font-size="12.5" font-weight="700" fill="#1f2937">① 定义问题</text>
+<text x="109.0" y="148" text-anchor="middle" font-family="Inter,PingFang SC,sans-serif" font-size="10.5" fill="#6b7280">输入/输出/代价</text>
+<rect x="200" y="100" width="158" height="66" rx="9" fill="#cffafe" stroke="#0891b2" stroke-width="1.4"/>
+<text x="279.0" y="128" text-anchor="middle" font-family="Inter,PingFang SC,sans-serif" font-size="12.5" font-weight="700" fill="#1f2937">② 检查数据</text>
+<text x="279.0" y="148" text-anchor="middle" font-family="Inter,PingFang SC,sans-serif" font-size="10.5" fill="#0891b2">缺失/量纲/分布</text>
+<rect x="370" y="100" width="158" height="66" rx="9" fill="#fed7aa" stroke="#c2410c" stroke-width="1.4"/>
+<text x="449.0" y="128" text-anchor="middle" font-family="Inter,PingFang SC,sans-serif" font-size="12.5" font-weight="700" fill="#1f2937">③ 划分数据</text>
+<text x="449.0" y="148" text-anchor="middle" font-family="Inter,PingFang SC,sans-serif" font-size="10.5" fill="#c2410c">train / val / test</text>
+<rect x="540" y="100" width="158" height="66" rx="9" fill="#fecaca" stroke="#dc2626" stroke-width="1.4"/>
+<text x="619.0" y="128" text-anchor="middle" font-family="Inter,PingFang SC,sans-serif" font-size="12.5" font-weight="700" fill="#1f2937">④ 建基线</text>
+<text x="619.0" y="148" text-anchor="middle" font-family="Inter,PingFang SC,sans-serif" font-size="10.5" fill="#dc2626">DummyClassifier</text>
+<rect x="455" y="240" width="158" height="66" rx="9" fill="#e0e7ff" stroke="#4f46e5" stroke-width="1.4"/>
+<text x="534.0" y="268" text-anchor="middle" font-family="Inter,PingFang SC,sans-serif" font-size="12.5" font-weight="700" fill="#1f2937">⑤ 训练</text>
+<text x="534.0" y="288" text-anchor="middle" font-family="Inter,PingFang SC,sans-serif" font-size="10.5" fill="#4f46e5">Pipeline 起步</text>
+<rect x="285" y="240" width="158" height="66" rx="9" fill="#d1fae5" stroke="#059669" stroke-width="1.4"/>
+<text x="364.0" y="268" text-anchor="middle" font-family="Inter,PingFang SC,sans-serif" font-size="12.5" font-weight="700" fill="#1f2937">⑥ 评估</text>
+<text x="364.0" y="288" text-anchor="middle" font-family="Inter,PingFang SC,sans-serif" font-size="10.5" fill="#059669">混淆矩阵 + recall</text>
+<rect x="115" y="240" width="158" height="66" rx="9" fill="#cffafe" stroke="#0891b2" stroke-width="1.4"/>
+<text x="194.0" y="268" text-anchor="middle" font-family="Inter,PingFang SC,sans-serif" font-size="12.5" font-weight="700" fill="#1f2937">⑦ 打包调用</text>
+<text x="194.0" y="288" text-anchor="middle" font-family="Inter,PingFang SC,sans-serif" font-size="10.5" fill="#0891b2">joblib + 校验</text>
+<line x1="188" y1="133" x2="200" y2="133" stroke="#c7cbd6" stroke-width="1.8" stroke-linecap="round"/><polygon points="200,133 192.8,136.5 192.8,129.5" fill="#c7cbd6"/>
+<line x1="358" y1="133" x2="370" y2="133" stroke="#c7cbd6" stroke-width="1.8" stroke-linecap="round"/><polygon points="370,133 362.8,136.5 362.8,129.5" fill="#c7cbd6"/>
+<line x1="528" y1="133" x2="540" y2="133" stroke="#c7cbd6" stroke-width="1.8" stroke-linecap="round"/><polygon points="540,133 532.8,136.5 532.8,129.5" fill="#c7cbd6"/>
+<path d="M 619 166 L 619 205 L 534 205 L 534 238" fill="none" stroke="#c7cbd6" stroke-width="1.8"/>
+<path d="M 534 236 L 534 232" stroke="#c7cbd6" stroke-width="1.8"/>
+<line x1="455" y1="273" x2="443" y2="273" stroke="#c7cbd6" stroke-width="1.8" stroke-linecap="round"/><polygon points="443,273 450.2,269.5 450.2,276.5" fill="#c7cbd6"/>
+<line x1="285" y1="273" x2="273" y2="273" stroke="#c7cbd6" stroke-width="1.8" stroke-linecap="round"/><polygon points="273,273 280.2,269.5 280.2,276.5" fill="#c7cbd6"/>
+<text x="30" y="352" font-family="Inter,PingFang SC,sans-serif" font-size="11.5" fill="#dc2626">最容易错的是 ③ 和 ④：数据泄漏会让指标虚高，跳过基线就不知道模型有没有学到东西</text>
+<text x="30" y="376" font-family="Inter,PingFang SC,sans-serif" font-size="11.5" fill="#059669">先把 ①→⑦ 走通再优化模型 —— 没有闭环的复杂模型不如有闭环的简单模型</text>
+<text x="30" y="400" font-family="Inter,PingFang SC,sans-serif" font-size="11.5" fill="#6b7280">产物：清洗后数据、划分结果、model.joblib、model_meta.json、评估报告</text>
+</svg>

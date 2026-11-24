@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>从零跑通一个最小的机器学习流程 · PHclaw</title>
+<meta name="description" content="这是「写给工程师的机器学习入门」系列的最后一篇。">
+<meta name="author" content="PHclaw">
+<meta name="keywords" content="机器学习流程, 数据泄漏, train test split, sklearn Pipeline, 模型保存, joblib, 基线模型, 模型部署, AgentFlow">
+<link rel="canonical" href="https://phclaw.github.io/blog/ml-06-minimal-pipeline.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从零跑通一个最小的机器学习流程">
+<meta property="og:description" content="这是「写给工程师的机器学习入门」系列的最后一篇。">
+<meta property="og:url" content="https://phclaw.github.io/blog/ml-06-minimal-pipeline.html">
+<meta property="og:site_name" content="PHclaw Blog">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="从零跑通一个最小的机器学习流程">
+<meta name="twitter:description" content="这是「写给工程师的机器学习入门」系列的最后一篇。">
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "@id": "https://phclaw.github.io/blog/ml-06-minimal-pipeline.html#article",
+      "headline": "从零跑通一个最小的机器学习流程",
+      "description": "这是「写给工程师的机器学习入门」系列的最后一篇。",
+      "datePublished": "2026-11-24",
+      "dateModified": "2026-11-24",
+      "inLanguage": "zh-CN",
+      "author": {
+        "@type": "Person",
+        "@id": "https://github.com/PHclaw#person",
+        "name": "PHclaw",
+        "url": "https://github.com/PHclaw"
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://phclaw.github.io/blog/ml-06-minimal-pipeline.html"
+      },
+      "about": [
+        {
+          "@type": "Thing",
+          "name": "机器学习工程流程"
+        },
+        {
+          "@type": "Thing",
+          "name": "数据泄漏"
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "scikit-learn"
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "AgentFlow",
+          "url": "https://github.com/PHclaw/agentflow"
+        }
+      ],
+      "mentions": [
+        {
+          "@type": "Thing",
+          "name": "data leakage / 数据泄漏"
+        },
+        {
+          "@type": "Thing",
+          "name": "train test split / 数据集划分"
+        },
+        {
+          "@type": "Thing",
+          "name": "DummyClassifier 基线"
+        },
+        {
+          "@type": "Thing",
+          "name": "sklearn Pipeline"
+        },
+        {
+          "@type": "Thing",
+          "name": "joblib 模型持久化"
+        }
+      ],
+      "keywords": "机器学习流程, 数据泄漏, train test split, sklearn Pipeline, 模型保存, joblib, 基线模型, 模型部署, AgentFlow",
+      "articleSection": "AI",
+      "isAccessibleForFree": true,
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "isPartOf": {
+        "@type": "Blog",
+        "name": "写给工程师的机器学习入门",
+        "url": "https://phclaw.github.io/blog/"
+      }
+    },
+    {
+      "@type": "Person",
+      "@id": "https://github.com/PHclaw#person",
+      "name": "PHclaw",
+      "url": "https://github.com/PHclaw",
+      "sameAs": [
+        "https://phclaw.github.io/",
+        "https://github.com/PHclaw/agentflow"
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "PHclaw",
+          "item": "https://phclaw.github.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "博客",
+          "item": "https://phclaw.github.io/blog/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "从零跑通一个最小的机器学习流程",
+          "item": "https://phclaw.github.io/blog/ml-06-minimal-pipeline.html"
+        }
+      ]
+    }
+  ]
+}</script>
+<style>
+  :root{--bg:#fafbfc;--surface:#fff;--border:#e5e9f0;--text:#1f2937;--muted:#6b7280;--primary:#4f46e5;--soft:#f5f7fa}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:Inter,-apple-system,"PingFang SC",sans-serif;background:var(--bg);color:var(--text);line-height:1.8;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:780px;margin:0 auto;padding:0 24px}
+  header{padding:48px 0 28px;border-bottom:1px solid var(--border);margin-bottom:36px}
+  .back{font-size:13px;color:var(--primary);text-decoration:none}
+  h1{font-size:32px;line-height:1.35;letter-spacing:-.5px;margin-bottom:16px}
+  .meta{font-size:13px;color:var(--muted)}
+  .meta a{color:var(--primary)}
+  article{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:40px 44px;box-shadow:0 1px 3px rgba(16,24,40,.05),0 8px 24px rgba(16,24,40,.04)}
+  article h2{font-size:21px;margin:38px 0 14px;padding-top:22px;border-top:1px solid #eef1f6;letter-spacing:-.2px}
+  article h2:first-child{border:0;padding-top:0;margin-top:0}
+  article h3{font-size:18px;margin:26px 0 10px}
+  article p{margin:14px 0;font-size:15.5px}
+  article ol,article ul{margin:14px 0 14px 24px}
+  article li{margin:7px 0}
+  article a{color:var(--primary);word-break:break-all}
+  article strong{font-weight:600}
+  blockquote{background:var(--soft);border-left:4px solid var(--primary);padding:16px 20px;margin:20px 0;border-radius:0 8px 8px 0;color:#374151}
+  pre{background:#1f2937;color:#e5e7eb;border-radius:10px;padding:18px 20px;overflow-x:auto;font-size:13.5px;line-height:1.7;margin:18px 0}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+  p code,li code,td code{background:#eef2ff;color:#4338ca;padding:2px 6px;border-radius:5px;font-size:13.5px;font-weight:500}
+  table{width:100%;border-collapse:collapse;margin:18px 0;font-size:14px}
+  th,td{border:1px solid var(--border);padding:10px 12px;text-align:left}
+  th{background:var(--soft)}
+  footer{padding:36px 0 56px;text-align:center;color:var(--muted);font-size:13px}
+  footer a{color:var(--primary)}
+  @media(max-width:640px){article{padding:24px 20px}h1{font-size:26px}}
+
+  figure{margin:26px -8px;text-align:center}
+  figure img{max-width:100%;height:auto;border:1px solid var(--border);border-radius:12px;display:block;margin:0 auto}
+  figure figcaption{font-size:12px;color:var(--muted);margin-top:10px}
+  p.img-note{font-size:13px;color:var(--muted);text-align:center;margin-top:-14px}
+
+  .post-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+  .post-tags a{text-decoration:none;font-size:12px;font-weight:600;padding:5px 12px;border-radius:999px;transition:opacity .15s}
+  .post-tags a:hover{opacity:.75}
+  .cat-badge{background:var(--primary);color:#fff}
+  .tag-badge{background:var(--soft);color:var(--muted);border:1px solid var(--border)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="back" href="./">← 返回博客</a>
+    <h1>从零跑通一个最小的机器学习流程</h1>
+    <p class="meta">2026-11-24 · 作者 <a href="https://github.com/PHclaw">PHclaw</a></p>
+    <div class="post-tags">
+      <a class="cat-badge" href="index.html#cat-AI">AI</a>
+      <a class="tag-badge" href="index.html?tag=机器学习">#机器学习</a>
+      <a class="tag-badge" href="index.html?tag=工程实践">#工程实践</a>
+      <a class="tag-badge" href="index.html?tag=入门">#入门</a>
+    </div>
+  </header>
+  <article>
+<blockquote>这是「写给工程师的机器学习入门」系列的最后一篇。 前五篇讲了概念、系统和评估。这篇把它们串成一条<strong>能照着做的流程</strong>—— 从一份数据开始，到模型能被调用为止。</blockquote>
+<h2>结论先说</h2>
+<p>完整流程只有七步，但<strong>最容易错的不是训练，是前后两头</strong>：</p>
+<pre><code>① 定义问题 → ② 检查数据 → ③ 划分数据集 → ④ 建基线
+   → ⑤ 训练 → ⑥ 评估 → ⑦ 打包与调用</code></pre>
+<p>三个最容易翻车的地方：</p>
+<ol><li><strong>数据泄漏</strong>——用了预测时拿不到的信息，离线指标漂亮，上线就崩</li><li><strong>没建基线</strong>——不知道模型比「瞎猜」好多少</li><li><strong>预处理没跟模型一起保存</strong>——训练时归一化了，推理时忘了，结果完全不一致</li></ol>
+<p>下面用一份真实可跑的数据走完全程。</p>
+<h2>一、先定义问题：输入、输出、代价</h2>
+<p>在写任何代码之前，必须回答三件事：</p>
+<table><thead><tr><th>问题</th><th>示例答案</th></tr></thead><tbody>
+<tr><td><strong>输入是什么？</strong></td><td>30 个数值特征（细胞核的半径、纹理、周长等测量值）</td></tr>
+<tr><td><strong>输出是什么？</strong></td><td>二分类：恶性 / 良性</td></tr>
+<tr><td><strong>错了会怎样？</strong></td><td>漏判恶性（假负例）代价远大于误判良性（假正例）</td></tr>
+</tbody></table>
+<p>第三条决定了后面选什么指标。这里漏判是致命的，所以<strong>recall 优先</strong>——这正是上一篇讲过的取舍。</p>
+<pre><code class="language-python">from sklearn.datasets import load_breast_cancer
+
+data = load_breast_cancer(as_frame=True)
+X, y = data.data, data.target   # y: 0 = 恶性, 1 = 良性
+
+print(X.shape)          # (569, 30)
+print(y.value_counts()) # 1: 357, 0: 212  → 不算严重失衡，但要留意</code></pre>
+<h2>二、检查数据：三类问题先看一遍</h2>
+<p>拿到数据先做三件事，不要急着训练。</p>
+<pre><code class="language-python">import pandas as pd
+
+# 1. 缺失值
+print(X.isna().sum().sum())         # 0 → 这份数据没有缺失
+
+# 2. 量纲差异（差几个数量级会影响距离类模型）
+print(X.describe().loc[["min", "max"]].T.head())
+#   半径 ~6-28，面积 ~140-2500 → 量纲差 100 倍，必须标准化
+
+# 3. 类别分布
+print(y.value_counts(normalize=True))
+#   0: 37.3%, 1: 62.7%</code></pre>
+<p>如果缺失值不为 0，先想清楚是删除还是填充——<strong>填充本身就是模型的一部分</strong>，后面要跟模型一起保存。</p>
+<h2>三、划分数据集：这一步最容易埋雷</h2>
+<figure><img src="assets/ml-06-leakage.svg" alt="三种常见的数据泄漏"><figcaption>三种常见的数据泄漏</figcaption></figure>
+<p>*图 1：三种泄漏——用测试集调参、预处理先做后分、时间序列随机切分。*</p>
+<h3>正确做法</h3>
+<pre><code class="language-python">from sklearn.model_selection import train_test_split
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y,
+    test_size=0.2,       # 20% 留作测试
+    random_state=42,     # 固定随机种子，保证可复现
+    stratify=y,          # 按类别比例分层，避免某一类全跑到一边
+)</code></pre>
+<p>三个参数都有讲究：</p>
+<ul><li><code>random_state</code>：不固定的话每次结果都不一样，无法比较模型改动</li><li><code>stratify=y</code>：类别不平衡时，不分层可能导致测试集里没有正例</li><li><code>test_size</code>：样本少时 20% 可能太少，用交叉验证更稳</li></ul>
+<h3>三个常见泄漏</h3>
+<p><strong>① 用测试集反复调参</strong></p>
+<p>调了 20 次超参数，每次看测试集指标，最后选了个「测试集上最好」的——这个测试集实际上已经被用来训练决策了。</p>
+<p>正确做法是<strong>三份划分</strong>：</p>
+<pre><code class="language-python"># train 训练 / val 调参 / test 只在最后用一次
+X_tr, X_tmp, y_tr, y_tmp = train_test_split(X, y, test_size=0.4, stratify=y, random_state=42)
+X_val, X_test, y_val, y_test = train_test_split(X_tmp, y_tmp, test_size=0.5, stratify=y_tmp, random_state=42)</code></pre>
+<p><strong>② 先预处理再划分</strong></p>
+<pre><code class="language-python"># 错误：用全量数据算均值方差 → 测试集信息泄漏进训练
+scaler = StandardScaler().fit(X)
+X_scaled = scaler.transform(X)
+X_train, X_test = train_test_split(X_scaled, ...)
+
+# 正确：只用训练集算参数
+X_train, X_test = train_test_split(X, ...)
+scaler = StandardScaler().fit(X_train)
+X_train_s = scaler.transform(X_train)
+X_test_s = scaler.transform(X_test)</code></pre>
+<p><strong>③ 时间序列随机切分</strong></p>
+<p>时间序列必须按时间切：用过去预测未来，不能用 2024 年的数据训练去预测 2023 年。</p>
+<pre><code class="language-python"># 错误：随机打乱
+train_test_split(df, test_size=0.2, random_state=42)
+
+# 正确：按时间点切
+cutoff = df["date"].quantile(0.8)
+train, test = df[df["date"] &lt;= cutoff], df[df["date"] &gt; cutoff]</code></pre>
+<h2>四、先建基线：不打过它就别往下走</h2>
+<p>这一步很多人跳过，但它能一眼戳穿「看起来还行」的模型。</p>
+<pre><code class="language-python">from sklearn.dummy import DummyClassifier
+
+baseline = DummyClassifier(strategy="most_frequent")
+baseline.fit(X_train, y_train)
+print(f"基线准确率: {baseline.score(X_test, y_test):.3f}")
+# 输出约 0.627 —— 全猜多数类（良性）的准确率</code></pre>
+<p><strong>任何模型必须显著超过这个数字才算学到东西。</strong> 在上一篇那个 99% 的例子里，基线就是 99%，一个「准确率 95%」的模型其实还不如瞎猜。</p>
+<h2>五、训练第一个模型</h2>
+<p>先用最简单可解释的模型跑通，不要一上来就上复杂模型：</p>
+<pre><code class="language-python">from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
+from sklearn.linear_model import LogisticRegression
+
+model = Pipeline([
+    ("scaler", StandardScaler()),          # 标准化：让量纲统一
+    ("clf", LogisticRegression(max_iter=1000, random_state=42)),
+])
+
+model.fit(X_train, y_train)
+print(f"训练集: {model.score(X_train, y_train):.3f}")
+print(f"测试集: {model.score(X_test, y_test):.3f}")</code></pre>
+<p>注意这里用了 <code>Pipeline</code>——它把「标准化 + 分类器」绑成一个整体。这一步很关键，原因见第七节。</p>
+<h2>六、评估：看混淆矩阵，别只看准确率</h2>
+<pre><code class="language-python">from sklearn.metrics import confusion_matrix, classification_report
+
+y_pred = model.predict(X_test)
+print(confusion_matrix(y_test, y_pred))
+print(classification_report(y_test, y_pred, target_names=["恶性", "良性"]))</code></pre>
+<p>输出大概是：</p>
+<pre><code>[[39  4]     ← 恶性 39 个判对，4 个漏判
+ [ 1 70]]    ← 良性 1 个误判，70 个判对</code></pre>
+<p><code>classification_report</code> 会给每一类的 precision / recall / f1。<strong>重点看「恶性」那一行的 recall</strong>——那是漏诊率。</p>
+<p>如果 recall 不够，可以调阈值：</p>
+<pre><code class="language-python">proba = model.predict_proba(X_test)[:, 1]
+y_pred_low = (proba &gt;= 0.4).astype(int)   # 降低阈值，更倾向判为"恶性"</code></pre>
+<p>这也印证了上一篇说的：阈值是业务决策，不是模型的一部分。</p>
+<h2>七、打包保存：预处理必须跟模型一起走</h2>
+<figure><img src="assets/ml-06-artifact.svg" alt="Pipeline 打包：预处理与模型是一个整体"><figcaption>Pipeline 打包：预处理与模型是一个整体</figcaption></figure>
+<p>*图 2：只保存模型不保存 scaler，推理时就少了一步变换，结果全错。*</p>
+<pre><code class="language-python">import joblib
+
+joblib.dump(model, "model.joblib")     # Pipeline 整体保存
+loaded = joblib.load("model.joblib")
+
+# 推理时直接用原始特征，不需要手动标准化
+pred = loaded.predict(X_test.iloc[:5])</code></pre>
+<p>为什么必须保存整个 Pipeline？</p>
+<p>因为 <code>StandardScaler</code> 记住了<strong>训练集</strong>的均值和方差。如果你只保存 <code>LogisticRegression</code>，推理时忘了标准化，输入的量纲差 100 倍，模型输出会完全错误——而且<strong>不会报错</strong>，只会给出离谱的结果。</p>
+<p>这是工程师最容易犯的错之一：训练脚本里写了 <code>scaler.transform</code>，推理服务里漏了。</p>
+<h2>八、调用：三件容易忽略的事</h2>
+<figure><img src="assets/ml-06-flow.svg" alt="完整流程与各步产物"><figcaption>完整流程与各步产物</figcaption></figure>
+<p>*图 3：七个步骤的产物——清洗后的数据、划分结果、模型文件、评估报告。*</p>
+<h3>1. 特征顺序必须一致</h3>
+<pre><code class="language-python"># 训练时用 DataFrame 时，列顺序会被记住
+FEATURES = list(X.columns)
+
+def predict(payload: dict):
+    row = pd.DataFrame([[payload[f] for f in FEATURES]], columns=FEATURES)
+    return loaded.predict_proba(row)[0, 1]</code></pre>
+<p>如果按错误的列顺序拼数组，模型不会报错，只会给出无意义的结果。</p>
+<h3>2. 输入要校验</h3>
+<pre><code class="language-python">def predict_checked(payload: dict):
+    missing = [f for f in FEATURES if f not in payload]
+    if missing:
+        raise ValueError(f"缺少特征: {missing}")
+    return predict(payload)</code></pre>
+<h3>3. 记录版本</h3>
+<p>模型会重新训练。如果服务不记录当前用的是哪一版，线上指标异常时无法回溯是「模型变了」还是「数据变了」。</p>
+<pre><code class="language-python">import json, hashlib, pathlib
+
+meta = {
+    "trained_at": "2026-11-24",
+    "n_train": len(X_train),
+    "features": FEATURES,
+    "sha256": hashlib.sha256(pathlib.Path("model.joblib").read_bytes()).hexdigest()[:16],
+}
+pathlib.Path("model_meta.json").write_text(json.dumps(meta, ensure_ascii=False, indent=2))</code></pre>
+<h2>九、完整的五个文件</h2>
+<p>一个最小但可交付的项目长这样：</p>
+<pre><code>project/
+├── train.py          训练脚本，产出 model.joblib + model_meta.json
+├── model.joblib      模型 + 预处理（Pipeline）
+├── model_meta.json   特征列表、训练时间、哈希
+├── evaluate.py       跑测试集，输出混淆矩阵与分类报告
+└── serve.py          加载模型，暴露 predict 接口</code></pre>
+<p><code>train.py</code> 从头到尾不到 40 行：</p>
+<pre><code class="language-python">import joblib
+from sklearn.datasets import load_breast_cancer
+from sklearn.model_selection import train_test_split
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
+from sklearn.linear_model import LogisticRegression
+from sklearn.dummy import DummyClassifier
+from sklearn.metrics import classification_report
+
+X, y = load_breast_cancer(as_frame=True, return_X_y=True)
+X_tr, X_te, y_tr, y_te = train_test_split(X, y, test_size=0.2, stratify=y, random_state=42)
+
+base = DummyClassifier(strategy="most_frequent").fit(X_tr, y_tr)
+print(f"基线: {base.score(X_te, y_te):.3f}")
+
+pipe = Pipeline([("s", StandardScaler()), ("c", LogisticRegression(max_iter=1000))])
+pipe.fit(X_tr, y_tr)
+print(classification_report(y_te, pipe.predict(X_te)))
+
+joblib.dump(pipe, "model.joblib")</code></pre>
+<h2>十、三条给工程师的建议</h2>
+<h3>1. 先用最简单的模型跑通闭环</h3>
+<p>逻辑回归 + 标准化，在很多表格任务上已经够用。<strong>先把「训练 → 保存 → 调用」这条路走通</strong>，再考虑换模型。没有闭环的复杂模型不如有闭环的简单模型。</p>
+<h3>2. 任何预处理都放进 Pipeline</h3>
+<p>只要你写了 <code>scaler.fit</code> 或 <code>imputer.fit</code>，就应该把它塞进 Pipeline，而不是散在脚本里。这是防止推理不一致最有效的手段。</p>
+<h3>3. 评估报告要存下来</h3>
+<p>每次训练都存一份评估结果，带时间戳。后面指标掉了，能对比出是数据变了还是代码改了。</p>
+<h2>系列完结</h2>
+<p>六篇下来，这条线是这样的：</p>
+<table><thead><tr><th>篇</th><th>回答的问题</th></tr></thead><tbody>
+<tr><td>01</td><td>什么叫「把东西变成向量」</td></tr>
+<tr><td>02</td><td>为什么向量能做算术</td></tr>
+<tr><td>03</td><td>「相似」到底怎么算</td></tr>
+<tr><td>04</td><td>怎么把零件拼成一个能观测的系统</td></tr>
+<tr><td>05</td><td>怎么判断它到底好不好</td></tr>
+<tr><td>06</td><td>怎么从零跑通一遍</td></tr>
+</tbody></table>
+<p>如果只记三句话：</p>
+<ol><li><strong>机器学习 = 把东西变成数字，然后在数字上做运算</strong></li><li><strong>系统能跑不等于能用，每一环都要能被观测</strong></li><li><strong>没有基线的指标没有意义</strong></li></ol>
+<p>---</p>
+<h2>关于作者</h2>
+<p>本文是「写给工程师的机器学习入门」系列的最后一篇。作者 PHclaw 在做 <strong>AgentFlow</strong>——一个自托管 AI Agent 平台，把向量检索、模型调用、产物交付落进了真实产品。</p>
+<ul><li>源码：https://github.com/PHclaw/agentflow</li><li>在线演示：http://159.75.21.251:3000</li><li>文档：https://phclaw.github.io/agentflow/</li><li>全部文章：https://phclaw.github.io/blog/</li></ul>
+<p>系列写完了，如果对某篇有补充或不同意见，欢迎在 Discussions 里讨论。</p>
+  </article>
+  <footer>
+    <a href="https://github.com/PHclaw">GitHub @PHclaw</a> · <a href="https://github.com/PHclaw/agentflow">AgentFlow</a> · <a href="https://phclaw.github.io/blog/">更多踩坑笔记</a>
+  </footer>
+</div>
+</body>
+</html>
