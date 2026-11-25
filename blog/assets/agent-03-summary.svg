@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 545" width="880" height="545"><rect width="880" height="545" fill="#ffffff"/><rect x="1" y="1" width="878" height="543" rx="12" fill="none" stroke="#e5e7eb"/><text x="28" y="40" font-family="Inter,PingFang SC,Microsoft YaHei,sans-serif" font-size="18" font-weight="700" fill="#1f2937">汇总不是复述，是互相校对</text><text x="28" y="63" font-family="Inter,PingFang SC,Microsoft YaHei,sans-serif" font-size="12" fill="#6b7280">最有价值的产出，往往是发现别人和自己的矛盾</text><text x="28" y="94" font-family="Inter,PingFang SC,Microsoft YaHei,sans-serif" font-size="13.5" font-weight="700" fill="#1f2937">四段接力之后，缺的最后一步：把各段整合成一份方案</text>
+<rect x="28" y="112" width="196" height="52" rx="8" fill="#f8fafc" stroke="#e5e7eb"/>
+<text x="40" y="132" font-family="Inter,PingFang SC,Microsoft YaHei,sans-serif" font-size="11.5" font-weight="700" fill="#1f2937">合规风控顾问</text>
+<text x="40" y="150" font-family="Inter,PingFang SC,Microsoft YaHei,sans-serif" font-size="10" fill="#6b7280">隐私 / AI 标识 / 监管</text>
+<rect x="240" y="112" width="196" height="52" rx="8" fill="#f8fafc" stroke="#e5e7eb"/>
+<text x="252" y="132" font-family="Inter,PingFang SC,Microsoft YaHei,sans-serif" font-size="11.5" font-weight="700" fill="#1f2937">技术顾问</text>
+<text x="252" y="150" font-family="Inter,PingFang SC,Microsoft YaHei,sans-serif" font-size="10" fill="#6b7280">架构 / 并发 / 隔离</text>
+<rect x="452" y="112" width="196" height="52" rx="8" fill="#f8fafc" stroke="#e5e7eb"/>
+<text x="464" y="132" font-family="Inter,PingFang SC,Microsoft YaHei,sans-serif" font-size="11.5" font-weight="700" fill="#1f2937">竞品策略师</text>
+<text x="464" y="150" font-family="Inter,PingFang SC,Microsoft YaHei,sans-serif" font-size="10" fill="#6b7280">画像 / 节奏 / 卖点</text>
+<rect x="664" y="112" width="196" height="52" rx="8" fill="#f8fafc" stroke="#e5e7eb"/>
+<text x="676" y="132" font-family="Inter,PingFang SC,Microsoft YaHei,sans-serif" font-size="11.5" font-weight="700" fill="#1f2937">架构师</text>
+<text x="676" y="150" font-family="Inter,PingFang SC,Microsoft YaHei,sans-serif" font-size="10" fill="#6b7280">T0-T2 定稿 / T9 上线</text>
+<text x="28" y="190" font-family="Inter,PingFang SC,Microsoft YaHei,sans-serif" font-size="12" fill="#dc2626">↑ 四份互不相干的专家意见 = 用户拿到的是文档，不是方案</text>
+<text x="430" y="190" font-family="Inter,PingFang SC,Microsoft YaHei,sans-serif" font-size="13" fill="#6b7280">↓</text>
+<rect x="28" y="202" width="824" height="54" rx="9" fill="#eef2ff" stroke="#4f46e5" stroke-width="1.4"/>
+<text x="46" y="224" font-family="Inter,PingFang SC,Microsoft YaHei,sans-serif" font-size="13" font-weight="700" fill="#4f46e5">群内协作汇总</text>
+<text x="46" y="244" font-family="Inter,PingFang SC,Microsoft YaHei,sans-serif" font-size="11.5" fill="#6b7280">直接给整合后的结论 · 指出各段冲突与取舍 · 说明还缺哪些输入 · 不编造前文没有的数字</text>
+<rect x="28" y="272" width="824" height="92" rx="9" fill="#fffbeb" stroke="#d97706" stroke-width="1.3"/>
+<text x="46" y="294" font-family="Inter,PingFang SC,Microsoft YaHei,sans-serif" font-size="12.5" font-weight="700" fill="#d97706">冲突一：上线节奏两套时间轴没对齐</text>
+<text x="46" y="316" font-family="Inter,PingFang SC,Microsoft YaHei,sans-serif" font-size="11.5" fill="#1f2937">竞品策略师：第 1–2 周种子内测 · 第 7–8 周正式上线</text>
+<text x="46" y="336" font-family="Inter,PingFang SC,Microsoft YaHei,sans-serif" font-size="11.5" fill="#1f2937">技术架构师：T0–T2 架构定稿 · T6–T7 内测 · T9 正式上线</text>
+<text x="46" y="356" font-family="Inter,PingFang SC,Microsoft YaHei,sans-serif" font-size="11.5" font-weight="600" fill="#dc2626">两者内测与上线时点都不同 → 必须合并成一张甘特图，否则商务承诺早于技术就绪</text>
+<rect x="28" y="376" width="824" height="92" rx="9" fill="#fffbeb" stroke="#d97706" stroke-width="1.3"/>
+<text x="46" y="398" font-family="Inter,PingFang SC,Microsoft YaHei,sans-serif" font-size="12.5" font-weight="700" fill="#d97706">冲突二：客户画像两版分层维度不同</text>
+<text x="46" y="420" font-family="Inter,PingFang SC,Microsoft YaHei,sans-serif" font-size="11.5" fill="#1f2937">竞品策略师：按「人数 + 平台 + 付费意愿」分 L1/L2/L3</text>
+<text x="46" y="440" font-family="Inter,PingFang SC,Microsoft YaHei,sans-serif" font-size="11.5" fill="#1f2937">技术架构师：按「坐席数 + 日均咨询量 + 行业」描述</text>
+<text x="46" y="460" font-family="Inter,PingFang SC,Microsoft YaHei,sans-serif" font-size="11.5" font-weight="600" fill="#dc2626">不矛盾但维度不同 → 定价、渠道、技术档位会对不上号，必须统一并定「首推哪一层」</text>
+<rect x="28" y="480" width="824" height="46" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="1.2"/>
+<text x="46" y="502" font-family="Inter,PingFang SC,Microsoft YaHei,sans-serif" font-size="12" font-weight="600" fill="#dc2626">边界：以上整合未新增任何前文未给出的数字或事实</text>
+<text x="376" y="502" font-family="Inter,PingFang SC,Microsoft YaHei,sans-serif" font-size="12" fill="#dc2626">—— 汇总环节最容易「顺手补个数字」，那等于把前面几段的可靠性一起拉垮</text></svg>
