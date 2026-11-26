@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 470" width="880" height="470"><rect width="880" height="470" fill="#ffffff"/><rect x="1" y="1" width="878" height="468" rx="12" fill="none" stroke="#e5e7eb"/><text x="28" y="40" font-family="Inter,PingFang SC,Microsoft YaHei,sans-serif" font-size="18" font-weight="700" fill="#1f2937">字符白名单不够，AST 白名单才对</text><text x="28" y="63" font-family="Inter,PingFang SC,Microsoft YaHei,sans-serif" font-size="12" fill="#6b7280">字符白名单挡得住 __import__，挡不住幂运算打满 CPU</text><rect x="28" y="88" width="396" height="150" rx="9" fill="#fef2f2" stroke="#dc2626" stroke-width="1.3"/>
+<text x="46" y="112" font-family="Inter,PingFang SC,Microsoft YaHei,sans-serif" font-size="13" font-weight="700" fill="#dc2626">✕ 字符白名单</text>
+<text x="46" y="136" font-family="Consolas,monospace" font-size="10.5" fill="#1f2937">allowed = "0123456789+-*/()., "</text>
+<text x="46" y="158" font-family="Inter,PingFang SC,Microsoft YaHei,sans-serif" font-size="11" fill="#6b7280">if all(c in allowed for c in expression):</text>
+<text x="58" y="178" font-family="Consolas,monospace" font-size="11" font-weight="700" fill="#dc2626">eval(expression)</text>
+<text x="46" y="206" font-family="Inter,PingFang SC,Microsoft YaHei,sans-serif" font-size="10.5" fill="#dc2626">__import__ 进不来 ✓</text>
+<text x="46" y="224" font-family="Inter,PingFang SC,Microsoft YaHei,sans-serif" font-size="10.5" fill="#dc2626">9**9**9**9 照样跑满 CPU ✗</text>
+<rect x="444" y="88" width="408" height="150" rx="9" fill="#ecfdf5" stroke="#059669" stroke-width="1.3"/>
+<text x="462" y="112" font-family="Inter,PingFang SC,Microsoft YaHei,sans-serif" font-size="13" font-weight="700" fill="#059669">✓ AST 白名单</text>
+<text x="462" y="136" font-family="Consolas,monospace" font-size="10.5" fill="#1f2937">tree = ast.parse(expr, mode="eval")</text>
+<text x="462" y="158" font-family="Consolas,monospace" font-size="10.5" fill="#1f2937">_eval_node(tree.body)  # 递归白名单</text>
+<text x="462" y="180" font-family="Inter,PingFang SC,Microsoft YaHei,sans-serif" font-size="10.5" fill="#059669">Call / Attribute / Name / Lambda → 拒绝</text>
+<text x="462" y="200" font-family="Inter,PingFang SC,Microsoft YaHei,sans-serif" font-size="10.5" fill="#059669">指数 ≤1000 · 数字 ≤30 位 · 节点 ≤120</text>
+<text x="462" y="220" font-family="Inter,PingFang SC,Microsoft YaHei,sans-serif" font-size="10.5" fill="#059669">RCE 与 DoS 一起堵住</text>
+<text x="28" y="272" font-family="Inter,PingFang SC,Microsoft YaHei,sans-serif" font-size="13" font-weight="700" fill="#1f2937">关键区别：白名单「语义」，而不是白名单「字符」</text>
+<rect x="28" y="288" width="824" height="70" rx="9" fill="#f8fafc" stroke="#e5e7eb"/>
+<text x="46" y="311" font-family="Consolas,monospace" font-size="11" fill="#1f2937">__import__('os').getcwd()  →  SafeMathError: 不允许的表达式成分: Call</text>
+<text x="46" y="333" font-family="Consolas,monospace" font-size="11" fill="#1f2937">9**9**9**9                →  SafeMathError: 指数过大</text>
+<text x="46" y="350" font-family="Inter,PingFang SC,Microsoft YaHei,sans-serif" font-size="10.5" fill="#6b7280">不是「拦住」危险写法，而是让它根本到不了执行阶段</text>
+<rect x="28" y="376" width="824" height="70" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="1.2"/>
+<text x="46" y="399" font-family="Inter,PingFang SC,Microsoft YaHei,sans-serif" font-size="12" font-weight="700" fill="#d97706">同源实现要一起扫</text>
+<text x="46" y="420" font-family="Inter,PingFang SC,Microsoft YaHei,sans-serif" font-size="11.5" fill="#6b7280">同一个功能在项目里有两份实现：一份有白名单、一份裸 eval —— 等于都不安全。</text>
+<text x="46" y="438" font-family="Inter,PingFang SC,Microsoft YaHei,sans-serif" font-size="11" fill="#6b7280">修复时花 30 秒 grep eval(，能省掉下一次报告。</text></svg>

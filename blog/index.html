@@ -22,6 +22,18 @@
   "blogPost": [
   {
     "@type": "TechArticle",
+    "headline": "当 AI 以为自己在做数学题：一次真实的安全漏洞报告",
+    "url": "https://phclaw.github.io/blog/eval-security-disclosure.html",
+    "datePublished": "2026-11-26",
+    "articleSection": "安全",
+    "keywords": "eval 注入, 提示注入, Agent 安全, 漏洞复盘",
+    "author": {
+      "@type": "Person",
+      "name": "PHclaw"
+    }
+  },
+  {
+    "@type": "TechArticle",
     "headline": "从「各答各的」到「互相校对」：多智能体协作链的三个真实陷阱",
     "url": "https://phclaw.github.io/blog/agent-collab-chain.html",
     "datePublished": "2026-11-25",
@@ -220,21 +232,34 @@
     <h1>技术笔记</h1>
     <p class="sub">不写教程合集，只写踩过的坑。每篇都来自真实项目，附可复现的命令与图示。</p>
     <div class="stats">
-      <span><b>10</b>篇文章</span>
+      <span><b>11</b>篇文章</span>
       <span><b>3</b>个分类</span>
-      <span><b>20</b>个标签</span>
+      <span><b>24</b>个标签</span>
     </div>
   </header>
 
   <div class="filters">
-    <div class="frow"><button class="fbtn on" data-f="all">全部 <span class="fc">10</span></button><button class="fbtn" data-f="AI">AI <span class="fc">8</span></button><button class="fbtn" data-f="安全">安全 <span class="fc">1</span></button><button class="fbtn" data-f="Git">Git <span class="fc">1</span></button></div>
-    <div class="frow"><button class="tbtn on" data-t="all">全部标签</button><button class="tbtn" data-t="机器学习">#机器学习</button><button class="tbtn" data-t="embedding">#embedding</button><button class="tbtn" data-t="入门">#入门</button><button class="tbtn" data-t="工程实践">#工程实践</button><button class="tbtn" data-t="向量">#向量</button><button class="tbtn" data-t="检索">#检索</button><button class="tbtn" data-t="RAG">#RAG</button><button class="tbtn" data-t="Agent">#Agent</button><button class="tbtn" data-t="CI">#CI</button><button class="tbtn" data-t="CodeQL">#CodeQL</button><button class="tbtn" data-t="Git">#Git</button><button class="tbtn" data-t="合并冲突">#合并冲突</button><button class="tbtn" data-t="告警治理">#告警治理</button><button class="tbtn" data-t="多智能体">#多智能体</button><button class="tbtn" data-t="排错">#排错</button><button class="tbtn" data-t="架构">#架构</button><button class="tbtn" data-t="模型评估">#模型评估</button><button class="tbtn" data-t="知识库">#知识库</button><button class="tbtn" data-t="系统设计">#系统设计</button><button class="tbtn" data-t="静态分析">#静态分析</button></div>
+    <div class="frow"><button class="fbtn on" data-f="all">全部 <span class="fc">11</span></button><button class="fbtn" data-f="AI">AI <span class="fc">8</span></button><button class="fbtn" data-f="安全">安全 <span class="fc">2</span></button><button class="fbtn" data-f="Git">Git <span class="fc">1</span></button></div>
+    <div class="frow"><button class="tbtn on" data-t="all">全部标签</button><button class="tbtn" data-t="机器学习">#机器学习</button><button class="tbtn" data-t="embedding">#embedding</button><button class="tbtn" data-t="入门">#入门</button><button class="tbtn" data-t="工程实践">#工程实践</button><button class="tbtn" data-t="向量">#向量</button><button class="tbtn" data-t="检索">#检索</button><button class="tbtn" data-t="RAG">#RAG</button><button class="tbtn" data-t="Agent">#Agent</button><button class="tbtn" data-t="Agent 安全">#Agent 安全</button><button class="tbtn" data-t="CI">#CI</button><button class="tbtn" data-t="CodeQL">#CodeQL</button><button class="tbtn" data-t="Git">#Git</button><button class="tbtn" data-t="eval 注入">#eval 注入</button><button class="tbtn" data-t="合并冲突">#合并冲突</button><button class="tbtn" data-t="告警治理">#告警治理</button><button class="tbtn" data-t="多智能体">#多智能体</button><button class="tbtn" data-t="排错">#排错</button><button class="tbtn" data-t="提示注入">#提示注入</button><button class="tbtn" data-t="架构">#架构</button><button class="tbtn" data-t="模型评估">#模型评估</button><button class="tbtn" data-t="漏洞复盘">#漏洞复盘</button><button class="tbtn" data-t="知识库">#知识库</button><button class="tbtn" data-t="系统设计">#系统设计</button><button class="tbtn" data-t="静态分析">#静态分析</button></div>
   </div>
 
   <div class="list" id="list">
+    <article class="card" data-cat="安全" data-tags="eval 注入,提示注入,Agent 安全,漏洞复盘">
+      <span class="card-bar" style="background:#059669"></span>
+      <span class="card-idx">01</span>
+      <div class="card-main">
+        <div class="card-top">
+          <span class="cat" style="color:#059669;background:#ecfdf5">安全</span>
+          <span class="card-date">2026-11-26 · 10 分钟</span>
+        </div>
+        <h2><a href="./eval-security-disclosure.html">当 AI 以为自己在做数学题：一次真实的安全漏洞报告</a></h2>
+        <p class="card-desc">一封负责任披露的邮件，揭开了 LLM 工具调用里的 eval 注入。从复现、AST 白名单修复到 31 个回归测试的完整复盘。</p>
+        <div class="card-tags"><a class="tg" href="index.html?tag=eval 注入" onclick="event.stopPropagation()">#eval 注入</a><a class="tg" href="index.html?tag=提示注入" onclick="event.stopPropagation()">#提示注入</a><a class="tg" href="index.html?tag=Agent 安全" onclick="event.stopPropagation()">#Agent 安全</a><a class="tg" href="index.html?tag=漏洞复盘" onclick="event.stopPropagation()">#漏洞复盘</a></div>
+      </div>
+    </article>
     <article class="card" data-cat="AI" data-tags="多智能体,Agent,工程实践,架构">
       <span class="card-bar" style="background:#4f46e5"></span>
-      <span class="card-idx">01</span>
+      <span class="card-idx">02</span>
       <div class="card-main">
         <div class="card-top">
           <span class="cat" style="color:#4f46e5;background:#eef2ff">AI</span>
@@ -247,7 +272,7 @@
     </article>
     <article class="card" data-cat="AI" data-tags="机器学习,工程实践,入门">
       <span class="card-bar" style="background:#4f46e5"></span>
-      <span class="card-idx">02</span>
+      <span class="card-idx">03</span>
       <div class="card-main">
         <div class="card-top">
           <span class="cat" style="color:#4f46e5;background:#eef2ff">AI</span>
@@ -260,7 +285,7 @@
     </article>
     <article class="card" data-cat="AI" data-tags="机器学习,模型评估,检索,入门">
       <span class="card-bar" style="background:#4f46e5"></span>
-      <span class="card-idx">03</span>
+      <span class="card-idx">04</span>
       <div class="card-main">
         <div class="card-top">
           <span class="cat" style="color:#4f46e5;background:#eef2ff">AI</span>
@@ -273,7 +298,7 @@
     </article>
     <article class="card" data-cat="AI" data-tags="机器学习,RAG,检索,系统设计">
       <span class="card-bar" style="background:#4f46e5"></span>
-      <span class="card-idx">04</span>
+      <span class="card-idx">05</span>
       <div class="card-main">
         <div class="card-top">
           <span class="cat" style="color:#4f46e5;background:#eef2ff">AI</span>
@@ -286,7 +311,7 @@
     </article>
     <article class="card" data-cat="AI" data-tags="机器学习,向量,embedding,检索">
       <span class="card-bar" style="background:#4f46e5"></span>
-      <span class="card-idx">05</span>
+      <span class="card-idx">06</span>
       <div class="card-main">
         <div class="card-top">
           <span class="cat" style="color:#4f46e5;background:#eef2ff">AI</span>
@@ -299,7 +324,7 @@
     </article>
     <article class="card" data-cat="AI" data-tags="机器学习,向量,embedding,入门">
       <span class="card-bar" style="background:#4f46e5"></span>
-      <span class="card-idx">06</span>
+      <span class="card-idx">07</span>
       <div class="card-main">
         <div class="card-top">
           <span class="cat" style="color:#4f46e5;background:#eef2ff">AI</span>
@@ -312,7 +337,7 @@
     </article>
     <article class="card" data-cat="AI" data-tags="机器学习,入门,向量,embedding">
       <span class="card-bar" style="background:#4f46e5"></span>
-      <span class="card-idx">07</span>
+      <span class="card-idx">08</span>
       <div class="card-main">
         <div class="card-top">
           <span class="cat" style="color:#4f46e5;background:#eef2ff">AI</span>
@@ -325,7 +350,7 @@
     </article>
     <article class="card" data-cat="AI" data-tags="RAG,知识库,embedding,排错">
       <span class="card-bar" style="background:#4f46e5"></span>
-      <span class="card-idx">08</span>
+      <span class="card-idx">09</span>
       <div class="card-main">
         <div class="card-top">
           <span class="cat" style="color:#4f46e5;background:#eef2ff">AI</span>
@@ -338,7 +363,7 @@
     </article>
     <article class="card" data-cat="安全" data-tags="CodeQL,静态分析,告警治理,工程实践">
       <span class="card-bar" style="background:#059669"></span>
-      <span class="card-idx">09</span>
+      <span class="card-idx">10</span>
       <div class="card-main">
         <div class="card-top">
           <span class="cat" style="color:#059669;background:#ecfdf5">安全</span>
@@ -351,7 +376,7 @@
     </article>
     <article class="card" data-cat="Git" data-tags="Git,合并冲突,CI,工程实践">
       <span class="card-bar" style="background:#c2410c"></span>
-      <span class="card-idx">10</span>
+      <span class="card-idx">11</span>
       <div class="card-main">
         <div class="card-top">
           <span class="cat" style="color:#c2410c;background:#fff7ed">Git</span>
