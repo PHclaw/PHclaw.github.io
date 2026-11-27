@@ -314,7 +314,7 @@ calculator("__import__('os').getcwd()") → 0.0</code></pre>
 <p><strong>② 白名单要白名单「语义」，不要白名单「字符」。</strong> 字符白名单挡得住这一次的 <code>__import__</code>，挡不住下一次的 <code>9**9**9**9</code>。在语法树层面限制，比在字符串层面猜安全多了。</p>
 <p><strong>③ 同源实现要一起扫。</strong> 同一个功能在项目里有两份实现，其中一份安全、一份不安全，等于都不安全。修的时候花三十秒 <code>grep eval(</code>，能省掉下一次报告。</p>
 <p>---</p>
-<p>*漏洞由 Capri Security 负责任披露。修复已合入，待发布后公开致谢。*</p>
+<p>*漏洞由 <strong>Capri Security</strong> 负责任披露。修复已合入并发布（commit <code>5e66ac3</code>、<code>fda903e</code>），在此公开致谢。*</p>
   </article>
   <footer>
     <a href="https://github.com/PHclaw">GitHub @PHclaw</a> · <a href="https://github.com/PHclaw/agentflow">AgentFlow</a> · <a href="https://phclaw.github.io/blog/">更多踩坑笔记</a>
