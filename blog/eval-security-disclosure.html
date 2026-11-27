@@ -304,17 +304,21 @@ calculator("__import__('os').getcwd()") → 0.0</code></pre>
   ├─ 布尔值不能冒充数字
   └─ 通过 tool_manager.execute 的端到端路径</code></pre>
 <p>原来那个测试写死了错误文案「表达式包含非法字符」，新代码返回的是「表达式非法: 不允许的表达式成分: Call」。我把断言改成只验证<strong>确实被拒绝</strong>，不锁具体措辞——错误信息不是契约。</p>
-<h2>关于回信</h2>
-<p>我建议回复他，两件事：</p>
-<ol><li><strong>要 PoC</strong>。不是不信自己，是交叉验证——他可能发现了别的调用路径，或者知道能穿过 AST 白名单的写法。</li><li><strong>承诺致谢</strong>。他说不需要署名，但主动提致谢是开源社区的基本礼貌，也鼓励他下次继续负责任披露。</li></ol>
-<p>邮件里我没写「我们修好了就公开漏洞细节」。负责任披露的节奏是：<strong>先给报告者确认的机会，再公开</strong>。</p>
+<h2>披露的节奏</h2>
+<p>这里有个容易踩的坑：<strong>修好了不等于可以立刻公开细节。</strong></p>
+<p>负责任 disclosure 的顺序是——先修复、先给报告者确认的机会，再公开。 在确认对方认可修复之前就把利用细节发出去，等于把还没验证过的人一起暴露出来。</p>
+<p>所以我在第一封回信里只说了「已定位并修复、方案是 AST 白名单」， 没有写具体的绕过路径，也没有附上能用的载荷。等对方回复确认后， 才适合写今天这篇复盘。</p>
+<p>对方回信里给了两个补充检查建议，我们照做后又抓到三个契约 bug： <code>0**-1</code> 抛 ZeroDivisionError、<code>10**309.0</code> 抛 OverflowError、 <code>1e300 * 1e300</code> 返回 <code>inf</code>。现在统一收敛成 SafeMathError， 工具层再加 ArithmeticError 兜底。回归测试从 31 增至 42。</p>
 <h2>三条原则</h2>
-<p>这件事最后可以浓缩成给做 Agent 的人的三句话：</p>
-<p><strong>① 模型填的参数 = 攻击者可控的输入。</strong> 不要因为「这是模型自己生成的」就信任它。模型的输入可能来自任何不可信内容。</p>
-<p><strong>② 白名单要白名单「语义」，不要白名单「字符」。</strong> 字符白名单挡得住这一次的 <code>__import__</code>，挡不住下一次的 <code>9**9**9**9</code>。在语法树层面限制，比在字符串层面猜安全多了。</p>
-<p><strong>③ 同源实现要一起扫。</strong> 同一个功能在项目里有两份实现，其中一份安全、一份不安全，等于都不安全。修的时候花三十秒 <code>grep eval(</code>，能省掉下一次报告。</p>
-<p>---</p>
-<p>*漏洞由 <strong>Capri Security</strong> 负责任披露。修复已合入并发布（commit <code>5e66ac3</code>、<code>fda903e</code>），在此公开致谢。*</p>
+<p>如果把这件事浓缩成给做 Agent 的人的三句话：</p>
+<p><strong>① 模型填的参数 = 攻击者可控的输入。</strong></p>
+<p>不要因为「这是模型自己生成的」就信任它。模型的输入可能来自任何不可信内容—— 聊天消息、检索到的文档、网页、上传的文件。一条提示注入就能让模型 「以为自己在做数学题」，然后用一个合法工具完成非法的事。</p>
+<p><strong>② 白名单要白名单「语义」，不要白名单「字符」。</strong></p>
+<p>字符白名单挡得住这一次的 <code>__import__</code>，挡不住下一次的 <code>9**9**9**9</code>。 在语法树层面限制，比在字符串层面猜安全多了： 危险的不是某些字符，是某些<strong>结构</strong>（调用、属性访问、下标、变量名）。</p>
+<p><strong>③ 同源实现要一起扫。</strong></p>
+<p>同一个功能在项目里有两份实现，其中一份安全、一份不安全，等于都不安全。 修的时候花三十秒 <code>grep eval(</code>，能省掉下一次报告。 这次就是靠报告者指出第二处，我们才顺手把它一起加固的。</p>
+<hr>
+<p><em>漏洞由 <strong>Capri Security</strong> 负责任披露。修复已完成并发布， 见 commit <code>5e66ac3</code> 与 <code>fda903e</code>。致谢已写入项目 <code>SECURITY.md</code> 与更新日志。</em></p>
   </article>
   <footer>
     <a href="https://github.com/PHclaw">GitHub @PHclaw</a> · <a href="https://github.com/PHclaw/agentflow">AgentFlow</a> · <a href="https://phclaw.github.io/blog/">更多踩坑笔记</a>
